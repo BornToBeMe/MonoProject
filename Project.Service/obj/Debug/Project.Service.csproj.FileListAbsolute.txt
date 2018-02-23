@@ -1,0 +1,11 @@
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Service.dll.config
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Service.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Service.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\EntityFramework.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\EntityFramework.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.csprojResolveAssemblyReference.cache
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.csproj.CoreCompileInputs.cache
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.pdb
