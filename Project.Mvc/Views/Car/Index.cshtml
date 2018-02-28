@@ -1,0 +1,28 @@
+﻿@model ICollection<Project.Service.Models.Car>
+@using X.PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Cars";
+}
+
+<h2>Cars</h2>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleMake.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleModel.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.CarID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CarID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CarID })
+        </td>
+    </tr>
+    }
+</table>

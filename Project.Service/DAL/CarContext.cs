@@ -11,7 +11,7 @@ namespace Project.Service.DAL
 {
     public class CarContext : DbContext
     {
-        public CarContext() : base("CarsDb")
+        public CarContext() : base("CarContext")
         {
             System.Data.Entity.Database.SetInitializer<CarContext>(new CarInitializer());
         }

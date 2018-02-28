@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarHelper.cs" />
     <Compile Include="DAL\CarContext.cs" />
     <Compile Include="DAL\CarInitializer.cs" />
     <Compile Include="Models\Car.cs" />
