@@ -10,77 +10,27 @@ using System.Web.Mvc;
 using Project.Service.DAL;
 using Project.Service.Models;
 using X.PagedList;
+using Project.Service.Services;
 
 namespace Project.Mvc.Controllers
 {
     public class VehicleModelsController : Controller
     {
-        private CarContext db = new CarContext();
+        CarContext db = new CarContext();
+        IVehicleModelService service = new VehicleModelService();
 
         // GET: VehicleModels
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.VehicleModelIDSortParm = String.IsNullOrEmpty(sortOrder) ? "modelid_desc" : "";
-            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
-            var models = from m in db.VehicleModels select m;
-
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                models = models.Where(m => m.Name.Contains(searchString) || m.Abrv.Contains(searchString));
-            }
-
-            switch (sortOrder)
-            {
-                case "modelid_desc":
-                    models = models.OrderByDescending(m => m.VehicleModelID);
-                    break;
-                case "Name":
-                    models = models.OrderBy(m => m.Name);
-                    break;
-                case "name_desc":
-                    models = models.OrderByDescending(m => m.Name);
-                    break;
-                case "Abrv":
-                    models = models.OrderBy(m => m.Abrv);
-                    break;
-                case "abrv_desc":
-                    models = models.OrderByDescending(m => m.Abrv);
-                    break;
-                default:
-                    models = models.OrderBy(m => m.VehicleModelID);
-                    break;
-            }
-
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-
-            return View(await models.ToPagedListAsync(pageNumber, pageSize));
+            IPagedList<VehicleModel> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, page);
+            return View(data);
         }
 
         // GET: VehicleModels/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VehicleModel vehicleModel = await db.VehicleModels.FindAsync(id);
-            if (vehicleModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vehicleModel);
+            VehicleModel data = await service.SelectByIDAsync(id);
+            return View(data);
         }
 
         // GET: VehicleModels/Create
@@ -98,8 +48,7 @@ namespace Project.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.VehicleModels.Add(vehicleModel);
-                await db.SaveChangesAsync();
+                await service.InsertAsync(vehicleModel);
                 return RedirectToAction("Index");
             }
 
@@ -130,8 +79,7 @@ namespace Project.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vehicleModel).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await service.UpdateAsync(vehicleModel);
                 return RedirectToAction("Index");
             }
             return View(vehicleModel);
@@ -157,9 +105,7 @@ namespace Project.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            VehicleModel vehicleModel = await db.VehicleModels.FindAsync(id);
-            db.VehicleModels.Remove(vehicleModel);
-            await db.SaveChangesAsync();
+            await service.DeleteAsync(id);
             return RedirectToAction("Index");
         }
 

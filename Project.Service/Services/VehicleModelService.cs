@@ -19,7 +19,7 @@ namespace Project.Service.Services
         Task<string> DeleteAsync(int id);
     }
 
-    class VehicleModelService : IVehicleModelService
+    public class VehicleModelService : IVehicleModelService
     {
         async Task<IPagedList<VehicleModel>> IVehicleModelService.SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page)
         {
