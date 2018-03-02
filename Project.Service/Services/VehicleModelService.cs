@@ -44,7 +44,7 @@ namespace Project.Service.Services
                 int pageSize = 3;
                 int pageNumber = (page ?? 1);
 
-                IPagedList<VehicleModel> data = await query.ToPagedListAsync(pageNumber, pageSize);
+                IPagedList<VehicleModel> data = await query.OrderBy(q => q.VehicleModelID).ToPagedListAsync(pageNumber, pageSize);
                 return data;
             }
         }
