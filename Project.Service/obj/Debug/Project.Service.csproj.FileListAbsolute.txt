@@ -9,3 +9,4 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Ser
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.csproj.CoreCompileInputs.cache
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\X.PagedList.dll

@@ -68,3 +68,5 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\X.PagedList.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\X.PagedList.Mvc.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\X.PagedList.Mvc.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\AutoMapper.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\AutoMapper.xml

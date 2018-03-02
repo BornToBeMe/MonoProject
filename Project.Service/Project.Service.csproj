@@ -45,15 +45,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="X.PagedList, Version=7.2.2.0, Culture=neutral, PublicKeyToken=00b6c4f97602e5e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.7.2.2\lib\net461\X.PagedList.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarHelper.cs" />
     <Compile Include="DAL\CarContext.cs" />
     <Compile Include="DAL\CarInitializer.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\VehicleMake.cs" />
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\VehicleMakeService.cs" />
+    <Compile Include="Services\VehicleModelService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

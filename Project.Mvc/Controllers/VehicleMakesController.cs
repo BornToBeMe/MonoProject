@@ -9,71 +9,28 @@ using System.Web;
 using System.Web.Mvc;
 using Project.Service.DAL;
 using Project.Service.Models;
+using Project.Service.Services;
 using X.PagedList;
 
 namespace Project.Mvc.Controllers
 {
     public class VehicleMakesController : Controller
     {
-        private CarContext db = new CarContext();
+        CarContext db = new CarContext();
+        IVehicleMakeService service = new VehicleMakeService();
 
         // GET: VehicleMakes
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
-            var makes = from m in db.VehicleMakes select m;
-
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                makes = makes.Where(m => m.Name.Contains(searchString) || m.Abrv.Contains(searchString));
-            }
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    makes = makes.OrderByDescending(m => m.Name);
-                    break;
-                case "Abrv":
-                    makes = makes.OrderBy(m => m.Abrv);
-                    break;
-                case "abrv_desc":
-                    makes = makes.OrderByDescending(m => m.Abrv);
-                    break;
-                default:
-                    makes = makes.OrderBy(m => m.Name);
-                    break;
-            }
-
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-
-            return View(await makes.ToPagedListAsync(pageNumber, pageSize));
+            IPagedList<VehicleMake> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, page);
+            return View(data);
         }
 
         // GET: VehicleMakes/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VehicleMake vehicleMake = await db.VehicleMakes.FindAsync(id);
-            if (vehicleMake == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vehicleMake);
+            VehicleMake data = await service.SelectByIDAsync(id);
+            return View(data);
         }
 
         // GET: VehicleMakes/Create
@@ -91,11 +48,9 @@ namespace Project.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.VehicleMakes.Add(vehicleMake);
-                await db.SaveChangesAsync();
+                await service.InsertAsync(vehicleMake);
                 return RedirectToAction("Index");
             }
-
             return View(vehicleMake);
         }
 
@@ -123,8 +78,7 @@ namespace Project.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vehicleMake).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await service.UpdateAsync(vehicleMake);
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
@@ -150,9 +104,7 @@ namespace Project.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            VehicleMake vehicleMake = await db.VehicleMakes.FindAsync(id);
-            db.VehicleMakes.Remove(vehicleMake);
-            await db.SaveChangesAsync();
+            await service.DeleteAsync(id);
             return RedirectToAction("Index");
         }
 
