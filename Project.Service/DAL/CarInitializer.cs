@@ -24,12 +24,12 @@ namespace Project.Service.DAL
 
             var models = new List<VehicleModel>
             {
-                new VehicleModel{Name="Ceed", Abrv="Ceed", VehicleMakeID=1},
-                new VehicleModel{Name="Passat", Abrv="Passat", VehicleMakeID=2},
-                new VehicleModel{Name="Golf", Abrv="Golf", VehicleMakeID=2},
-                new VehicleModel{Name="Astra", Abrv="Astra", VehicleMakeID=3},
-                new VehicleModel{Name="X5", Abrv="X5", VehicleMakeID=4},
-                new VehicleModel{Name="E-Class", Abrv="E-Class", VehicleMakeID=5}
+                new VehicleModel{Name="Ceed", Abrv="Ceed", VehicleMakeId=1},
+                new VehicleModel{Name="Passat", Abrv="Passat", VehicleMakeId=2},
+                new VehicleModel{Name="Golf", Abrv="Golf", VehicleMakeId=2},
+                new VehicleModel{Name="Astra", Abrv="Astra", VehicleMakeId=3},
+                new VehicleModel{Name="X5", Abrv="X5", VehicleMakeId=4},
+                new VehicleModel{Name="E-Class", Abrv="E-Class", VehicleMakeId=5}
             };
             models.ForEach(m => context.VehicleModels.Add(m));
             context.SaveChanges();

@@ -22,6 +22,10 @@ namespace Project.Mvc.Controllers
         // GET: VehicleMakes
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+
             IPagedList<VehicleMake> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, page);
             return View(data);
         }
@@ -74,11 +78,11 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Abrv")] VehicleMake vehicleMake)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Abrv")] int id, VehicleMake vehicleMake)
         {
             if (ModelState.IsValid)
             {
-                await service.UpdateAsync(vehicleMake);
+                await service.UpdateAsync(id, vehicleMake);
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);

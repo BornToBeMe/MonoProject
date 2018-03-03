@@ -15,7 +15,7 @@ namespace Project.Service.Services
         Task<IPagedList<VehicleMake>> SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page);
         Task<VehicleMake> SelectByIDAsync(int id);
         Task<string> InsertAsync(VehicleMake obj);
-        Task<string> UpdateAsync(VehicleMake obj);
+        Task<VehicleMake> UpdateAsync(int id, VehicleMake vehicleMake);
         Task<string> DeleteAsync(int id);
     }
 
@@ -25,10 +25,6 @@ namespace Project.Service.Services
         {
             using (var context = new CarContext())
             {
-                dynamic ViewBag = new System.Dynamic.ExpandoObject();
-                ViewBag.CurrentSort = sortOrder;
-                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-                ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
                 var query = from c in context.VehicleMakes select c;
 
                 if(searchString != null)
@@ -92,17 +88,16 @@ namespace Project.Service.Services
 
         }
 
-        async Task<string> IVehicleMakeService.UpdateAsync(VehicleMake obj)
+        async Task<VehicleMake> IVehicleMakeService.UpdateAsync(int id, VehicleMake vehicleMake)
         {
             using (var context = new CarContext())
             {
-                VehicleMake existing = await context.VehicleMakes.FindAsync(obj.ID);
-                existing.Name = obj.Name;
-                existing.Abrv = obj.Abrv;
+                var entity = await context.VehicleMakes.FindAsync(id);
+                context.Entry(entity).CurrentValues.SetValues(vehicleMake);
                 await context.SaveChangesAsync();
-                return "Make updated successfully!";
-            }
 
+                return entity;
+            }
         }
 
         async Task<string> IVehicleMakeService.DeleteAsync(int id)

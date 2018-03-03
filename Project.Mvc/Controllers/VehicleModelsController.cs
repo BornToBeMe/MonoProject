@@ -22,6 +22,10 @@ namespace Project.Mvc.Controllers
         // GET: VehicleModels
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+
             IPagedList<VehicleModel> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, page);
             return View(data);
         }
@@ -44,7 +48,7 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "VehicleModelID,VehicleMakeID,Name,Abrv")] VehicleModel vehicleModel)
+        public async Task<ActionResult> Create([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] VehicleModel vehicleModel)
         {
             if (ModelState.IsValid)
             {
@@ -75,11 +79,11 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "VehicleModelID,VehicleMakeID,Name,Abrv")] VehicleModel vehicleModel)
+        public async Task<ActionResult> Edit([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] int id, VehicleModel vehicleModel)
         {
             if (ModelState.IsValid)
             {
-                await service.UpdateAsync(vehicleModel);
+                await service.UpdateAsync(id, vehicleModel);
                 return RedirectToAction("Index");
             }
             return View(vehicleModel);

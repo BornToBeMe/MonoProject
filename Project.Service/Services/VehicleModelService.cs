@@ -15,7 +15,7 @@ namespace Project.Service.Services
         Task<IPagedList<VehicleModel>> SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page);
         Task<VehicleModel> SelectByIDAsync(int id);
         Task<string> InsertAsync(VehicleModel obj);
-        Task<string> UpdateAsync(VehicleModel obj);
+        Task<VehicleModel> UpdateAsync(int id, VehicleModel vehicleModel);
         Task<string> DeleteAsync(int id);
     }
 
@@ -41,10 +41,26 @@ namespace Project.Service.Services
                     query = query.Where(q => q.Name.Contains(searchString) || q.Abrv.Contains(searchString));
                 }
 
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        query = query.OrderByDescending(q => q.Name);
+                        break;
+                    case "Abrv":
+                        query = query.OrderBy(q => q.Abrv);
+                        break;
+                    case "abrv_desc":
+                        query = query.OrderByDescending(q => q.Abrv);
+                        break;
+                    default:
+                        query = query.OrderBy(q => q.Name);
+                        break;
+                }
+
                 int pageSize = 3;
                 int pageNumber = (page ?? 1);
 
-                IPagedList<VehicleModel> data = await query.OrderBy(q => q.VehicleModelID).ToPagedListAsync(pageNumber, pageSize);
+                IPagedList<VehicleModel> data = await query.ToPagedListAsync(pageNumber, pageSize);
                 return data;
             }
         }
@@ -53,7 +69,7 @@ namespace Project.Service.Services
         {
             using(var context = new CarContext())
             {
-                var query = from c in context.VehicleModels where c.VehicleModelID == id select c;
+                var query = from c in context.VehicleModels where c.VehicleModelId == id select c;
                 VehicleModel model = await query.SingleOrDefaultAsync();
                 return model;
             }
@@ -69,16 +85,15 @@ namespace Project.Service.Services
             }
         }
 
-        async Task<string> IVehicleModelService.UpdateAsync(VehicleModel obj)
+        async Task<VehicleModel> IVehicleModelService.UpdateAsync(int id, VehicleModel vehicleModel)
         {
             using(var context = new CarContext())
             {
-                VehicleModel existing = await context.VehicleModels.FindAsync(obj.VehicleModelID);
-                existing.Name = obj.Name;
-                existing.Abrv = obj.Abrv;
-                existing.VehicleMakeID = obj.VehicleMakeID;
+                var entity = await context.VehicleModels.FindAsync(id);
+                context.Entry(entity).CurrentValues.SetValues(vehicleModel);
                 await context.SaveChangesAsync();
-                return "Model updated succcessfully";
+
+                return entity;
             }
         }
 
