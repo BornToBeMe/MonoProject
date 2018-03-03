@@ -13,10 +13,10 @@ namespace Project.Service.Services
     public interface IVehicleMakeService
     {
         Task<IPagedList<VehicleMake>> SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page);
-        Task<VehicleMake> SelectByIDAsync(int id);
+        Task<VehicleMake> SelectByIDAsync(Guid id);
         Task<string> InsertAsync(VehicleMake obj);
-        Task<VehicleMake> UpdateAsync(int id, VehicleMake vehicleMake);
-        Task<string> DeleteAsync(int id);
+        Task<VehicleMake> UpdateAsync(Guid id, VehicleMake vehicleMake);
+        Task<string> DeleteAsync(Guid id);
     }
 
     public class VehicleMakeService : IVehicleMakeService
@@ -66,7 +66,7 @@ namespace Project.Service.Services
             }
         }
 
-        async Task<VehicleMake> IVehicleMakeService.SelectByIDAsync(int id)
+        async Task<VehicleMake> IVehicleMakeService.SelectByIDAsync(Guid id)
         {
             using (var context = new CarContext())
             {
@@ -88,7 +88,7 @@ namespace Project.Service.Services
 
         }
 
-        async Task<VehicleMake> IVehicleMakeService.UpdateAsync(int id, VehicleMake vehicleMake)
+        async Task<VehicleMake> IVehicleMakeService.UpdateAsync(Guid id, VehicleMake vehicleMake)
         {
             using (var context = new CarContext())
             {
@@ -100,7 +100,7 @@ namespace Project.Service.Services
             }
         }
 
-        async Task<string> IVehicleMakeService.DeleteAsync(int id)
+        async Task<string> IVehicleMakeService.DeleteAsync(Guid id)
         {
             using (var context = new CarContext())
             {

@@ -31,7 +31,7 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Details/5
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(Guid id)
         {
             VehicleMake data = await service.SelectByIDAsync(id);
             return View(data);
@@ -59,7 +59,7 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
@@ -78,7 +78,7 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Abrv")] int id, VehicleMake vehicleMake)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Abrv")] Guid id, VehicleMake vehicleMake)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -106,7 +106,7 @@ namespace Project.Mvc.Controllers
         // POST: VehicleMakes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
             await service.DeleteAsync(id);
             return RedirectToAction("Index");

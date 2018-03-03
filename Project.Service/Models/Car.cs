@@ -8,9 +8,9 @@ namespace Project.Service.Models
 {
     public class Car
     {
-        public int CarID { get; set; }
-        public int VehicleMakeId { get; set; }
-        public int VehicleModelId { get; set; }
+        public Guid CarID { get; set; }
+        public Guid VehicleMakeId { get; set; }
+        public Guid VehicleModelId { get; set; }
 
         public virtual VehicleMake VehicleMake { get; set; }
         public virtual VehicleModel VehicleModel { get; set; }

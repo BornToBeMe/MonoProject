@@ -13,23 +13,23 @@ namespace Project.Service.DAL
         {
             var makes = new List<VehicleMake>
             {
-                new VehicleMake{Name="Kia", Abrv="Kia"},
-                new VehicleMake{Name="Volkswagen", Abrv="VW"},
-                new VehicleMake{Name="Opel", Abrv="Opel"},
-                new VehicleMake{Name="BMW", Abrv="BMW"},
-                new VehicleMake{Name="Mercedes", Abrv="Mercedes"}
+                new VehicleMake{Name="Kia", Abrv="Kia", ID = Guid.NewGuid()},
+                new VehicleMake{Name="Volkswagen", Abrv="VW", ID = Guid.NewGuid()},
+                new VehicleMake{Name="Opel", Abrv="Opel", ID = Guid.NewGuid()},
+                new VehicleMake{Name="BMW", Abrv="BMW", ID = Guid.NewGuid()},
+                new VehicleMake{Name="Mercedes", Abrv="Mercedes", ID = Guid.NewGuid()}
             };
             makes.ForEach(m => context.VehicleMakes.Add(m));
             context.SaveChanges();
 
             var models = new List<VehicleModel>
             {
-                new VehicleModel{Name="Ceed", Abrv="Ceed", VehicleMakeId=1},
-                new VehicleModel{Name="Passat", Abrv="Passat", VehicleMakeId=2},
-                new VehicleModel{Name="Golf", Abrv="Golf", VehicleMakeId=2},
-                new VehicleModel{Name="Astra", Abrv="Astra", VehicleMakeId=3},
-                new VehicleModel{Name="X5", Abrv="X5", VehicleMakeId=4},
-                new VehicleModel{Name="E-Class", Abrv="E-Class", VehicleMakeId=5}
+                new VehicleModel{Name="Ceed", Abrv="Ceed", VehicleModelId = Guid.NewGuid()},
+                new VehicleModel{Name="Passat", Abrv="Passat", VehicleModelId = Guid.NewGuid()},
+                new VehicleModel{Name="Golf", Abrv="Golf", VehicleModelId = Guid.NewGuid()},
+                new VehicleModel{Name="Astra", Abrv="Astra", VehicleModelId = Guid.NewGuid()},
+                new VehicleModel{Name="X5", Abrv="X5", VehicleModelId = Guid.NewGuid()},
+                new VehicleModel{Name="E-Class", Abrv="E-Class", VehicleModelId = Guid.NewGuid()}
             };
             models.ForEach(m => context.VehicleModels.Add(m));
             context.SaveChanges();
