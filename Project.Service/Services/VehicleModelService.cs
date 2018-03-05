@@ -10,15 +10,6 @@ using X.PagedList;
 
 namespace Project.Service.Services
 {
-    public interface IVehicleModelService
-    {
-        Task<IPagedList<VehicleModel>> SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page);
-        Task<VehicleModel> SelectByIDAsync(Guid id);
-        Task<string> InsertAsync(VehicleModel obj);
-        Task<VehicleModel> UpdateAsync(Guid id, VehicleModel vehicleModel);
-        Task<string> DeleteAsync(Guid id);
-    }
-
     public class VehicleModelService : IVehicleModelService
     {
         async Task<IPagedList<VehicleModel>> IVehicleModelService.SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page)
