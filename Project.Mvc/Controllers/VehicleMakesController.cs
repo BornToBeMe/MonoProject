@@ -11,6 +11,7 @@ using Project.Service.DAL;
 using Project.Service.Models;
 using Project.Service.Services;
 using X.PagedList;
+using System.Data.Entity.Infrastructure;
 
 namespace Project.Mvc.Controllers
 {
@@ -50,11 +51,19 @@ namespace Project.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,Name,Abrv")] VehicleMake vehicleMake)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await service.InsertAsync(vehicleMake);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await service.InsertAsync(vehicleMake);
+                    return RedirectToAction("Index");
+                }
             }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. " + "Try again.");
+            }
+
             return View(vehicleMake);
         }
 

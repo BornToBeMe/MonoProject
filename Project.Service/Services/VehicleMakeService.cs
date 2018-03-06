@@ -12,6 +12,7 @@ namespace Project.Service.Services
 {
     public class VehicleMakeService : IVehicleMakeService
     {
+
         async Task<IPagedList<VehicleMake>> IVehicleMakeService.SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page)
         {
             using (var context = new CarContext())
@@ -50,7 +51,6 @@ namespace Project.Service.Services
 
                 int pageSize = 3;
                 int pageNumber = (page ?? 1);
-
 
                 IPagedList<VehicleMake> data = await query.ToPagedListAsync(pageNumber, pageSize);
                 return data;
