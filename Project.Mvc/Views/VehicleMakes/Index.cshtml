@@ -1,5 +1,6 @@
 ﻿@model X.PagedList.IPagedList<Project.Service.Models.VehicleMake>
 @using X.PagedList.Mvc;
+@using Project.Service.Services;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -52,5 +53,5 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+@Html.PagedListPager(Model, PageNumber => Url.Action("Index", new { PageNumber, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 

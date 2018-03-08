@@ -21,13 +21,13 @@ namespace Project.Mvc.Controllers
         IVehicleMakeService service = new VehicleMakeService();
 
         // GET: VehicleMakes
-        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<ActionResult> Index(Sorting sortOrder, string currentFilter, string searchString, Paging pagination)
         {
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder.SortOrder) ? "name_desc" : "";
+            ViewBag.AbrvSortParm = sortOrder.SortOrder == "Abrv" ? "abrv_desc" : "Abrv";
 
-            IPagedList<VehicleMake> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, page);
+            IPagedList<VehicleMake> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, pagination);
             return View(data);
         }
 

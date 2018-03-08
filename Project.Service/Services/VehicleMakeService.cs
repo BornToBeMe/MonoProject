@@ -12,16 +12,15 @@ namespace Project.Service.Services
 {
     public class VehicleMakeService : IVehicleMakeService
     {
-
-        async Task<IPagedList<VehicleMake>> IVehicleMakeService.SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page)
+        async Task<IPagedList<VehicleMake>> IVehicleMakeService.SelectAllAsync(Sorting sortOrder, string currentFilter, string searchString, Paging pagination)
         {
             using (var context = new CarContext())
             {
                 var query = from c in context.VehicleMakes select c;
 
-                if(searchString != null)
+                if (searchString != null)
                 {
-                    page = 1;
+                    pagination.PageNumber = 1;
                 }
                 else
                 {
@@ -33,26 +32,10 @@ namespace Project.Service.Services
                     query = query.Where(q => q.Name.Contains(searchString) || q.Abrv.Contains(searchString));
                 }
 
-                switch (sortOrder)
-                {
-                    case "name_desc":
-                        query = query.OrderByDescending(q => q.Name);
-                        break;
-                    case "Abrv":
-                        query = query.OrderBy(q => q.Abrv);
-                        break;
-                    case "abrv_desc":
-                        query = query.OrderByDescending(q => q.Abrv);
-                        break;
-                    default:
-                        query = query.OrderBy(q => q.Name);
-                        break;
-                }
+                pagination.PageSize = 3;
+                int pageNumber = (pagination.PageNumber ?? 1);
 
-                int pageSize = 3;
-                int pageNumber = (page ?? 1);
-
-                IPagedList<VehicleMake> data = await query.ToPagedListAsync(pageNumber, pageSize);
+                IPagedList<VehicleMake> data = await query.OrderBy(Sorting => sortOrder.SortOrder).ToPagedListAsync(pageNumber, pagination.PageSize);
                 return data;
             }
         }
@@ -61,20 +44,20 @@ namespace Project.Service.Services
         {
             using (var context = new CarContext())
             {
-                var query = from c in context.VehicleMakes where c.ID == id select c;
-                VehicleMake make = await query.SingleOrDefaultAsync();
+                VehicleMake make = await context.VehicleMakes.Where(c => c.ID == id).SingleOrDefaultAsync();
                 return make;
             }
 
         }
 
-        async Task<string> IVehicleMakeService.InsertAsync(VehicleMake obj)
+        async Task<bool> IVehicleMakeService.InsertAsync(VehicleMake obj)
         {
             using (var context = new CarContext())
             {
                 context.VehicleMakes.Add(obj);
                 await context.SaveChangesAsync();
-                return "Make added successfully!";
+                bool added;
+                return added = true;
             }
 
         }
@@ -91,14 +74,15 @@ namespace Project.Service.Services
             }
         }
 
-        async Task<string> IVehicleMakeService.DeleteAsync(Guid id)
+        async Task<bool> IVehicleMakeService.DeleteAsync(Guid id)
         {
             using (var context = new CarContext())
             {
                 VehicleMake existing = await context.VehicleMakes.FindAsync(id);
                 context.VehicleMakes.Remove(existing);
                 await context.SaveChangesAsync();
-                return "Make deleted successfully!";
+                bool deleted;
+                return deleted = true;
             }
 
         }

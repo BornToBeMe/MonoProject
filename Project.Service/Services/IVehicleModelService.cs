@@ -12,8 +12,8 @@ namespace Project.Service.Services
     {
         Task<IPagedList<VehicleModel>> SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page);
         Task<VehicleModel> SelectByIDAsync(Guid id);
-        Task<string> InsertAsync(VehicleModel obj);
+        Task<bool> InsertAsync(VehicleModel obj);
         Task<VehicleModel> UpdateAsync(Guid id, VehicleModel vehicleModel);
-        Task<string> DeleteAsync(Guid id);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

@@ -60,19 +60,19 @@ namespace Project.Service.Services
         {
             using(var context = new CarContext())
             {
-                var query = from c in context.VehicleModels where c.VehicleModelId == id select c;
-                VehicleModel model = await query.SingleOrDefaultAsync();
+                VehicleModel model = await context.VehicleModels.Where(c => c.VehicleModelId == id).SingleOrDefaultAsync();
                 return model;
             }
         }
 
-        async Task<string> IVehicleModelService.InsertAsync(VehicleModel obj)
+        async Task<bool> IVehicleModelService.InsertAsync(VehicleModel obj)
         {
             using(var context = new CarContext())
             {
                 context.VehicleModels.Add(obj);
                 await context.SaveChangesAsync();
-                return "Model added successfully";
+                bool added;
+                return added = true;
             }
         }
 
@@ -88,14 +88,15 @@ namespace Project.Service.Services
             }
         }
 
-        async Task<string> IVehicleModelService.DeleteAsync(Guid id)
+        async Task<bool> IVehicleModelService.DeleteAsync(Guid id)
         {
             using(var context = new CarContext())
             {
                 VehicleModel existing = await context.VehicleModels.FindAsync(id);
                 context.VehicleModels.Remove(existing);
                 await context.SaveChangesAsync();
-                return "Model updated successfully";
+                bool deleted;
+                return deleted = true;
             }
         }
     }
