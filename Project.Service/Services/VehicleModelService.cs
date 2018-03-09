@@ -12,27 +12,31 @@ namespace Project.Service.Services
 {
     public class VehicleModelService : IVehicleModelService
     {
-        async Task<IPagedList<VehicleModel>> IVehicleModelService.SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page)
+        async Task<IPagedList<VehicleModel>> IVehicleModelService.SelectAllAsync(ISorting sorting, IFilter filter, ISearch search, IPaging pagination)
         {
             using(var context = new CarContext())
             {
                 var query = from c in context.VehicleModels select c;
+                ISorting sortOrder = new Sorting();
+                IFilter currentFilter = new Filter();
+                ISearch searchString = new Search();
+                IPaging paging = new Paging();
 
-                if(searchString != null)
+                if(searchString.SearchString != null)
                 {
-                    page = 1;
+                    paging.PageNumber = 1;
                 }
                 else
                 {
-                    searchString = currentFilter;
+                    searchString.SearchString = currentFilter.CurrentFilter;
                 }
 
-                if (!String.IsNullOrEmpty(searchString))
+                if (!String.IsNullOrEmpty(searchString.SearchString))
                 {
-                    query = query.Where(q => q.Name.Contains(searchString) || q.Abrv.Contains(searchString));
+                    query = query.Where(q => q.Name.Contains(searchString.SearchString) || q.Abrv.Contains(searchString.SearchString));
                 }
 
-                switch (sortOrder)
+                switch (sortOrder.SortOrder)
                 {
                     case "name_desc":
                         query = query.OrderByDescending(q => q.Name);
@@ -48,10 +52,10 @@ namespace Project.Service.Services
                         break;
                 }
 
-                int pageSize = 3;
-                int pageNumber = (page ?? 1);
+                paging.PageSize = 3;
+                int pageNumber = (paging.PageNumber ?? 1);
 
-                IPagedList<VehicleModel> data = await query.ToPagedListAsync(pageNumber, pageSize);
+                IPagedList<VehicleModel> data = await query.ToPagedListAsync(pageNumber, paging.PageSize);
                 return data;
             }
         }
@@ -71,8 +75,8 @@ namespace Project.Service.Services
             {
                 context.VehicleModels.Add(obj);
                 await context.SaveChangesAsync();
-                bool added;
-                return added = true;
+                bool added = true;
+                return added;
             }
         }
 
@@ -95,8 +99,8 @@ namespace Project.Service.Services
                 VehicleModel existing = await context.VehicleModels.FindAsync(id);
                 context.VehicleModels.Remove(existing);
                 await context.SaveChangesAsync();
-                bool deleted;
-                return deleted = true;
+                bool deleted = true;
+                return deleted;
             }
         }
     }

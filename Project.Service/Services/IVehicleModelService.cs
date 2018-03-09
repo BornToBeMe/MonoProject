@@ -10,7 +10,7 @@ namespace Project.Service.Services
 {
     public interface IVehicleModelService
     {
-        Task<IPagedList<VehicleModel>> SelectAllAsync(string sortOrder, string currentFilter, string searchString, int? page);
+        Task<IPagedList<VehicleModel>> SelectAllAsync(ISorting sorting, IFilter filter, ISearch search, IPaging pagination);
         Task<VehicleModel> SelectByIDAsync(Guid id);
         Task<bool> InsertAsync(VehicleModel obj);
         Task<VehicleModel> UpdateAsync(Guid id, VehicleModel vehicleModel);

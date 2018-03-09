@@ -20,13 +20,13 @@ namespace Project.Mvc.Controllers
         IVehicleModelService service = new VehicleModelService();
 
         // GET: VehicleModels
-        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<ActionResult> Index(Sorting sortOrder, Service.Services.Filter currentFilter, Search searchString, Paging paging)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+            ViewBag.CurrentSort = sortOrder.SortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder.SortOrder) ? "name_desc" : "";
+            ViewBag.AbrvSortParm = sortOrder.SortOrder == "Abrv" ? "abrv_desc" : "Abrv";
 
-            IPagedList<VehicleModel> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, page);
+            IPagedList<VehicleModel> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, paging);
             return View(data);
         }
 

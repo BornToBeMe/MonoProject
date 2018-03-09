@@ -76,8 +76,8 @@ namespace Project.Service.Services
             {
                 context.VehicleMakes.Add(obj);
                 await context.SaveChangesAsync();
-                bool added;
-                return added = true;
+                bool added = true;
+                return added;
             }
 
         }
@@ -101,8 +101,8 @@ namespace Project.Service.Services
                 VehicleMake existing = await context.VehicleMakes.FindAsync(id);
                 context.VehicleMakes.Remove(existing);
                 await context.SaveChangesAsync();
-                bool deleted;
-                return deleted = true;
+                bool deleted = true;
+                return deleted;
             }
 
         }
