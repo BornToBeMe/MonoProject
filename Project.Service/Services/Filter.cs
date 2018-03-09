@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Project.Service.Services
 {
-    public interface ISorting
+    public class Filter : IFilter
     {
-        string SortOrder { get; set; }
+        public string CurrentFilter { get; set; }
     }
 }

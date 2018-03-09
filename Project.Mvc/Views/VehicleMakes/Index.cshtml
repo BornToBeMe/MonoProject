@@ -24,10 +24,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Name", "Index", new { SortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Abrv", "Index", new { sortOrder = ViewBag.AbrvSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Abrv", "Index", new { SortOrder = ViewBag.AbrvSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -53,5 +53,5 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, PageNumber => Url.Action("Index", new { PageNumber, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+@Html.PagedListPager(Model, PageNumber => Url.Action("Index", new { PageNumber, SortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 

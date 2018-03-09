@@ -21,9 +21,9 @@ namespace Project.Mvc.Controllers
         IVehicleMakeService service = new VehicleMakeService();
 
         // GET: VehicleMakes
-        public async Task<ActionResult> Index(Sorting sortOrder, string currentFilter, string searchString, Paging pagination)
+        public async Task<ActionResult> Index(Sorting sortOrder, Service.Services.Filter currentFilter, Search searchString, Paging pagination)
         {
-            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentSort = sortOrder.SortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder.SortOrder) ? "name_desc" : "";
             ViewBag.AbrvSortParm = sortOrder.SortOrder == "Abrv" ? "abrv_desc" : "Abrv";
 

@@ -12,30 +12,50 @@ namespace Project.Service.Services
 {
     public class VehicleMakeService : IVehicleMakeService
     {
-        async Task<IPagedList<VehicleMake>> IVehicleMakeService.SelectAllAsync(Sorting sortOrder, string currentFilter, string searchString, Paging pagination)
+        async Task<IPagedList<VehicleMake>> IVehicleMakeService.SelectAllAsync(ISorting sortOrder, IFilter filter, ISearch search, IPaging pagination)
         {
             using (var context = new CarContext())
             {
                 var query = from c in context.VehicleMakes select c;
+                ISorting sorting = new Sorting();
+                IFilter currentFilter = new Filter();
+                ISearch searchString = new Search();
+                IPaging paging = new Paging();
 
-                if (searchString != null)
+                if (searchString.SearchString != null)
                 {
-                    pagination.PageNumber = 1;
+                    paging.PageNumber = 1;
                 }
                 else
                 {
-                    searchString = currentFilter;
+                    searchString.SearchString = currentFilter.CurrentFilter;
                 }
 
-                if (!String.IsNullOrEmpty(searchString))
+                if (!String.IsNullOrEmpty(searchString.SearchString))
                 {
-                    query = query.Where(q => q.Name.Contains(searchString) || q.Abrv.Contains(searchString));
+                    query = query.Where(q => q.Name.Contains(searchString.SearchString) || q.Abrv.Contains(searchString.SearchString));
                 }
 
-                pagination.PageSize = 3;
-                int pageNumber = (pagination.PageNumber ?? 1);
+                switch (sorting.SortOrder)
+                {
+                    case "name_desc":
+                        query = query.OrderByDescending(q => q.Name);
+                        break;
+                    case "Abrv":
+                        query = query.OrderBy(q => q.Abrv);
+                        break;
+                    case "abrv_desc":
+                        query = query.OrderByDescending(q => q.Abrv);
+                        break;
+                    default:
+                        query = query.OrderBy(q => q.Name);
+                        break;
+                }
 
-                IPagedList<VehicleMake> data = await query.OrderBy(Sorting => sortOrder.SortOrder).ToPagedListAsync(pageNumber, pagination.PageSize);
+                paging.PageSize = 3;
+                int pageNumber = (paging.PageNumber ?? 1);
+
+                IPagedList<VehicleMake> data = await query.ToPagedListAsync(pageNumber, paging.PageSize);
                 return data;
             }
         }
