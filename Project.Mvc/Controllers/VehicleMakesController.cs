@@ -33,9 +33,9 @@ namespace Project.Mvc.Controllers
             search.SearchString = searchString;
             paging.PageNumber = page;
 
-            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+            ViewBag.CurrentSort = sortOrder;
 
             IPagedList<VehicleMake> data = await service.SelectAllAsync(sorting, filter, search, paging);
             return View(data);

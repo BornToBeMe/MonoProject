@@ -16,27 +16,23 @@ namespace Project.Service.Services
         {
             using (var context = new CarContext())
             {
-                var query = from c in context.VehicleMakes select c;
-                ISorting sorting = new Sorting();
-                IFilter currentFilter = new Filter();
-                ISearch searchString = new Search();
-                IPaging paging = new Paging();
+                var query = from c in context.VehicleMakes select c;          
 
-                if (searchString.SearchString != null)
+                if (search.SearchString != null)
                 {
-                    paging.PageNumber = 1;
+                    pagination.PageNumber = 1;
                 }
                 else
                 {
-                    searchString.SearchString = currentFilter.CurrentFilter;
+                    search.SearchString = filter.CurrentFilter;
                 }
 
-                if (!String.IsNullOrEmpty(searchString.SearchString))
+                if (!String.IsNullOrEmpty(search.SearchString))
                 {
-                    query = query.Where(q => q.Name.Contains(searchString.SearchString) || q.Abrv.Contains(searchString.SearchString));
+                    query = query.Where(q => q.Name.Contains(search.SearchString) || q.Abrv.Contains(search.SearchString));
                 }
 
-                switch (sorting.SortOrder)
+                switch (sortOrder.SortOrder)
                 {
                     case "name_desc":
                         query = query.OrderByDescending(q => q.Name);
@@ -52,10 +48,10 @@ namespace Project.Service.Services
                         break;
                 }
 
-                paging.PageSize = 3;
-                int pageNumber = (paging.PageNumber ?? 1);
+                pagination.PageSize = 3;
+                int pageNumber = (pagination.PageNumber ?? 1);
 
-                IPagedList<VehicleMake> data = await query.ToPagedListAsync(pageNumber, paging.PageSize);
+                IPagedList<VehicleMake> data = await query.ToPagedListAsync(pageNumber, pagination.PageSize);
                 return data;
             }
         }
