@@ -27,3 +27,4 @@ namespace Project.Service.Services
         string SearchString { get; set; }
     }
 }
+

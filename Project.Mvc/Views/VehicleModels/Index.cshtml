@@ -23,9 +23,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Vehicle Model ID", "Index", new { sortOrder = ViewBag.VehicleModelIdSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
             @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
@@ -37,9 +34,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VehicleModelId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

@@ -19,15 +19,25 @@ namespace Project.Mvc.Controllers
     {
         CarContext db = new CarContext();
         IVehicleMakeService service = new VehicleMakeService();
+        ISorting sorting = new Sorting();
+        IFilter filter = new Service.Services.Filter();
+        ISearch search = new Search();
+        IPaging paging = new Paging();
+         
 
         // GET: VehicleMakes
-        public async Task<ActionResult> Index(Sorting sortOrder, Service.Services.Filter currentFilter, Search searchString, Paging pagination)
+        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.CurrentSort = sortOrder.SortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder.SortOrder) ? "name_desc" : "";
-            ViewBag.AbrvSortParm = sortOrder.SortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+            sorting.SortOrder = sortOrder;
+            filter.CurrentFilter = currentFilter;
+            search.SearchString = searchString;
+            paging.PageNumber = page;
 
-            IPagedList<VehicleMake> data = await service.SelectAllAsync(sortOrder, currentFilter, searchString, pagination);
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+
+            IPagedList<VehicleMake> data = await service.SelectAllAsync(sorting, filter, search, paging);
             return View(data);
         }
 
