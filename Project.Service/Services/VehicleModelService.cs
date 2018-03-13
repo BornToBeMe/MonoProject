@@ -12,31 +12,27 @@ namespace Project.Service.Services
 {
     public class VehicleModelService : IVehicleModelService
     {
-        async Task<IPagedList<VehicleModel>> IVehicleModelService.SelectAllAsync(ISorting sorting, IFilter filter, ISearch search, IPaging pagination)
+        async Task<IPagedList<VehicleModel>> IVehicleModelService.SelectAllAsync(ISorting sorting, ISearch search, IPaging pagination)
         {
             using(var context = new CarContext())
             {
                 var query = from c in context.VehicleModels select c;
-                ISorting sortOrder = new Sorting();
-                IFilter currentFilter = new Filter();
-                ISearch searchString = new Search();
-                IPaging paging = new Paging();
 
-                if(searchString.SearchString != null)
+                if(search.SearchString != null)
                 {
-                    paging.PageNumber = 1;
+                    pagination.PageNumber = 1;
                 }
                 else
                 {
-                    searchString.SearchString = currentFilter.CurrentFilter;
+                    search.SearchString = search.CurrentFilter;
                 }
 
-                if (!String.IsNullOrEmpty(searchString.SearchString))
+                if (!String.IsNullOrEmpty(search.SearchString))
                 {
-                    query = query.Where(q => q.Name.Contains(searchString.SearchString) || q.Abrv.Contains(searchString.SearchString));
+                    query = query.Where(q => q.Name.Contains(search.SearchString) || q.Abrv.Contains(search.SearchString));
                 }
 
-                switch (sortOrder.SortOrder)
+                switch (sorting.SortOrder)
                 {
                     case "name_desc":
                         query = query.OrderByDescending(q => q.Name);
@@ -52,10 +48,10 @@ namespace Project.Service.Services
                         break;
                 }
 
-                paging.PageSize = 3;
-                int pageNumber = (paging.PageNumber ?? 1);
+                pagination.PageSize = 3;
+                int pageNumber = (pagination.PageNumber ?? 1);
 
-                IPagedList<VehicleModel> data = await query.ToPagedListAsync(pageNumber, paging.PageSize);
+                IPagedList<VehicleModel> data = await query.ToPagedListAsync(pageNumber, pagination.PageSize);
                 return data;
             }
         }

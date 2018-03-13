@@ -20,7 +20,6 @@ namespace Project.Mvc.Controllers
         CarContext db = new CarContext();
         IVehicleMakeService service = new VehicleMakeService();
         ISorting sorting = new Sorting();
-        IFilter filter = new Service.Services.Filter();
         ISearch search = new Search();
         IPaging paging = new Paging();
          
@@ -29,7 +28,7 @@ namespace Project.Mvc.Controllers
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             sorting.SortOrder = sortOrder;
-            filter.CurrentFilter = currentFilter;
+            search.CurrentFilter = currentFilter;
             search.SearchString = searchString;
             paging.PageNumber = page;
 
@@ -37,7 +36,7 @@ namespace Project.Mvc.Controllers
             ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
             ViewBag.CurrentSort = sortOrder;
 
-            IPagedList<VehicleMake> data = await service.SelectAllAsync(sorting, filter, search, paging);
+            IPagedList<VehicleMake> data = await service.SelectAllAsync(sorting, search, paging);
             return View(data);
         }
 

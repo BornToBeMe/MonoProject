@@ -17,14 +17,10 @@ namespace Project.Service.Services
         string SortOrder { get; set; }
     }
 
-    public interface IFilter
-    {
-        string CurrentFilter { get; set; }
-    }
-
     public interface ISearch
     {
         string SearchString { get; set; }
+        string CurrentFilter { get; set; }
     }
 }
 

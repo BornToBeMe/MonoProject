@@ -56,7 +56,6 @@
     <Compile Include="Models\VehicleMake.cs" />
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Filter.cs" />
     <Compile Include="Services\IFiltering.cs" />
     <Compile Include="Services\IVehicleMakeService.cs" />
     <Compile Include="Services\IVehicleModelService.cs" />

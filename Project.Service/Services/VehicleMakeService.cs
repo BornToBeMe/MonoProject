@@ -12,11 +12,11 @@ namespace Project.Service.Services
 {
     public class VehicleMakeService : IVehicleMakeService
     {
-        async Task<IPagedList<VehicleMake>> IVehicleMakeService.SelectAllAsync(ISorting sortOrder, IFilter filter, ISearch search, IPaging pagination)
+        async Task<IPagedList<VehicleMake>> IVehicleMakeService.SelectAllAsync(ISorting sortOrder, ISearch search, IPaging pagination)
         {
             using (var context = new CarContext())
             {
-                var query = from c in context.VehicleMakes select c;          
+                var query = from c in context.VehicleMakes select c;
 
                 if (search.SearchString != null)
                 {
@@ -24,7 +24,7 @@ namespace Project.Service.Services
                 }
                 else
                 {
-                    search.SearchString = filter.CurrentFilter;
+                    search.SearchString = search.CurrentFilter;
                 }
 
                 if (!String.IsNullOrEmpty(search.SearchString))
