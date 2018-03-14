@@ -20,7 +20,7 @@ namespace Project.Service.Models
 
         public Guid VehicleMakeId { get; set; }
 
-        public virtual ICollection<VehicleMake> VehicleMake { get; set; }
+        public virtual VehicleMake VehicleMake { get; set; }
 
     }
 }

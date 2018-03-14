@@ -18,7 +18,7 @@ namespace Project.Service.Services
             {
                 var query = from c in context.VehicleModels select c;
 
-                if(search.SearchString != null)
+                if (search.SearchString != null)
                 {
                     pagination.PageNumber = 1;
                 }

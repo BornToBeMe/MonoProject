@@ -24,12 +24,12 @@ namespace Project.Service.DAL
 
             var models = new List<VehicleModel>
             {
-                new VehicleModel{Name="Ceed", Abrv="Ceed", VehicleModelId = Guid.NewGuid()},
-                new VehicleModel{Name="Passat", Abrv="Passat", VehicleModelId = Guid.NewGuid()},
-                new VehicleModel{Name="Golf", Abrv="Golf", VehicleModelId = Guid.NewGuid()},
-                new VehicleModel{Name="Astra", Abrv="Astra", VehicleModelId = Guid.NewGuid()},
-                new VehicleModel{Name="X5", Abrv="X5", VehicleModelId = Guid.NewGuid()},
-                new VehicleModel{Name="E-Class", Abrv="E-Class", VehicleModelId = Guid.NewGuid()}
+                new VehicleModel{Name="Ceed", Abrv="Ceed", VehicleModelId = Guid.NewGuid(), VehicleMakeId = makes.Single(s => s.Name == "Kia").Id},
+                new VehicleModel{Name="Passat", Abrv="Passat", VehicleModelId = Guid.NewGuid(), VehicleMakeId = makes.Single(s => s.Name == "Volkswagen").Id},
+                new VehicleModel{Name="Golf", Abrv="Golf", VehicleModelId = Guid.NewGuid(), VehicleMakeId = makes.Single(s => s.Name == "Volkswagen").Id},
+                new VehicleModel{Name="Astra", Abrv="Astra", VehicleModelId = Guid.NewGuid(), VehicleMakeId = makes.Single(s => s.Name == "Opel").Id},
+                new VehicleModel{Name="X5", Abrv="X5", VehicleModelId = Guid.NewGuid(), VehicleMakeId = makes.Single(s => s.Name == "BMW").Id},
+                new VehicleModel{Name="E-Class", Abrv="E-Class", VehicleModelId = Guid.NewGuid(), VehicleMakeId = makes.Single(s => s.Name == "Mercedes").Id}
             };
             models.ForEach(m => context.VehicleModels.Add(m));
             context.SaveChanges();

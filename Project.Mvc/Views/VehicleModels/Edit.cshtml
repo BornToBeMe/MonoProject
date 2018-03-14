@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>VehicleModel</h4>
         <hr />
@@ -20,8 +20,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.VehicleMakeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.VehicleMakeId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VehicleMakeId, "", new { @class = "text-danger" })
+                @Html.DropDownList("VehicleMakeId", String.Empty)
+                @Html.ValidationMessageFor(model => model.VehicleMakeId)
             </div>
         </div>
 

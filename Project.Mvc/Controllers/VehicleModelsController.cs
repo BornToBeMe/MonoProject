@@ -21,7 +21,7 @@ namespace Project.Mvc.Controllers
         ISorting sorting = new Sorting();
         ISearch search = new Search();
         IPaging paging = new Paging();
-        
+
 
         // GET: VehicleModels
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -50,6 +50,7 @@ namespace Project.Mvc.Controllers
         // GET: VehicleModels/Create
         public ActionResult Create()
         {
+            PopulateMakesDropDownList();
             return View();
         }
 
@@ -65,7 +66,7 @@ namespace Project.Mvc.Controllers
                 await service.InsertAsync(vehicleModel);
                 return RedirectToAction("Index");
             }
-
+            PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
             return View(vehicleModel);
         }
 
@@ -81,6 +82,7 @@ namespace Project.Mvc.Controllers
             {
                 return HttpNotFound();
             }
+            PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
             return View(vehicleModel);
         }
 
@@ -121,6 +123,12 @@ namespace Project.Mvc.Controllers
         {
             await service.DeleteAsync(id);
             return RedirectToAction("Index");
+        }
+
+        private void PopulateMakesDropDownList(object selectedMake = null)
+        {
+            var makeQuery = from d in db.VehicleMakes orderby d.Name select d;
+            ViewBag.VehicleMakeId = new SelectList(makeQuery, "Id", "Name", selectedMake);
         }
 
         protected override void Dispose(bool disposing)
