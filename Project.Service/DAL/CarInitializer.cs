@@ -13,11 +13,11 @@ namespace Project.Service.DAL
         {
             var makes = new List<VehicleMake>
             {
-                new VehicleMake{Name="Kia", Abrv="Kia", ID = Guid.NewGuid()},
-                new VehicleMake{Name="Volkswagen", Abrv="VW", ID = Guid.NewGuid()},
-                new VehicleMake{Name="Opel", Abrv="Opel", ID = Guid.NewGuid()},
-                new VehicleMake{Name="BMW", Abrv="BMW", ID = Guid.NewGuid()},
-                new VehicleMake{Name="Mercedes", Abrv="Mercedes", ID = Guid.NewGuid()}
+                new VehicleMake{Name="Kia", Abrv="Kia", Id = Guid.NewGuid()},
+                new VehicleMake{Name="Volkswagen", Abrv="VW", Id = Guid.NewGuid()},
+                new VehicleMake{Name="Opel", Abrv="Opel", Id = Guid.NewGuid()},
+                new VehicleMake{Name="BMW", Abrv="BMW", Id = Guid.NewGuid()},
+                new VehicleMake{Name="Mercedes", Abrv="Mercedes", Id = Guid.NewGuid()}
             };
             makes.ForEach(m => context.VehicleMakes.Add(m));
             context.SaveChanges();

@@ -34,6 +34,12 @@ namespace Project.Service.Services
 
                 switch (sorting.SortOrder)
                 {
+                    case "make_desc":
+                        query = query.OrderByDescending(q => q.VehicleMakeId);
+                        break;
+                    case "Name":
+                        query = query.OrderBy(q => q.Name);
+                        break;
                     case "name_desc":
                         query = query.OrderByDescending(q => q.Name);
                         break;
@@ -44,7 +50,7 @@ namespace Project.Service.Services
                         query = query.OrderByDescending(q => q.Abrv);
                         break;
                     default:
-                        query = query.OrderBy(q => q.Name);
+                        query = query.OrderBy(q => q.VehicleMakeId);
                         break;
                 }
 
@@ -69,6 +75,7 @@ namespace Project.Service.Services
         {
             using(var context = new CarContext())
             {
+                obj.VehicleModelId = Guid.NewGuid();
                 context.VehicleModels.Add(obj);
                 await context.SaveChangesAsync();
                 bool added = true;

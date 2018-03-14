@@ -21,6 +21,7 @@ namespace Project.Mvc.Controllers
         ISorting sorting = new Sorting();
         ISearch search = new Search();
         IPaging paging = new Paging();
+        
 
         // GET: VehicleModels
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -30,8 +31,9 @@ namespace Project.Mvc.Controllers
             search.SearchString = searchString;
             paging.PageNumber = page;
 
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.MakeSortParm = String.IsNullOrEmpty(sortOrder) ? "make_desc" : "";
             ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
             ViewBag.CurrentSort = sortOrder;
 
             IPagedList<VehicleModel> data = await service.SelectAllAsync(sorting, search, paging);

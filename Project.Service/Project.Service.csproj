@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="DAL\CarContext.cs" />
     <Compile Include="DAL\CarInitializer.cs" />
-    <Compile Include="Models\Car.cs" />
     <Compile Include="Models\VehicleMake.cs" />
     <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

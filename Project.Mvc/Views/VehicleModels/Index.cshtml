@@ -23,6 +23,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.ActionLink("Vehicle Make", "Index", new { sortOrder = ViewBag.MakeSortParm, currentFilter = ViewBag.CurrentFilter})
+        </th>
+        <th>
             @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>

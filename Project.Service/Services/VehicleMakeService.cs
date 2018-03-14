@@ -60,7 +60,7 @@ namespace Project.Service.Services
         {
             using (var context = new CarContext())
             {
-                VehicleMake make = await context.VehicleMakes.Where(c => c.ID == id).SingleOrDefaultAsync();
+                VehicleMake make = await context.VehicleMakes.Where(c => c.Id == id).SingleOrDefaultAsync();
                 return make;
             }
 
@@ -70,6 +70,7 @@ namespace Project.Service.Services
         {
             using (var context = new CarContext())
             {
+                obj.Id = Guid.NewGuid();
                 context.VehicleMakes.Add(obj);
                 await context.SaveChangesAsync();
                 bool added = true;

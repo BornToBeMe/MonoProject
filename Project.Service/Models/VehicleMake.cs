@@ -9,7 +9,7 @@ namespace Project.Service.Models
 {
     public class VehicleMake
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
         [Required]
         [StringLength(20, MinimumLength = 1)]
         public string Name { get; set; }
@@ -17,6 +17,6 @@ namespace Project.Service.Models
         [StringLength(20, MinimumLength = 1)]
         public string Abrv { get; set; }
 
-        public virtual ICollection<Car> Cars { get; set; }
+        public virtual ICollection<VehicleModel> VehicleModel { get; set; }
     }
 }

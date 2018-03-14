@@ -18,7 +18,6 @@ namespace Project.Service.DAL
 
         public DbSet<VehicleMake> VehicleMakes { get; set; }
         public DbSet<VehicleModel> VehicleModels { get; set; }
-        public DbSet<Car> Cars { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

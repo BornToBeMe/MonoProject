@@ -17,8 +17,10 @@ namespace Project.Service.Models
         [Required]
         [StringLength(20, MinimumLength = 1)]
         public string Abrv { get; set; }
+
         public Guid VehicleMakeId { get; set; }
 
-        public virtual ICollection<Car> Cars { get; set; }
+        public virtual ICollection<VehicleMake> VehicleMake { get; set; }
+
     }
 }
