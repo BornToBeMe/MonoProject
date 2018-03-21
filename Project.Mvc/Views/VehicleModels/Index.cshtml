@@ -1,6 +1,6 @@
 ﻿@model X.PagedList.IPagedList<Project.Service.Models.VehicleModel>
 @using X.PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 
 @{
     ViewBag.Title = "Vehicle Models";
@@ -38,7 +38,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.VehicleMakeId)
+                @Html.DisplayFor(modelItem => item.VehicleMake.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

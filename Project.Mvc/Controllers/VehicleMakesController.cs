@@ -43,6 +43,10 @@ namespace Project.Mvc.Controllers
         // GET: VehicleMakes/Details/5
         public async Task<ActionResult> Details(Guid id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             VehicleMake data = await service.SelectByIDAsync(id);
             return View(data);
         }
@@ -68,11 +72,10 @@ namespace Project.Mvc.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (DbUpdateException)
+            catch (Exception)
             {
-                ModelState.AddModelError("", "Unable to save changes. " + "Try again.");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             return View(vehicleMake);
         }
 
@@ -111,7 +114,7 @@ namespace Project.Mvc.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             VehicleMake vehicleMake = await db.VehicleMakes.FindAsync(id);
             if (vehicleMake == null)
@@ -126,8 +129,23 @@ namespace Project.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
-            await service.DeleteAsync(id);
-            return RedirectToAction("Index");
+            try
+            {
+                if(id != null)
+                {
+                    await service.DeleteAsync(id);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                }
+            }
+            catch (Exception)
+            {
+
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }    
         }
 
         protected override void Dispose(bool disposing)

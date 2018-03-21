@@ -11,6 +11,7 @@ using Project.Service.DAL;
 using Project.Service.Models;
 using X.PagedList;
 using Project.Service.Services;
+using AutoMapper;
 
 namespace Project.Mvc.Controllers
 {
@@ -43,6 +44,10 @@ namespace Project.Mvc.Controllers
         // GET: VehicleModels/Details/5
         public async Task<ActionResult> Details(Guid id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
             VehicleModel data = await service.SelectByIDAsync(id);
             return View(data);
         }
@@ -61,10 +66,17 @@ namespace Project.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] VehicleModel vehicleModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await service.InsertAsync(vehicleModel);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await service.InsertAsync(vehicleModel);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
             return View(vehicleModel);
@@ -106,7 +118,7 @@ namespace Project.Mvc.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             VehicleModel vehicleModel = await db.VehicleModels.FindAsync(id);
             if (vehicleModel == null)
@@ -121,8 +133,23 @@ namespace Project.Mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Guid id)
         {
-            await service.DeleteAsync(id);
-            return RedirectToAction("Index");
+            try
+            {
+                if (id != null)
+                {
+                    await service.DeleteAsync(id);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+                }
+            }
+            catch (Exception)
+            {
+
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         private void PopulateMakesDropDownList(object selectedMake = null)

@@ -16,7 +16,7 @@ namespace Project.Service.Services
         {
             using (var context = new CarContext())
             {
-                var query = from c in context.VehicleMakes select c;
+                var query = context.VehicleMakes.AsQueryable();
 
                 if (search.SearchString != null)
                 {
@@ -63,7 +63,6 @@ namespace Project.Service.Services
                 VehicleMake make = await context.VehicleMakes.Where(c => c.Id == id).SingleOrDefaultAsync();
                 return make;
             }
-
         }
 
         async Task<bool> IVehicleMakeService.InsertAsync(VehicleMake obj)

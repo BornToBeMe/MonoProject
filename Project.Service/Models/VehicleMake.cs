@@ -17,6 +17,5 @@ namespace Project.Service.Models
         [StringLength(20, MinimumLength = 1)]
         public string Abrv { get; set; }
 
-        public virtual ICollection<VehicleModel> VehicleModel { get; set; }
     }
 }

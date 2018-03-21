@@ -1,4 +1,5 @@
-﻿using Project.Service.DAL;
+﻿using AutoMapper;
+using Project.Service.DAL;
 using Project.Service.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Project.Service.Services
         {
             using(var context = new CarContext())
             {
-                var query = from c in context.VehicleModels select c;
+                var query = context.VehicleModels.Include(s => s.VehicleMake).AsQueryable();
 
                 if (search.SearchString != null)
                 {
@@ -35,7 +36,7 @@ namespace Project.Service.Services
                 switch (sorting.SortOrder)
                 {
                     case "make_desc":
-                        query = query.OrderByDescending(q => q.VehicleMakeId);
+                        query = query.OrderByDescending(q => q.VehicleMake.Name);
                         break;
                     case "Name":
                         query = query.OrderBy(q => q.Name);
@@ -50,7 +51,7 @@ namespace Project.Service.Services
                         query = query.OrderByDescending(q => q.Abrv);
                         break;
                     default:
-                        query = query.OrderBy(q => q.VehicleMakeId);
+                        query = query.OrderBy(q => q.VehicleMake.Name);
                         break;
                 }
 
