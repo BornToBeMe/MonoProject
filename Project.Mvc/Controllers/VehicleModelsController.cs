@@ -154,7 +154,7 @@ namespace Project.Mvc.Controllers
 
         private void PopulateMakesDropDownList(object selectedMake = null)
         {
-            var makeQuery = from d in db.VehicleMakes orderby d.Name select d;
+            var makeQuery = db.VehicleMakes.OrderBy(c => c.Name).AsQueryable();
             ViewBag.VehicleMakeId = new SelectList(makeQuery, "Id", "Name", selectedMake);
         }
 
