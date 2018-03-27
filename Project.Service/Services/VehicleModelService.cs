@@ -13,24 +13,16 @@ namespace Project.Service.Services
 {
     public class VehicleModelService : IVehicleModelService
     {
-        async Task<IPagedList<VehicleModel>> IVehicleModelService.SelectAllAsync(ISorting sorting, ISearch search, IPaging pagination)
+        public async Task<IPagedList<VehicleModel>> SelectAllAsync(ISorting sorting, ISearch search, IPaging pagination)
         {
             using(var context = new CarContext())
             {
                 var query = context.VehicleModels.Include(s => s.VehicleMake).AsQueryable();
 
-                if (search.SearchString != null)
+                if (!String.IsNullOrEmpty(search.CurrentFilter))
                 {
                     pagination.PageNumber = 1;
-                }
-                else
-                {
-                    search.SearchString = search.CurrentFilter;
-                }
-
-                if (!String.IsNullOrEmpty(search.SearchString))
-                {
-                    query = query.Where(q => q.Name.Contains(search.SearchString) || q.Abrv.Contains(search.SearchString));
+                    query = query.Where(q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter));
                 }
 
                 switch (sorting.SortOrder)
@@ -63,7 +55,7 @@ namespace Project.Service.Services
             }
         }
 
-        async Task<VehicleModel> IVehicleModelService.SelectByIDAsync(Guid id)
+        public async Task<VehicleModel> SelectByIDAsync(Guid id)
         {
             using(var context = new CarContext())
             {
@@ -72,19 +64,18 @@ namespace Project.Service.Services
             }
         }
 
-        async Task<bool> IVehicleModelService.InsertAsync(VehicleModel obj)
+        public async Task<bool> InsertAsync(VehicleModel obj)
         {
             using(var context = new CarContext())
             {
                 obj.VehicleModelId = Guid.NewGuid();
                 context.VehicleModels.Add(obj);
                 await context.SaveChangesAsync();
-                bool added = true;
-                return added;
+                return (await context.SaveChangesAsync() > 0);
             }
         }
 
-        async Task<VehicleModel> IVehicleModelService.UpdateAsync(Guid id, VehicleModel vehicleModel)
+        public async Task<VehicleModel> UpdateAsync(Guid id, VehicleModel vehicleModel)
         {
             using(var context = new CarContext())
             {
@@ -96,16 +87,24 @@ namespace Project.Service.Services
             }
         }
 
-        async Task<bool> IVehicleModelService.DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             using(var context = new CarContext())
             {
                 VehicleModel existing = await context.VehicleModels.FindAsync(id);
                 context.VehicleModels.Remove(existing);
                 await context.SaveChangesAsync();
-                bool deleted = true;
-                return deleted;
+                return (await context.SaveChangesAsync() > 0);
             }
+        }
+
+        public IList<VehicleMake> PopulateMakesDropDownList()
+        {
+            using (var context = new CarContext())
+            {
+                return context.VehicleMakes.OrderBy(c => c.Name).ToList();
+            }
+
         }
     }
 }

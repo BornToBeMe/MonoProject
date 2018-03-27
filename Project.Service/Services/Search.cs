@@ -8,7 +8,6 @@ namespace Project.Service.Services
 {
     public class Search : ISearch
     {
-        public string SearchString { get; set; }
         public string CurrentFilter { get; set; }
     }
 }

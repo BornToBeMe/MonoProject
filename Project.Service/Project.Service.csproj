@@ -67,7 +67,6 @@
     <Compile Include="Services\Sorting.cs" />
     <Compile Include="Services\VehicleMakeService.cs" />
     <Compile Include="Services\VehicleModelService.cs" />
-    <Compile Include="ViewModels\MakeVM.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

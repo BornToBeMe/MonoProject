@@ -15,5 +15,6 @@ namespace Project.Service.Services
         Task<bool> InsertAsync(VehicleModel obj);
         Task<VehicleModel> UpdateAsync(Guid id, VehicleModel vehicleModel);
         Task<bool> DeleteAsync(Guid id);
+        IList<VehicleMake> PopulateMakesDropDownList();
     }
 }

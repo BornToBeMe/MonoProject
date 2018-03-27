@@ -19,7 +19,6 @@ namespace Project.Service.Services
 
     public interface ISearch
     {
-        string SearchString { get; set; }
         string CurrentFilter { get; set; }
     }
 }

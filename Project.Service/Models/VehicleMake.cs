@@ -9,6 +9,7 @@ namespace Project.Service.Models
 {
     public class VehicleMake
     {
+        [Key]
         public Guid Id { get; set; }
         [Required]
         [StringLength(20, MinimumLength = 1)]

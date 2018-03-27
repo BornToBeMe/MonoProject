@@ -12,12 +12,13 @@ using Project.Service.Models;
 using Project.Service.Services;
 using X.PagedList;
 using System.Data.Entity.Infrastructure;
+using AutoMapper;
+using Project.Mvc.ViewModels;
 
 namespace Project.Mvc.Controllers
 {
     public class VehicleMakesController : Controller
     {
-        CarContext db = new CarContext();
         IVehicleMakeService service = new VehicleMakeService();
         ISorting sorting = new Sorting();
         ISearch search = new Search();
@@ -29,7 +30,6 @@ namespace Project.Mvc.Controllers
         {
             sorting.SortOrder = sortOrder;
             search.CurrentFilter = currentFilter;
-            search.SearchString = searchString;
             paging.PageNumber = page;
 
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -48,7 +48,8 @@ namespace Project.Mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             VehicleMake data = await service.SelectByIDAsync(id);
-            return View(data);
+            var dest = Mapper.Map<MakeVM>(data);
+            return View(dest);
         }
 
         // GET: VehicleMakes/Create
@@ -68,7 +69,7 @@ namespace Project.Mvc.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await service.InsertAsync(vehicleMake);
+                    var insert = await service.InsertAsync(vehicleMake);
                     return RedirectToAction("Index");
                 }
             }
@@ -82,16 +83,18 @@ namespace Project.Mvc.Controllers
         // GET: VehicleMakes/Edit/5
         public async Task<ActionResult> Edit(Guid? id)
         {
-            if (id == null)
+            if (id == null && id == Guid.Empty)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VehicleMake vehicleMake = await db.VehicleMakes.FindAsync(id);
-            if (vehicleMake == null)
+            VehicleMake vehicleMake = await service.SelectByIDAsync(id.Value);
+            var dest = Mapper.Map<MakeVM>(vehicleMake);
+            if (dest == null)
             {
                 return HttpNotFound();
             }
-            return View(vehicleMake);
+
+            return View(dest);
         }
 
         // POST: VehicleMakes/Edit/5
@@ -103,7 +106,7 @@ namespace Project.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                await service.UpdateAsync(id, vehicleMake);
+                var update = await service.UpdateAsync(id, vehicleMake);
                 return RedirectToAction("Index");
             }
             return View(vehicleMake);
@@ -116,12 +119,13 @@ namespace Project.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            VehicleMake vehicleMake = await db.VehicleMakes.FindAsync(id);
-            if (vehicleMake == null)
+            VehicleMake vehicleMake = await service.SelectByIDAsync(id.Value);
+            var dest = Mapper.Map<MakeVM>(vehicleMake);
+            if (dest == null)
             {
                 return HttpNotFound();
             }
-            return View(vehicleMake);
+            return View(dest);
         }
 
         // POST: VehicleMakes/Delete/5
@@ -133,7 +137,7 @@ namespace Project.Mvc.Controllers
             {
                 if(id != null)
                 {
-                    await service.DeleteAsync(id);
+                    var delete = await service.DeleteAsync(id);
                     return RedirectToAction("Index");
                 }
                 else
@@ -146,15 +150,6 @@ namespace Project.Mvc.Controllers
 
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }    
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

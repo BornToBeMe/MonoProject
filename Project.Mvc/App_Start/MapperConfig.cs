@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
+using Project.Mvc.ViewModels;
 using Project.Service.Models;
-using Project.Service.ViewModels;
 
 namespace Project.Mvc
 {
@@ -15,6 +15,7 @@ namespace Project.Mvc
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<VehicleMake, MakeVM>();
+                cfg.CreateMap<VehicleModel, ModelVM>();
             });
         }
     }

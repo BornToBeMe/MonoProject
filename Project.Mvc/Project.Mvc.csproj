@@ -218,13 +218,14 @@
     <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MakeVMController.cs" />
     <Compile Include="Controllers\VehicleMakesController.cs" />
     <Compile Include="Controllers\VehicleModelsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\MakeVM.cs" />
+    <Compile Include="ViewModels\ModelVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -277,7 +278,6 @@
     <Content Include="Views\VehicleModels\Details.cshtml" />
     <Content Include="Views\VehicleModels\Edit.cshtml" />
     <Content Include="Views\VehicleModels\Index.cshtml" />
-    <Content Include="Views\MakeVM\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,12 +12,12 @@ using Project.Service.Models;
 using X.PagedList;
 using Project.Service.Services;
 using AutoMapper;
+using Project.Mvc.ViewModels;
 
 namespace Project.Mvc.Controllers
 {
     public class VehicleModelsController : Controller
     {
-        CarContext db = new CarContext();
         IVehicleModelService service = new VehicleModelService();
         ISorting sorting = new Sorting();
         ISearch search = new Search();
@@ -29,7 +29,6 @@ namespace Project.Mvc.Controllers
         {
             sorting.SortOrder = sortOrder;
             search.CurrentFilter = currentFilter;
-            search.SearchString = searchString;
             paging.PageNumber = page;
 
             ViewBag.MakeSortParm = String.IsNullOrEmpty(sortOrder) ? "make_desc" : "";
@@ -49,13 +48,16 @@ namespace Project.Mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             VehicleModel data = await service.SelectByIDAsync(id);
-            return View(data);
+            var dest = Mapper.Map<ModelVM>(data);
+            return View(dest);
         }
 
         // GET: VehicleModels/Create
         public ActionResult Create()
         {
-            PopulateMakesDropDownList();
+            ViewBag.Make = service.PopulateMakesDropDownList();
+            //ViewBag.VehicleMakeId = new SelectList(makeQuery, "Id", "Name", selectedMake);
+            //PopulateMakesDropDownList();
             return View();
         }
 
@@ -78,7 +80,7 @@ namespace Project.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
+            //PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
             return View(vehicleModel);
         }
 
@@ -89,13 +91,14 @@ namespace Project.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            VehicleModel vehicleModel = await db.VehicleModels.FindAsync(id);
-            if (vehicleModel == null)
+            VehicleModel vehicleModel = await service.SelectByIDAsync(id.Value);
+            var dest = Mapper.Map<ModelVM>(vehicleModel);
+            if (dest == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
-            return View(vehicleModel);
+            //PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
+            return View(dest);
         }
 
         // POST: VehicleModels/Edit/5
@@ -120,12 +123,13 @@ namespace Project.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            VehicleModel vehicleModel = await db.VehicleModels.FindAsync(id);
-            if (vehicleModel == null)
+            VehicleModel vehicleModel = await service.SelectByIDAsync(id.Value);
+            var dest = Mapper.Map<ModelVM>(vehicleModel);
+            if (dest == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            return View(vehicleModel);
+            return View(dest);
         }
 
         // POST: VehicleModels/Delete/5
@@ -147,24 +151,10 @@ namespace Project.Mvc.Controllers
             }
             catch (Exception)
             {
-
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
 
-        private void PopulateMakesDropDownList(object selectedMake = null)
-        {
-            var makeQuery = db.VehicleMakes.OrderBy(c => c.Name).AsQueryable();
-            ViewBag.VehicleMakeId = new SelectList(makeQuery, "Id", "Name", selectedMake);
-        }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }
