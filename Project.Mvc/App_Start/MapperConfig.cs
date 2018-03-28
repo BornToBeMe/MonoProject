@@ -14,8 +14,8 @@ namespace Project.Mvc
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<VehicleMake, MakeVM>();
-                cfg.CreateMap<VehicleModel, ModelVM>();
+                cfg.CreateMap<VehicleMake, MakeVM>().ReverseMap();
+                cfg.CreateMap<VehicleModel, ModelVM>().ForMember(d => d.MakeVM, opt => opt.MapFrom(s => s)).ReverseMap();
             });
         }
     }

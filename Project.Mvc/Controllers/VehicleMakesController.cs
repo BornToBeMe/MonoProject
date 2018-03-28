@@ -63,13 +63,14 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Abrv")] VehicleMake vehicleMake)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Abrv")] MakeVM makeVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var insert = await service.InsertAsync(vehicleMake);
+                    var dest = Mapper.Map<VehicleMake>(makeVM);
+                    await service.InsertAsync(dest);
                     return RedirectToAction("Index");
                 }
             }
@@ -77,7 +78,7 @@ namespace Project.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(vehicleMake);
+            return View(makeVM);
         }
 
         // GET: VehicleMakes/Edit/5
@@ -102,14 +103,15 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Abrv")] Guid id, VehicleMake vehicleMake)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Abrv")] Guid id, MakeVM makeVM)
         {
             if (ModelState.IsValid)
             {
-                var update = await service.UpdateAsync(id, vehicleMake);
+                var dest = Mapper.Map<VehicleMake>(makeVM);
+                await service.UpdateAsync(id, dest);
                 return RedirectToAction("Index");
             }
-            return View(vehicleMake);
+            return View(makeVM);
         }
 
         // GET: VehicleMakes/Delete/5

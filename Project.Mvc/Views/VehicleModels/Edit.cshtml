@@ -18,10 +18,10 @@
         @Html.HiddenFor(model => model.VehicleModelId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MakeVMId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.VehicleMakeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("MakeVMId", String.Empty)
-                @Html.ValidationMessageFor(model => model.MakeVMId)
+                @Html.DropDownListFor(model => model.MakeVM.Name, new SelectList(ViewBag.Make, "Id", "Name"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MakeVM)
             </div>
         </div>
 

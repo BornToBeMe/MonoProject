@@ -66,13 +66,14 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] VehicleModel vehicleModel)
+        public async Task<ActionResult> Create([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] ModelVM modelVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await service.InsertAsync(vehicleModel);
+                    var dest = Mapper.Map<VehicleModel>(modelVM);
+                    await service.InsertAsync(dest);
                     return RedirectToAction("Index");
                 }
             }
@@ -81,7 +82,7 @@ namespace Project.Mvc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
-            return View(vehicleModel);
+            return View(modelVM);
         }
 
         // GET: VehicleModels/Edit/5
@@ -93,6 +94,7 @@ namespace Project.Mvc.Controllers
             }
             VehicleModel vehicleModel = await service.SelectByIDAsync(id.Value);
             var dest = Mapper.Map<ModelVM>(vehicleModel);
+            ViewBag.Make = service.PopulateMakesDropDownList();
             if (dest == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -106,14 +108,16 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] Guid id, VehicleModel vehicleModel)
+        public async Task<ActionResult> Edit([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] Guid id, ModelVM modelVM)
         {
             if (ModelState.IsValid)
             {
-                await service.UpdateAsync(id, vehicleModel);
+                var dest = Mapper.Map<VehicleModel>(modelVM);
+                await service.UpdateAsync(id, dest);
+
                 return RedirectToAction("Index");
             }
-            return View(vehicleModel);
+            return View(modelVM);
         }
 
         // GET: VehicleModels/Delete/5

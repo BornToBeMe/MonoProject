@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Service.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace Project.Mvc.ViewModels
         public string Name { get; set; }
         public string Abrv { get; set; }
 
-        public Guid MakeVMId { get; set; }
+        public Guid VehicleMakeId { get; set; }
 
         public virtual MakeVM MakeVM { get; set; }
     }
