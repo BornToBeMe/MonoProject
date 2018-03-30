@@ -98,11 +98,12 @@ namespace Project.Service.Services
             }
         }
 
-        public IList<VehicleMake> PopulateMakesDropDownList()
+        public IList<VehicleMake> PopulateMakesDropDownList(object selected = null)
         {
             using (var context = new CarContext())
             {
-                return context.VehicleMakes.OrderBy(c => c.Name).ToList();
+                List<VehicleMake> makes = context.VehicleMakes.OrderBy(c => c.Name).ToList();
+                return makes;
             }
 
         }
