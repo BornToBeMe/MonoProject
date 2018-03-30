@@ -55,10 +55,7 @@ namespace Project.Mvc.Controllers
         // GET: VehicleModels/Create
         public ActionResult Create()
         {
-            IList<VehicleMake> list = service.PopulateMakesDropDownList();
-            ViewBag.Make = new SelectList(list, "Id", "Name");
-            //ViewBag.VehicleMakeId = new SelectList(makeQuery, "Id", "Name", selectedMake);
-            //PopulateMakesDropDownList();
+            ViewBag.Make = service.PopulateMakesDropDownList();
             return View();
         }
 
@@ -82,7 +79,6 @@ namespace Project.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
             return View(modelVM);
         }
 
@@ -93,15 +89,13 @@ namespace Project.Mvc.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IList<VehicleMake> list = service.PopulateMakesDropDownList();
-            ViewBag.Make = new SelectList(list, "Id", "Name");
+            ViewBag.Make = service.PopulateMakesDropDownList();
             VehicleModel vehicleModel = await service.SelectByIDAsync(id.Value);
             var dest = Mapper.Map<ModelVM>(vehicleModel);
             if (dest == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
-            //PopulateMakesDropDownList(vehicleModel.VehicleMakeId);
             return View(dest);
         }
 

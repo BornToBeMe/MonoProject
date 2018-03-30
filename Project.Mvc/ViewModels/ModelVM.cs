@@ -13,7 +13,5 @@ namespace Project.Mvc.ViewModels
         public string Abrv { get; set; }
 
         public Guid VehicleMakeId { get; set; }
-
-        public virtual MakeVM MakeVM { get; set; }
     }
 }
