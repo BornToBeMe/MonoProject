@@ -27,19 +27,19 @@ namespace Project.Service.Services
 
                 switch (sorting.SortOrder)
                 {
-                    case "make_desc":
+                    case "Make_desc":
                         query = query.OrderByDescending(q => q.VehicleMake.Name);
                         break;
                     case "Name":
                         query = query.OrderBy(q => q.Name);
                         break;
-                    case "name_desc":
+                    case "Name_desc":
                         query = query.OrderByDescending(q => q.Name);
                         break;
                     case "Abrv":
                         query = query.OrderBy(q => q.Abrv);
                         break;
-                    case "abrv_desc":
+                    case "Abrv_desc":
                         query = query.OrderByDescending(q => q.Abrv);
                         break;
                     default:
@@ -47,10 +47,10 @@ namespace Project.Service.Services
                         break;
                 }
 
-                pagination.PageSize = 3;
+                int pageSize = (pagination.PageSize ?? 3);
                 int pageNumber = (pagination.PageNumber ?? 1);
 
-                IPagedList<VehicleModel> data = await query.ToPagedListAsync(pageNumber, pagination.PageSize);
+                IPagedList<VehicleModel> data = await query.ToPagedListAsync(pageNumber, pageSize);
                 return data;
             }
         }
@@ -80,8 +80,12 @@ namespace Project.Service.Services
             using(var context = new CarContext())
             {
                 var entity = await context.VehicleModels.FindAsync(id);
-                context.Entry(entity).CurrentValues.SetValues(vehicleModel);
-                await context.SaveChangesAsync();
+                if(entity != null)
+                {
+                    context.Entry(entity).CurrentValues.SetValues(vehicleModel);
+                    await context.SaveChangesAsync();
+                }
+
 
                 return entity;
             }
@@ -105,7 +109,7 @@ namespace Project.Service.Services
                 List<VehicleMake> makes = context.VehicleMakes.OrderBy(c => c.Name).ToList();
                 return makes;
             }
-
         }
+        
     }
 }

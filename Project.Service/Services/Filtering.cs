@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Project.Service.Services
 {
-    public class Search : ISearch
+    public class Filtering : IPaging, ISorting, ISearch
     {
+        public int? PageNumber { get; set; }
+        public int? PageSize { get; set; }
+
+        public string SortOrder { get; set; }
+
         public string CurrentFilter { get; set; }
     }
 }

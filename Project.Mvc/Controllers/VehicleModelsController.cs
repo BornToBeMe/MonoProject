@@ -19,9 +19,9 @@ namespace Project.Mvc.Controllers
     public class VehicleModelsController : Controller
     {
         IVehicleModelService service = new VehicleModelService();
-        ISorting sorting = new Sorting();
-        ISearch search = new Search();
-        IPaging paging = new Paging();
+        ISorting sorting = new Filtering();
+        ISearch search = new Filtering();
+        IPaging paging = new Filtering();
 
 
         // GET: VehicleModels
@@ -31,9 +31,9 @@ namespace Project.Mvc.Controllers
             search.CurrentFilter = currentFilter;
             paging.PageNumber = page;
 
-            ViewBag.MakeSortParm = String.IsNullOrEmpty(sortOrder) ? "make_desc" : "";
-            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
-            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
+            ViewBag.MakeSortParm = String.IsNullOrEmpty(sortOrder) ? "Make_desc" : "";
+            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "Abrv_desc" : "Abrv";
+            ViewBag.NameSortParm = sortOrder == "Name" ? "Name_desc" : "Name";
             ViewBag.CurrentSort = sortOrder;
 
             IPagedList<VehicleModel> data = await service.SelectAllAsync(sorting, search, paging);
@@ -88,6 +88,10 @@ namespace Project.Mvc.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if(id == Guid.Empty)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             ViewBag.Make = service.PopulateMakesDropDownList();
             VehicleModel vehicleModel = await service.SelectByIDAsync(id.Value);

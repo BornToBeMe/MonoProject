@@ -9,7 +9,7 @@ namespace Project.Service.Services
     public interface IPaging
     {
         int? PageNumber { get; set; }
-        int PageSize { get; set; }
+        int? PageSize { get; set; }
     }
 
     public interface ISorting

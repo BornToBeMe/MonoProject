@@ -20,21 +20,31 @@ namespace Project.Mvc.Controllers
     public class VehicleMakesController : Controller
     {
         IVehicleMakeService service = new VehicleMakeService();
-        ISorting sorting = new Sorting();
-        ISearch search = new Search();
-        IPaging paging = new Paging();
+        ISorting sorting = new Filtering();
+        ISearch search = new Filtering();
+        IPaging paging = new Filtering();
          
 
         // GET: VehicleMakes
-        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page, int? pageSize)
         {
             sorting.SortOrder = sortOrder;
             search.CurrentFilter = currentFilter;
             paging.PageNumber = page;
+            paging.PageSize = pageSize;
 
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "Abrv_desc" : "Abrv";
             ViewBag.CurrentSort = sortOrder;
+
+            ViewBag.PageSize = new List<SelectListItem>()
+            {
+                new SelectListItem() { Value="3", Text="3"},
+                new SelectListItem() { Value="5", Text="5"},
+                new SelectListItem() { Value="10", Text="10"}
+            };
+
+            ViewBag.psize = (pageSize ?? 3);
 
             IPagedList<VehicleMake> data = await service.SelectAllAsync(sorting, search, paging);
             return View(data);
@@ -84,15 +94,19 @@ namespace Project.Mvc.Controllers
         // GET: VehicleMakes/Edit/5
         public async Task<ActionResult> Edit(Guid? id)
         {
-            if (id == null && id == Guid.Empty)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if(id == Guid.Empty)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             VehicleMake vehicleMake = await service.SelectByIDAsync(id.Value);
             var dest = Mapper.Map<MakeVM>(vehicleMake);
             if (dest == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
             return View(dest);
@@ -125,7 +139,7 @@ namespace Project.Mvc.Controllers
             var dest = Mapper.Map<MakeVM>(vehicleMake);
             if (dest == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
             return View(dest);
         }

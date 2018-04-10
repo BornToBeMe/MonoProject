@@ -14,9 +14,11 @@
         Find by name: @Html.TextBox("CurrentFilter", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
+    <p>
+        <span>Page Size: @Html.DropDownList("pageSize")</span>
+        <input type="submit" value="Ok" />
+    </p>
 }
-
-
 
 <table class="table">
     <tr>
@@ -48,4 +50,4 @@
 <br />
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.psize, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

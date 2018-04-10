@@ -27,13 +27,13 @@ namespace Project.Service.Services
 
                 switch (sortOrder.SortOrder)
                 {
-                    case "name_desc":
+                    case "Name_desc":
                         query = query.OrderByDescending(q => q.Name);
                         break;
                     case "Abrv":
                         query = query.OrderBy(q => q.Abrv);
                         break;
-                    case "abrv_desc":
+                    case "Abrv_desc":
                         query = query.OrderByDescending(q => q.Abrv);
                         break;
                     default:
@@ -41,10 +41,10 @@ namespace Project.Service.Services
                         break;
                 }
 
-                pagination.PageSize = 3;
+                int pageSize = (pagination.PageSize ?? 3);
                 int pageNumber = (pagination.PageNumber ?? 1);
 
-                IPagedList<VehicleMake> data = await query.ToPagedListAsync(pageNumber, pagination.PageSize);
+                IPagedList<VehicleMake> data = await query.ToPagedListAsync(pageNumber, pageSize);
                 return data;
             }
         }
@@ -74,8 +74,12 @@ namespace Project.Service.Services
             using (var context = new CarContext())
             {
                 var entity = await context.VehicleMakes.FindAsync(id);
-                context.Entry(entity).CurrentValues.SetValues(vehicleMake);
-                await context.SaveChangesAsync();
+                if(entity != null)
+                {
+                    context.Entry(entity).CurrentValues.SetValues(vehicleMake);
+                    await context.SaveChangesAsync();
+                }
+
 
                 return entity;
             }
