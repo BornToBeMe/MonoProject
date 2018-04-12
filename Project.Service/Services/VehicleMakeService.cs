@@ -58,7 +58,7 @@ namespace Project.Service.Services
             }
         }
 
-        public async Task<bool> InsertAsync(VehicleMake obj)
+        public async Task<bool> CreateAsync(VehicleMake obj)
         {
             using (var context = new CarContext())
             {
@@ -69,17 +69,17 @@ namespace Project.Service.Services
             }
         }
 
-        public async Task<VehicleMake> UpdateAsync(Guid id, VehicleMake vehicleMake)
+        public async Task<VehicleMake> EditAsync(Guid id, VehicleMake vehicleMake)
         {
             using (var context = new CarContext())
             {
                 var entity = await context.VehicleMakes.FindAsync(id);
-                if(entity != null)
+                if(entity == null)
                 {
-                    context.Entry(entity).CurrentValues.SetValues(vehicleMake);
-                    await context.SaveChangesAsync();
+                    throw new ArgumentNullException();
                 }
-
+                context.Entry(entity).CurrentValues.SetValues(vehicleMake);
+                await context.SaveChangesAsync();
 
                 return entity;
             }

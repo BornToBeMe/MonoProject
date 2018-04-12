@@ -15,7 +15,7 @@ namespace Project.Service.Services
     {
         public async Task<IPagedList<VehicleModel>> SelectAllAsync(ISorting sorting, ISearch search, IPaging pagination)
         {
-            using(var context = new CarContext())
+            using (var context = new CarContext())
             {
                 var query = context.VehicleModels.Include(s => s.VehicleMake).AsQueryable();
 
@@ -57,16 +57,16 @@ namespace Project.Service.Services
 
         public async Task<VehicleModel> SelectByIDAsync(Guid id)
         {
-            using(var context = new CarContext())
+            using (var context = new CarContext())
             {
                 VehicleModel model = await context.VehicleModels.Where(c => c.VehicleModelId == id).SingleOrDefaultAsync();
                 return model;
             }
         }
 
-        public async Task<bool> InsertAsync(VehicleModel obj)
+        public async Task<bool> CreateAsync(VehicleModel obj)
         {
-            using(var context = new CarContext())
+            using (var context = new CarContext())
             {
                 obj.VehicleModelId = Guid.NewGuid();
                 context.VehicleModels.Add(obj);
@@ -75,17 +75,17 @@ namespace Project.Service.Services
             }
         }
 
-        public async Task<VehicleModel> UpdateAsync(Guid id, VehicleModel vehicleModel)
+        public async Task<VehicleModel> EditAsync(Guid id, VehicleModel vehicleModel)
         {
-            using(var context = new CarContext())
+            using (var context = new CarContext())
             {
                 var entity = await context.VehicleModels.FindAsync(id);
-                if(entity != null)
+                if(entity == null)
                 {
-                    context.Entry(entity).CurrentValues.SetValues(vehicleModel);
-                    await context.SaveChangesAsync();
+                    throw new ArgumentNullException();
                 }
-
+                context.Entry(entity).CurrentValues.SetValues(vehicleModel);
+                await context.SaveChangesAsync();
 
                 return entity;
             }
@@ -93,7 +93,7 @@ namespace Project.Service.Services
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            using(var context = new CarContext())
+            using (var context = new CarContext())
             {
                 VehicleModel existing = await context.VehicleModels.FindAsync(id);
                 context.VehicleModels.Remove(existing);

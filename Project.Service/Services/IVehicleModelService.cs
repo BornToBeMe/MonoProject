@@ -12,8 +12,8 @@ namespace Project.Service.Services
     {
         Task<IPagedList<VehicleModel>> SelectAllAsync(ISorting sorting, ISearch search, IPaging pagination);
         Task<VehicleModel> SelectByIDAsync(Guid id);
-        Task<bool> InsertAsync(VehicleModel obj);
-        Task<VehicleModel> UpdateAsync(Guid id, VehicleModel vehicleModel);
+        Task<bool> CreateAsync(VehicleModel obj);
+        Task<VehicleModel> EditAsync(Guid id, VehicleModel vehicleModel);
         Task<bool> DeleteAsync(Guid id);
         IList<VehicleMake> PopulateMakesDropDownList();
     }

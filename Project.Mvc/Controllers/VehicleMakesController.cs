@@ -20,14 +20,14 @@ namespace Project.Mvc.Controllers
     public class VehicleMakesController : Controller
     {
         IVehicleMakeService service = new VehicleMakeService();
-        ISorting sorting = new Filtering();
-        ISearch search = new Filtering();
-        IPaging paging = new Filtering();
-         
 
         // GET: VehicleMakes
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page, int? pageSize)
         {
+            ISorting sorting = new Filtering();
+            ISearch search = new Filtering();
+            IPaging paging = new Filtering();
+
             sorting.SortOrder = sortOrder;
             search.CurrentFilter = currentFilter;
             paging.PageNumber = page;
@@ -80,13 +80,14 @@ namespace Project.Mvc.Controllers
                 if (ModelState.IsValid)
                 {
                     var dest = Mapper.Map<VehicleMake>(makeVM);
-                    await service.InsertAsync(dest);
+                    await service.CreateAsync(dest);
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                // throw ex;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
             return View(makeVM);
         }
@@ -96,7 +97,7 @@ namespace Project.Mvc.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Id cannot be null");
             }
             if(id == Guid.Empty)
             {
@@ -122,7 +123,7 @@ namespace Project.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var dest = Mapper.Map<VehicleMake>(makeVM);
-                await service.UpdateAsync(id, dest);
+                await service.EditAsync(id, dest);
                 return RedirectToAction("Index");
             }
             return View(makeVM);
@@ -161,10 +162,10 @@ namespace Project.Mvc.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.NotFound);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                // throw ex;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }    
         }
     }

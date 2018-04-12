@@ -19,22 +19,32 @@ namespace Project.Mvc.Controllers
     public class VehicleModelsController : Controller
     {
         IVehicleModelService service = new VehicleModelService();
-        ISorting sorting = new Filtering();
-        ISearch search = new Filtering();
-        IPaging paging = new Filtering();
-
 
         // GET: VehicleModels
-        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page, int? pageSize)
         {
+            ISorting sorting = new Filtering();
+            ISearch search = new Filtering();
+            IPaging paging = new Filtering();
+
             sorting.SortOrder = sortOrder;
             search.CurrentFilter = currentFilter;
             paging.PageNumber = page;
+            paging.PageSize = pageSize;
 
             ViewBag.MakeSortParm = String.IsNullOrEmpty(sortOrder) ? "Make_desc" : "";
             ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "Abrv_desc" : "Abrv";
             ViewBag.NameSortParm = sortOrder == "Name" ? "Name_desc" : "Name";
             ViewBag.CurrentSort = sortOrder;
+
+            ViewBag.PageSize = new List<SelectListItem>()
+            {
+                new SelectListItem() { Value="3", Text="3"},
+                new SelectListItem() { Value="5", Text="5"},
+                new SelectListItem() { Value="10", Text="10"}
+            };
+
+            ViewBag.psize = (pageSize ?? 3);
 
             IPagedList<VehicleModel> data = await service.SelectAllAsync(sorting, search, paging);
             return View(data);
@@ -71,13 +81,14 @@ namespace Project.Mvc.Controllers
                 if (ModelState.IsValid)
                 {
                     var dest = Mapper.Map<VehicleModel>(modelVM);
-                    await service.InsertAsync(dest);
+                    await service.CreateAsync(dest);
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                // throw ex;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
             return View(modelVM);
         }
@@ -87,7 +98,7 @@ namespace Project.Mvc.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Id cannot be null");
             }
             if(id == Guid.Empty)
             {
@@ -113,7 +124,7 @@ namespace Project.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 var dest = Mapper.Map<VehicleModel>(modelVM);
-                await service.UpdateAsync(id, dest);
+                await service.EditAsync(id, dest);
 
                 return RedirectToAction("Index");
             }
@@ -153,9 +164,10 @@ namespace Project.Mvc.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.NotFound);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                // throw ex;
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
         }
 
