@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Project.Service.DAL;
-using Project.Service.Models;
+using Project.Service;
 using Project.Service.Services;
 using X.PagedList;
 using System.Data.Entity.Infrastructure;
