@@ -51,15 +51,9 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleModels/Details/5
-        public async Task<ActionResult> Details(Guid id)
+        public async Task<ActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            VehicleModel data = await service.SelectByIDAsync(id);
-            var dest = Mapper.Map<ModelVM>(data);
-            return View(dest);
+            return await ViewPage(id);
         }
 
         // GET: VehicleModels/Create
@@ -96,22 +90,8 @@ namespace Project.Mvc.Controllers
         // GET: VehicleModels/Edit/5
         public async Task<ActionResult> Edit(Guid? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Id cannot be null");
-            }
-            if(id == Guid.Empty)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
             ViewBag.Make = service.PopulateMakesDropDownList();
-            VehicleModel vehicleModel = await service.SelectByIDAsync(id.Value);
-            var dest = Mapper.Map<ModelVM>(vehicleModel);
-            if (dest == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            return View(dest);
+            return await ViewPage(id);
         }
 
         // POST: VehicleModels/Edit/5
@@ -134,17 +114,7 @@ namespace Project.Mvc.Controllers
         // GET: VehicleModels/Delete/5
         public async Task<ActionResult> Delete(Guid? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            VehicleModel vehicleModel = await service.SelectByIDAsync(id.Value);
-            var dest = Mapper.Map<ModelVM>(vehicleModel);
-            if (dest == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            return View(dest);
+            return await ViewPage(id);
         }
 
         // POST: VehicleModels/Delete/5
@@ -171,6 +141,24 @@ namespace Project.Mvc.Controllers
             }
         }
 
+        public async Task<ActionResult> ViewPage(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Id cannot be null");
+            }
+            if (id == Guid.Empty)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
 
+            VehicleModel vehicleModel = await service.SelectByIDAsync(id.Value);
+            var dest = Mapper.Map<ModelVM>(vehicleModel);
+            if (dest == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return View(dest);
+        }
     }
 }
