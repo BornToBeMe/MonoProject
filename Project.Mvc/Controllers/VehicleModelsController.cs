@@ -53,7 +53,7 @@ namespace Project.Mvc.Controllers
         // GET: VehicleModels/Details/5
         public async Task<ActionResult> Details(Guid? id)
         {
-            return await ViewPage(id);
+            return await ViewPageAsync(id);
         }
 
         // GET: VehicleModels/Create
@@ -91,7 +91,7 @@ namespace Project.Mvc.Controllers
         public async Task<ActionResult> Edit(Guid? id)
         {
             ViewBag.Make = service.PopulateMakesDropDownList();
-            return await ViewPage(id);
+            return await ViewPageAsync(id);
         }
 
         // POST: VehicleModels/Edit/5
@@ -114,7 +114,7 @@ namespace Project.Mvc.Controllers
         // GET: VehicleModels/Delete/5
         public async Task<ActionResult> Delete(Guid? id)
         {
-            return await ViewPage(id);
+            return await ViewPageAsync(id);
         }
 
         // POST: VehicleModels/Delete/5
@@ -141,7 +141,7 @@ namespace Project.Mvc.Controllers
             }
         }
 
-        public async Task<ActionResult> ViewPage(Guid? id)
+        public async Task<ActionResult> ViewPageAsync(Guid? id)
         {
             if (id == null)
             {
