@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using Project.Mvc.ViewModels;
-using Project.Service.Models;
+using Project.Service;
 
 namespace Project.Mvc
 {

@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Project.Service.DAL;
-using Project.Service.Models;
+using Project.Service;
 using Project.Service.Services;
 using X.PagedList;
 using System.Data.Entity.Infrastructure;
@@ -51,15 +51,9 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Details/5
-        public async Task<ActionResult> Details(Guid id)
+        public async Task<ActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            VehicleMake data = await service.SelectByIDAsync(id);
-            var dest = Mapper.Map<MakeVM>(data);
-            return View(dest);
+            return await ViewPageAsync(id);
         }
 
         // GET: VehicleMakes/Create
@@ -95,22 +89,7 @@ namespace Project.Mvc.Controllers
         // GET: VehicleMakes/Edit/5
         public async Task<ActionResult> Edit(Guid? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Id cannot be null");
-            }
-            if(id == Guid.Empty)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            VehicleMake vehicleMake = await service.SelectByIDAsync(id.Value);
-            var dest = Mapper.Map<MakeVM>(vehicleMake);
-            if (dest == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-
-            return View(dest);
+            return await ViewPageAsync(id);
         }
 
         // POST: VehicleMakes/Edit/5
@@ -132,17 +111,7 @@ namespace Project.Mvc.Controllers
         // GET: VehicleMakes/Delete/5
         public async Task<ActionResult> Delete(Guid? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            VehicleMake vehicleMake = await service.SelectByIDAsync(id.Value);
-            var dest = Mapper.Map<MakeVM>(vehicleMake);
-            if (dest == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
-            }
-            return View(dest);
+            return await ViewPageAsync(id);
         }
 
         // POST: VehicleMakes/Delete/5
@@ -167,6 +136,25 @@ namespace Project.Mvc.Controllers
                 // throw ex;
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }    
+        }
+
+        public async Task<ActionResult> ViewPageAsync(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Id cannot be null");
+            }
+            if (id == Guid.Empty)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            VehicleMake vehicleMake = await service.SelectByIDAsync(id.Value);
+            var dest = Mapper.Map<MakeVM>(vehicleMake);
+            if (dest == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+            return View(dest);
         }
     }
 }

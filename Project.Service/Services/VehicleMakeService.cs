@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Project.Service.DAL;
-using Project.Service.Models;
+using Project.Service;
 using System;
 using System.Collections.Generic;
 using System.Data;
