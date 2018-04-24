@@ -11,15 +11,4 @@ namespace Project.Service.Services
         int? PageNumber { get; set; }
         int? PageSize { get; set; }
     }
-
-    public interface ISorting
-    {
-        string SortOrder { get; set; }
-    }
-
-    public interface ISearch
-    {
-        string CurrentFilter { get; set; }
-    }
 }
-

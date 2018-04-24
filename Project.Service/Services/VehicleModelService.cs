@@ -21,7 +21,6 @@ namespace Project.Service.Services
 
                 if (!String.IsNullOrEmpty(search.CurrentFilter))
                 {
-                    pagination.PageNumber = 1;
                     query = query.Where(q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter) || q.VehicleMake.Name.Contains(search.CurrentFilter));
                 }
 

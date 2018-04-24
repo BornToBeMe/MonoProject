@@ -24,9 +24,9 @@ namespace Project.Mvc.Controllers
         // GET: VehicleMakes
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page, int? pageSize)
         {
-            ISorting sorting = new Filtering();
-            ISearch search = new Filtering();
-            IPaging paging = new Filtering();
+            ISorting sorting = new Sorting();
+            ISearch search = new Search();
+            IPaging paging = new Paging();
 
             sorting.SortOrder = sortOrder;
             search.CurrentFilter = currentFilter;
@@ -45,6 +45,7 @@ namespace Project.Mvc.Controllers
             };
 
             ViewBag.psize = (pageSize ?? 3);
+            ViewBag.CurrentFilter = currentFilter;
 
             IPagedList<VehicleMake> data = await service.SelectAllAsync(sorting, search, paging);
             return View(data);
