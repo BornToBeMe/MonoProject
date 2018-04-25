@@ -11,7 +11,6 @@ using Project.Service.DAL;
 using Project.Service;
 using Project.Service.Services;
 using X.PagedList;
-using System.Data.Entity.Infrastructure;
 using AutoMapper;
 using Project.Mvc.ViewModels;
 
@@ -22,20 +21,20 @@ namespace Project.Mvc.Controllers
         IVehicleMakeService service = new VehicleMakeService();
 
         // GET: VehicleMakes
-        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page, int? pageSize)
+        public async Task<ActionResult> IndexAsync(string sortBy, string currentFilter, string searchString, int? page, int? pageSize, bool ascending = true)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();
             IPaging paging = new Paging();
 
-            sorting.SortOrder = sortOrder;
+            sorting.SortBy = sortBy;
+            sorting.SortAscending = ascending;
             search.CurrentFilter = currentFilter;
             paging.PageNumber = page;
             paging.PageSize = pageSize;
 
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
-            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "Abrv_desc" : "Abrv";
-            ViewBag.CurrentSort = sortOrder;
+            ViewBag.Ascending = !ascending;
+            ViewBag.CurrentSort = sortBy;
 
             ViewBag.PageSize = new List<SelectListItem>()
             {
@@ -44,7 +43,7 @@ namespace Project.Mvc.Controllers
                 new SelectListItem() { Value="10", Text="10"}
             };
 
-            ViewBag.psize = (pageSize ?? 3);
+            ViewBag.Size = (pageSize ?? 3);
             ViewBag.CurrentFilter = currentFilter;
 
             IPagedList<VehicleMake> data = await service.SelectAllAsync(sorting, search, paging);
@@ -52,12 +51,13 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Details/5
-        public async Task<ActionResult> Details(Guid? id)
+        public async Task<ActionResult> DetailsAsync(Guid? id)
         {
             return await ViewPageAsync(id);
         }
 
         // GET: VehicleMakes/Create
+        [ActionName("CreateAsync")]
         public ActionResult Create()
         {
             return View();
@@ -68,7 +68,7 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Abrv")] MakeVM makeVM)
+        public async Task<ActionResult> CreateAsync([Bind(Include = "Id,Name,Abrv")] MakeVM makeVM)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Project.Mvc.Controllers
                 {
                     var dest = Mapper.Map<VehicleMake>(makeVM);
                     await service.CreateAsync(dest);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("");
                 }
             }
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Edit/5
-        public async Task<ActionResult> Edit(Guid? id)
+        public async Task<ActionResult> EditAsync(Guid? id)
         {
             return await ViewPageAsync(id);
         }
@@ -98,34 +98,34 @@ namespace Project.Mvc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Abrv")] Guid id, MakeVM makeVM)
+        public async Task<ActionResult> EditAsync([Bind(Include = "Id,Name,Abrv")] Guid id, MakeVM makeVM)
         {
             if (ModelState.IsValid)
             {
                 var dest = Mapper.Map<VehicleMake>(makeVM);
                 await service.EditAsync(id, dest);
-                return RedirectToAction("Index");
+                return RedirectToAction("");
             }
             return View(makeVM);
         }
 
         // GET: VehicleMakes/Delete/5
-        public async Task<ActionResult> Delete(Guid? id)
+        public async Task<ActionResult> DeleteAsync(Guid? id)
         {
             return await ViewPageAsync(id);
         }
 
         // POST: VehicleMakes/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteAsync")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(Guid id)
+        public async Task<ActionResult> DeleteConfirmedAsync(Guid id)
         {
             try
             {
                 if(id != null)
                 {
-                    var delete = await service.DeleteAsync(id);
-                    return RedirectToAction("Index");
+                    await service.DeleteAsync(id);
+                    return RedirectToAction("");
                 }
                 else
                 {
