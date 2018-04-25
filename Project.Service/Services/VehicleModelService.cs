@@ -13,7 +13,7 @@ namespace Project.Service.Services
 {
     public class VehicleModelService : IVehicleModelService
     {
-        public async Task<IPagedList<VehicleModel>> SelectAllAsync(ISorting sorting, ISearch search, IPaging pagination)
+        public async Task<IPagedList<VehicleModel>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
             using (var context = new CarContext())
             {
@@ -21,30 +21,45 @@ namespace Project.Service.Services
 
                 if (!String.IsNullOrEmpty(search.CurrentFilter))
                 {
-                    pagination.PageNumber = 1;
                     query = query.Where(q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter) || q.VehicleMake.Name.Contains(search.CurrentFilter));
                 }
 
-                switch (sorting.SortOrder)
+                if (sortBy.SortBy == "Make")
                 {
-                    case "Make_desc":
-                        query = query.OrderByDescending(q => q.VehicleMake.Name);
-                        break;
-                    case "Name":
-                        query = query.OrderBy(q => q.Name);
-                        break;
-                    case "Name_desc":
-                        query = query.OrderByDescending(q => q.Name);
-                        break;
-                    case "Abrv":
-                        query = query.OrderBy(q => q.Abrv);
-                        break;
-                    case "Abrv_desc":
-                        query = query.OrderByDescending(q => q.Abrv);
-                        break;
-                    default:
+                    if (sortBy.SortAscending)
+                    {
                         query = query.OrderBy(q => q.VehicleMake.Name);
-                        break;
+                    }
+                    else
+                    {
+                        query = query.OrderByDescending(q => q.VehicleMake.Name);
+                    }
+                }
+                else if (sortBy.SortBy == "Name")
+                {
+                    if (sortBy.SortAscending)
+                    {
+                        query = query.OrderBy(q => q.Name);
+                    }
+                    else
+                    {
+                        query = query.OrderByDescending(q => q.Name);
+                    }
+                }
+                else if (sortBy.SortBy == "Abrv")
+                {
+                    if (sortBy.SortAscending)
+                    {
+                        query = query.OrderBy(q => q.Abrv);
+                    }
+                    else
+                    {
+                        query = query.OrderByDescending(q => q.Abrv);
+                    }
+                }
+                else
+                {
+                    query = query.OrderBy(q => q.Name);
                 }
 
                 int pageSize = (pagination.PageSize ?? 3);

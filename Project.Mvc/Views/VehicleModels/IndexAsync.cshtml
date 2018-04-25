@@ -9,10 +9,10 @@
 <h2>Vehicle Models</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateAsync")
 </p>
 
-@using (Html.BeginForm("Index", "VehicleModels", FormMethod.Get))
+@using (Html.BeginForm("IndexAsync", "VehicleModels", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("CurrentFilter", ViewBag.CurrentFilter as string)
@@ -27,13 +27,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Vehicle Make", "Index", new { sortOrder = ViewBag.MakeSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Vehicle Make", "IndexAsync", new { sortBy = "Make", currentFilter = ViewBag.CurrentFilter, ascending = ViewBag.Ascending })
         </th>
         <th>
-            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Name", "IndexAsync", new { sortBy = "Name", currentFilter = ViewBag.CurrentFilter, ascending = ViewBag.Ascending })
         </th>
         <th>
-            @Html.ActionLink("Abrv", "Index", new { sortOrder = ViewBag.AbrvSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Abrv", "IndexAsync", new { sortBy = "Abrv", currentFilter = ViewBag.CurrentFilter, ascending = ViewBag.Ascending })
         </th>
         <th></th>
     </tr>
@@ -51,9 +51,9 @@
                 @Html.DisplayFor(modelItem => item.Abrv)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.VehicleModelId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.VehicleModelId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.VehicleModelId })
+                @Html.ActionLink("Edit", "EditAsync", new { id = item.VehicleModelId }) |
+                @Html.ActionLink("Details", "DetailsAsync", new { id = item.VehicleModelId }) |
+                @Html.ActionLink("Delete", "DeleteAsync", new { id = item.VehicleModelId })
             </td>
         </tr>
     }
@@ -62,4 +62,4 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.psize, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+@Html.PagedListPager(Model, page => Url.Action("IndexAsync", new { page, pageSize = ViewBag.Size, sortBy = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, ascending = ViewBag.Ascending }))
