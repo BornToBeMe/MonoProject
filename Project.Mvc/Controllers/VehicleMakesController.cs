@@ -43,7 +43,7 @@ namespace Project.Mvc.Controllers
                 new SelectListItem() { Value="10", Text="10"}
             };
 
-            ViewBag.Size = (pageSize ?? 3);
+            ViewBag.SizeofPage = (pageSize ?? 3);
             ViewBag.CurrentFilter = currentFilter;
 
             IPagedList<VehicleMake> data = await service.SelectAllAsync(sorting, search, paging);
