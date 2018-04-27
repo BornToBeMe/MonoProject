@@ -85,7 +85,6 @@ namespace Project.Service.Services
             {
                 obj.VehicleModelId = Guid.NewGuid();
                 context.VehicleModels.Add(obj);
-                await context.SaveChangesAsync();
                 return (await context.SaveChangesAsync() > 0);
             }
         }
@@ -112,7 +111,6 @@ namespace Project.Service.Services
             {
                 VehicleModel existing = await context.VehicleModels.FindAsync(id);
                 context.VehicleModels.Remove(existing);
-                await context.SaveChangesAsync();
                 return (await context.SaveChangesAsync() > 0);
             }
         }

@@ -268,16 +268,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\VehicleMakes\CreateAsync.cshtml" />
-    <Content Include="Views\VehicleMakes\DeleteAsync.cshtml" />
-    <Content Include="Views\VehicleMakes\DetailsAsync.cshtml" />
-    <Content Include="Views\VehicleMakes\EditAsync.cshtml" />
-    <Content Include="Views\VehicleMakes\IndexAsync.cshtml" />
-    <Content Include="Views\VehicleModels\CreateAsync.cshtml" />
-    <Content Include="Views\VehicleModels\DeleteAsync.cshtml" />
-    <Content Include="Views\VehicleModels\DetailsAsync.cshtml" />
-    <Content Include="Views\VehicleModels\EditAsync.cshtml" />
-    <Content Include="Views\VehicleModels\IndexAsync.cshtml" />
+    <Content Include="Views\VehicleMakes\Create.cshtml" />
+    <Content Include="Views\VehicleMakes\Delete.cshtml" />
+    <Content Include="Views\VehicleMakes\Details.cshtml" />
+    <Content Include="Views\VehicleMakes\Edit.cshtml" />
+    <Content Include="Views\VehicleMakes\Index.cshtml" />
+    <Content Include="Views\VehicleModels\Create.cshtml" />
+    <Content Include="Views\VehicleModels\Delete.cshtml" />
+    <Content Include="Views\VehicleModels\Details.cshtml" />
+    <Content Include="Views\VehicleModels\Edit.cshtml" />
+    <Content Include="Views\VehicleModels\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

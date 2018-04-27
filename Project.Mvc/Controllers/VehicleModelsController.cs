@@ -21,6 +21,7 @@ namespace Project.Mvc.Controllers
         IVehicleModelService service = new VehicleModelService();
 
         // GET: VehicleModels
+        [ActionName("Index")]
         public async Task<ActionResult> IndexAsync(string sortBy, string currentFilter, string searchString, int? page, int? pageSize, bool ascending = true)
         {
             ISorting sorting = new Sorting();
@@ -51,13 +52,13 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleModels/Details/5
+        [ActionName("Details")]
         public async Task<ActionResult> DetailsAsync(Guid? id)
         {
             return await ViewPageAsync(id);
         }
 
         // GET: VehicleModels/Create
-        [ActionName("CreateAsync")]
         public ActionResult Create()
         {
             ViewBag.Make = service.PopulateMakesDropDownList();
@@ -67,7 +68,7 @@ namespace Project.Mvc.Controllers
         // POST: VehicleModels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] ModelVM modelVM)
         {
@@ -89,6 +90,7 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleModels/Edit/5
+        [ActionName("Edit")]
         public async Task<ActionResult> EditAsync(Guid? id)
         {
             ViewBag.Make = service.PopulateMakesDropDownList();
@@ -98,7 +100,7 @@ namespace Project.Mvc.Controllers
         // POST: VehicleModels/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditAsync([Bind(Include = "VehicleModelId,VehicleMakeId,Name,Abrv")] Guid id, ModelVM modelVM)
         {
@@ -113,13 +115,14 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleModels/Delete/5
+        [ActionName("Delete")]
         public async Task<ActionResult> DeleteAsync(Guid? id)
         {
             return await ViewPageAsync(id);
         }
 
         // POST: VehicleModels/Delete/5
-        [HttpPost, ActionName("DeleteAsync")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmedAsync(Guid id)
         {

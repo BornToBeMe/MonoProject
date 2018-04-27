@@ -21,6 +21,7 @@ namespace Project.Mvc.Controllers
         IVehicleMakeService service = new VehicleMakeService();
 
         // GET: VehicleMakes
+        [ActionName("Index")]
         public async Task<ActionResult> IndexAsync(string sortBy, string currentFilter, string searchString, int? page, int? pageSize, bool ascending = true)
         {
             ISorting sorting = new Sorting();
@@ -51,13 +52,13 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Details/5
+        [ActionName("Details")]
         public async Task<ActionResult> DetailsAsync(Guid? id)
         {
             return await ViewPageAsync(id);
         }
 
         // GET: VehicleMakes/Create
-        [ActionName("CreateAsync")]
         public ActionResult Create()
         {
             return View();
@@ -66,7 +67,7 @@ namespace Project.Mvc.Controllers
         // POST: VehicleMakes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync([Bind(Include = "Id,Name,Abrv")] MakeVM makeVM)
         {
@@ -88,6 +89,7 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Edit/5
+        [ActionName("Edit")]
         public async Task<ActionResult> EditAsync(Guid? id)
         {
             return await ViewPageAsync(id);
@@ -96,7 +98,7 @@ namespace Project.Mvc.Controllers
         // POST: VehicleMakes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditAsync([Bind(Include = "Id,Name,Abrv")] Guid id, MakeVM makeVM)
         {
@@ -110,13 +112,14 @@ namespace Project.Mvc.Controllers
         }
 
         // GET: VehicleMakes/Delete/5
+        [ActionName("Delete")]
         public async Task<ActionResult> DeleteAsync(Guid? id)
         {
             return await ViewPageAsync(id);
         }
 
         // POST: VehicleMakes/Delete/5
-        [HttpPost, ActionName("DeleteAsync")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmedAsync(Guid id)
         {
