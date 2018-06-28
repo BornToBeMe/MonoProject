@@ -1,0 +1,12 @@
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\Project.DAL.dll.config
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\Project.DAL.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\Project.DAL.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\EntityFramework.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\EntityFramework.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csprojAssemblyReference.cache
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csproj.CoreCompileInputs.cache
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csproj.CopyComplete
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.pdb

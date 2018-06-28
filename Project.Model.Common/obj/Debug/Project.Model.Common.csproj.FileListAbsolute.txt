@@ -1,0 +1,5 @@
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Model.Common\bin\Debug\Project.Model.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Model.Common\bin\Debug\Project.Model.Common.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Model.Common\obj\Debug\Project.Model.Common.csproj.CoreCompileInputs.cache
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Model.Common\obj\Debug\Project.Model.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Model.Common\obj\Debug\Project.Model.Common.pdb

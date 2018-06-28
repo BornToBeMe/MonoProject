@@ -55,41 +55,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CarsDatabase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CarsDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\CarInitializer.cs" />
+    <Compile Include="ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IPaging.cs" />
-    <Compile Include="Services\ISearch.cs" />
-    <Compile Include="Services\ISorting.cs" />
-    <Compile Include="Services\IVehicleMakeService.cs" />
-    <Compile Include="Services\IVehicleModelService.cs" />
-    <Compile Include="Services\Paging.cs" />
-    <Compile Include="Services\Search.cs" />
-    <Compile Include="Services\Sorting.cs" />
-    <Compile Include="Services\VehicleMakeService.cs" />
-    <Compile Include="Services\VehicleModelService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="CarsDatabase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CarsDatabase.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="EF.Reverse.POCO.Core.ttinclude" />
-    <None Include="EF.Reverse.POCO.ttinclude" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Project.DAL\Project.DAL.csproj">
+      <Project>{09274da2-80ea-4d27-b23b-55912378f002}</Project>
+      <Name>Project.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Model.Common\Project.Model.Common.csproj">
+      <Project>{AA779AB6-8B09-4534-A493-1FA2B41CFEB4}</Project>
+      <Name>Project.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Repository.Common\Project.Repository.Common.csproj">
+      <Project>{AC3AAE4F-035E-4292-8DA7-DFD0B50B80CE}</Project>
+      <Name>Project.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Service.Common\Project.Service.Common.csproj">
+      <Project>{8657a126-e034-4bdd-94d6-eb656e8c7863}</Project>
+      <Name>Project.Service.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

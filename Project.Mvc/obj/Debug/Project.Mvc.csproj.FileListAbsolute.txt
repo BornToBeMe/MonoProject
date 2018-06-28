@@ -41,7 +41,6 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\Microsoft.AI.ServerTe
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\Microsoft.AI.Web.xml
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\EntityFramework.xml
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\obj\Debug\Project.Mvc.csprojResolveAssemblyReference.cache
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\obj\Debug\Project.Mvc.csproj.CoreCompileInputs.cache
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\obj\Debug\Project.Mvc.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\obj\Debug\Project.Mvc.pdb
@@ -70,3 +69,11 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\X.PagedList.Mvc.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\AutoMapper.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\AutoMapper.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\System.Net.Http.Formatting.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\System.Web.Http.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\System.Web.Http.WebHost.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\System.Net.Http.Formatting.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\System.Web.Http.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\bin\System.Web.Http.WebHost.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\obj\Debug\Project.Mvc.csprojAssemblyReference.cache
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Mvc\obj\Debug\Project.Mvc.csproj.CopyComplete

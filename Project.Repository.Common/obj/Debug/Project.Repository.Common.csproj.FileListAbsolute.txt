@@ -1,0 +1,9 @@
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\bin\Debug\Project.Repository.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\bin\Debug\Project.Repository.Common.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\bin\Debug\Project.Model.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\bin\Debug\Project.Model.Common.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\obj\Debug\Project.Repository.Common.csprojAssemblyReference.cache
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\obj\Debug\Project.Repository.Common.csproj.CoreCompileInputs.cache
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\obj\Debug\Project.Repository.Common.csproj.CopyComplete
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\obj\Debug\Project.Repository.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Common\obj\Debug\Project.Repository.Common.pdb
