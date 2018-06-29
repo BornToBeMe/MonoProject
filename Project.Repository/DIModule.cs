@@ -25,7 +25,6 @@ namespace Project.Repository
 
             Bind<ICarContext>().To<CarContext>().InSingletonScope();
             Bind<IProjectRepository>().To<ProjectRepository>();
-            Bind<IProjectService>().To<ProjectService>();
         }
     }
 }
