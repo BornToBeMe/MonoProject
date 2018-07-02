@@ -18,12 +18,12 @@ namespace Project.Repository
 
         protected ICarContext Context { get; private set; }
 
-        public List<IVehicleMake> GetVehicleMakes()
+        public List<IVehicleMake> GetAllVehicleMakes()
         {
             return new List<IVehicleMake>(AutoMapper.Mapper.Map<List<Project.Model.VehicleMake>>(Context.VehicleMakes));
         }
 
-        public List<IVehicleModel> GetVehicleModels()
+        public List<IVehicleModel> GetAllVehicleModels()
         {
             return new List<IVehicleModel>(AutoMapper.Mapper.Map<List<Project.Model.VehicleModel>>(Context.VehicleModels));
         }
