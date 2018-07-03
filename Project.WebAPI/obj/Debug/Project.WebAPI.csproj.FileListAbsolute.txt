@@ -108,3 +108,14 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Ninject.Web.Common
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\WebActivatorEx.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Ninject.Web.Common.xml
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Ninject.Web.Common.WebHost.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.DAL.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\EntityFramework.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.DAL.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.DAL.dll.config
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\EntityFramework.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Ninject.WebApi.DependencyResolver.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Service.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Repository.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Service.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Service.dll.config
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Repository.Common.pdb

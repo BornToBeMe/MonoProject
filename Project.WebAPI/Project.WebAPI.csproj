@@ -56,6 +56,9 @@
     <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.1.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.1\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.WebApi.DependencyResolver, Version=0.1.4758.24814, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.WebApi.DependencyResolver.0.1.4758.24814\lib\net45\Ninject.WebApi.DependencyResolver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -205,6 +208,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\readme.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -292,6 +296,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Project.DAL\Project.DAL.csproj">
+      <Project>{09274DA2-80EA-4D27-B23B-55912378F002}</Project>
+      <Name>Project.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Project.Model.Common\Project.Model.Common.csproj">
       <Project>{aa779ab6-8b09-4534-a493-1fa2b41cfeb4}</Project>
       <Name>Project.Model.Common</Name>
@@ -299,6 +307,10 @@
     <ProjectReference Include="..\Project.Service.Common\Project.Service.Common.csproj">
       <Project>{8657a126-e034-4bdd-94d6-eb656e8c7863}</Project>
       <Name>Project.Service.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Service\Project.Service.csproj">
+      <Project>{888aaf62-edbc-49e2-ba86-177c27107940}</Project>
+      <Name>Project.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

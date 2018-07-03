@@ -20,12 +20,12 @@ namespace Project.Service
 
         public List<IVehicleMake> GetAllVehicleMakes()
         {
-            return Repository.GetVehicleMakes().ToList();
+            return Repository.GetAllVehicleMakes().ToList();
         }
 
         public List<IVehicleModel> GetAllVehicleModels()
         {
-            return Repository.GetVehicleModels().ToList();
+            return Repository.GetAllVehicleModels().ToList();
         }
     }
 }
