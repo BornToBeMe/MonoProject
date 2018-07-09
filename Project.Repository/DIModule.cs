@@ -3,8 +3,6 @@ using Project.DAL;
 using Project.Model;
 using Project.Model.Common;
 using Project.Repository.Common;
-using Project.Service;
-using Project.Service.Common;
 using System;
 
 namespace Project.Repository

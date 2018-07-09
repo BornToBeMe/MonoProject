@@ -4,6 +4,7 @@
 namespace Project.WebAPI.App_Start
 {
     using System;
+    using System.Linq;
     using System.Web;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -11,6 +12,7 @@ namespace Project.WebAPI.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
+    using Project.Service.Common;
 
     public static class NinjectWebCommon 
     {
@@ -40,13 +42,20 @@ namespace Project.WebAPI.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var settings = new NinjectSettings();
+            settings.LoadExtensions = true;
+            settings.ExtensionSearchPatterns = settings.ExtensionSearchPatterns.Union(new string[] { "Project.*.dll" }).ToArray();
+
+            var kernel = new StandardKernel(settings);
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-                System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = new Ninject.WebApi.DependencyResolver.NinjectDependencyResolver(kernel);
+
                 RegisterServices(kernel);
+
+                System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = new Ninject.WebApi.DependencyResolver.NinjectDependencyResolver(kernel);
+
                 return kernel;
             }
             catch
@@ -62,7 +71,7 @@ namespace Project.WebAPI.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            var projectService = kernel.Get<Project.Service.Common.IProjectService>();
+            var projectService = kernel.Get<IProjectService>();
         }        
     }
 }

@@ -73,13 +73,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Project.DAL\Project.DAL.csproj">
-      <Project>{09274da2-80ea-4d27-b23b-55912378f002}</Project>
-      <Name>Project.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Project.Model.Common\Project.Model.Common.csproj">
       <Project>{AA779AB6-8B09-4534-A493-1FA2B41CFEB4}</Project>
       <Name>Project.Model.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Model\Project.Model.csproj">
+      <Project>{ef67dc5d-9f02-46fe-83e1-04d366e01ae1}</Project>
+      <Name>Project.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Project.Repository.Common\Project.Repository.Common.csproj">
       <Project>{AC3AAE4F-035E-4292-8DA7-DFD0B50B80CE}</Project>
@@ -91,4 +91,13 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)*.dll" "$(SolutionDir)Project.WebAPI\bin\"
+copy "$(TargetDir)*.pdb" "$(SolutionDir)Project.WebAPI\bin\"
+copy "$(TargetDir)*.xml" "$(SolutionDir)Project.WebAPI\bin\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>

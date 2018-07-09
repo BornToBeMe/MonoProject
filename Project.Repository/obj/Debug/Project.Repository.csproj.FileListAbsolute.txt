@@ -27,7 +27,4 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.Repository.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.Repository.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Service.Common.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Service.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Service.Common.pdb
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Service.pdb
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Service.dll.config

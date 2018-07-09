@@ -78,18 +78,19 @@
       <Project>{AC3AAE4F-035E-4292-8DA7-DFD0B50B80CE}</Project>
       <Name>Project.Repository.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Project.Service.Common\Project.Service.Common.csproj">
-      <Project>{8657A126-E034-4BDD-94D6-EB656E8C7863}</Project>
-      <Name>Project.Service.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Project.Service\Project.Service.csproj">
-      <Project>{888AAF62-EDBC-49E2-BA86-177C27107940}</Project>
-      <Name>Project.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)*.dll" "$(SolutionDir)Project.WebAPI\bin\"
+copy "$(TargetDir)*.pdb" "$(SolutionDir)Project.WebAPI\bin\"
+copy "$(TargetDir)*.xml" "$(SolutionDir)Project.WebAPI\bin\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>
