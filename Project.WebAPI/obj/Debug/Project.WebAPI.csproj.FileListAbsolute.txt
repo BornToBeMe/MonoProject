@@ -81,3 +81,5 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebA
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Repository.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Repository.Common.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\System.ValueTuple.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\System.ValueTuple.xml

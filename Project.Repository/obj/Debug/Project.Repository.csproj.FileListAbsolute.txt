@@ -26,5 +26,3 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\System.V
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.Repository.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.Repository.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.Repository.pdb
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Service.Common.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Service.Common.pdb

@@ -11,6 +11,7 @@ namespace Project.Repository
     {
         public override void Load()
         {
+
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<DAL.VehicleMake, Model.VehicleMake>().ReverseMap();
@@ -23,6 +24,7 @@ namespace Project.Repository
 
             Bind<ICarContext>().To<CarContext>().InSingletonScope();
             Bind<IProjectRepository>().To<ProjectRepository>();
+
         }
     }
 }

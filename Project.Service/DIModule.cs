@@ -11,6 +11,7 @@ namespace Project.Service
     {
         public override void Load()
         {
+
             Bind<IProjectService>().To<ProjectService>();
         }
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Project.Repository
 {
@@ -20,12 +21,12 @@ namespace Project.Repository
 
         public List<IVehicleMake> GetAllVehicleMakes()
         {
-            return new List<IVehicleMake>(AutoMapper.Mapper.Map<List<Project.Model.VehicleMake>>(Context.VehicleMakes));
+            return new List<IVehicleMake>(Mapper.Map<List<Project.Model.VehicleMake>>(Context.VehicleMakes));
         }
 
         public List<IVehicleModel> GetAllVehicleModels()
         {
-            return new List<IVehicleModel>(AutoMapper.Mapper.Map<List<Project.Model.VehicleModel>>(Context.VehicleModels));
+            return new List<IVehicleModel>(Mapper.Map<List<Project.Model.VehicleModel>>(Context.VehicleModels));
         }
     }
 }

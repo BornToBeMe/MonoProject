@@ -9,6 +9,7 @@ namespace Project.Repository.Common
 {
     public interface IProjectRepository
     {
+
         List<IVehicleMake> GetAllVehicleMakes();
 
         List<IVehicleModel> GetAllVehicleModels();
