@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ninject;
 using Project.DAL;
 using Project.Model;
 using Project.Model.Common;
@@ -11,8 +12,7 @@ namespace Project.Repository
     {
         public override void Load()
         {
-
-            var config = new MapperConfiguration(cfg =>
+            Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<DAL.VehicleMake, Model.VehicleMake>().ReverseMap();
                 cfg.CreateMap<DAL.VehicleMake, Model.Common.IVehicleMake>().ReverseMap();
