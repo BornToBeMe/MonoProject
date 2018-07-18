@@ -23,3 +23,6 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Ninject.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Ninject.xml
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Model.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Model.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\System.ValueTuple.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\AutoMapper.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\System.ValueTuple.xml

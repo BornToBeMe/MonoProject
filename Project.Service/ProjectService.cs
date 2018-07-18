@@ -21,7 +21,7 @@ namespace Project.Service
 
         public List<IVehicleMake> GetAllVehicleMakes()
         {
-            return Repository.GetAllVehicleMakes().ToList();
+            return Repository.GetAllVehicleMakes();
         }
 
         public List<IVehicleModel> GetAllVehicleModels()

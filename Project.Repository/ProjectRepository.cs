@@ -21,7 +21,9 @@ namespace Project.Repository
 
         public List<IVehicleMake> GetAllVehicleMakes()
         {
-            return new List<IVehicleMake>(Mapper.Map<List<Project.Model.VehicleMake>>(Context.VehicleMakes));
+            var bla = Context.VehicleMakes.ToList();
+            var bla1 = Mapper.Map<List<IVehicleMake>>(bla);
+            return bla1;
         }
 
         public List<IVehicleModel> GetAllVehicleModels()
