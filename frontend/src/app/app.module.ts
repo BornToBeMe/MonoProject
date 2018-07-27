@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { 
+import {
   MatToolbarModule,
-  MatButtonModule, 
-  MatCardModule, 
-  MatListModule 
+  MatButtonModule,
+  MatCardModule,
+  MatListModule
 } from '@angular/material';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
@@ -17,7 +18,7 @@ import { ModelComponent } from './model/model.component';
 const routes = [
   { path: 'Make', component: MakeComponent },
   { path: 'Model', component: ModelComponent }
-]
+];
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ const routes = [
     RouterModule.forRoot(routes),
     MatToolbarModule,
     MatButtonModule,
-    MatCardModule, 
-    MatListModule 
+    MatCardModule,
+    MatListModule,
+    HttpClientModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

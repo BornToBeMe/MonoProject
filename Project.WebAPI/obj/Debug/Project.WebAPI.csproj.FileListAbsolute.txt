@@ -83,3 +83,6 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Repository
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Repository.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\System.ValueTuple.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\System.ValueTuple.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\System.Web.Cors.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\System.Web.Http.Cors.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\System.Web.Http.Cors.xml

@@ -1,5 +1,5 @@
 export class Make {
-    Id : number;
-    Name : string;
-    Abrv : string;
+    Id: number;
+    Name: string;
+    Abrv: string;
 }

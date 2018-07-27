@@ -21,14 +21,12 @@ namespace Project.Repository
 
         public List<IVehicleMake> GetAllVehicleMakes()
         {
-            var bla = Context.VehicleMakes.ToList();
-            var bla1 = Mapper.Map<List<IVehicleMake>>(bla);
-            return bla1;
+            return Mapper.Map<List<IVehicleMake>>(Context.VehicleMakes);
         }
 
         public List<IVehicleModel> GetAllVehicleModels()
         {
-            return new List<IVehicleModel>(Mapper.Map<List<Project.Model.VehicleModel>>(Context.VehicleModels));
+            return Mapper.Map<List<IVehicleModel>>(Context.VehicleModels);
         }
     }
 }
