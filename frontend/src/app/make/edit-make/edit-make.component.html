@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <form #makeForm="ngForm" (ngSubmit)="save(makeForm.value)">
+      <input class="form-control" placeholder="Make Name" [(ngModel)]="make.Name" required name="Name" #Name="ngModel">
+      <div class="validation-error" *ngIf="Name.invalid && Name.touched">This Field is Required</div>
+      <input class="form-control" placeholder="Make Abrv" [(ngModel)]="make.Abrv" required name="Abrv" #Abrv="ngModel">
+      <div class="validation-error" *ngIf="Abrv.invalid && Abrv.touched">This Field is Required</div>
+    </form>
+  </div>
+  <div class="row">
+    <button type="submit" class="btn btn-default btn-info" [disabled]="!makeForm.form.valid">Submit</button>
+    <button type="button" class="btn btn-defualt btn-secondary" (click)="remove(make.Id)" *ngIf="make.Id">Delete</button>
+    <a routerLink="/Make">Cancel</a>
+  </div>
+</div>

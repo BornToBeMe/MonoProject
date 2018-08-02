@@ -4,9 +4,6 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class ApiService {
-    constructor(private http: HttpClient) {}
 
-    getMakes() {
-        return this.http.get(`http://localhost:58151/api/VehicleMake`);
-    }
+
 }

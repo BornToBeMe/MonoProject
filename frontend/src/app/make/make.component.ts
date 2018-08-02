@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
+import { CarsService } from '../shared/cars.service';
+import Make from '../shared/make.model';
 
 @Component({
   selector: 'app-make',
   templateUrl: './make.component.html',
 })
 export class MakeComponent implements OnInit {
-  make = {};
-  makes;
+  makes: Array<Make>;
 
-  constructor(private api: ApiService) { }
+  constructor(private carsService: CarsService) { }
 
   ngOnInit() {
-    this.api.getMakes().subscribe(res => {
-      this.makes = res;
+    this.carsService.getMakes().subscribe(data => {
+      this.makes = data;
     });
   }
 

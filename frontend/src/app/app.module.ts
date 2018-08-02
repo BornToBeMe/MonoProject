@@ -1,11 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {
-  MatToolbarModule,
-  MatButtonModule,
-  MatCardModule,
-  MatListModule
-} from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
@@ -14,10 +8,19 @@ import { ApiService } from './api.service';
 import { NavComponent } from './nav/nav.component';
 import { MakeComponent } from './make/make.component';
 import { ModelComponent } from './model/model.component';
+import { NewMakeComponent } from './make/new-make/new-make.component';
+import { NewModelComponent } from './model/new-model/new-model.component';
+import { CarsService } from './shared/cars.service';
+import { FormsModule, ReactiveFormsModule } from '../../node_modules/@angular/forms';
+import { EditMakeComponent } from './make/edit-make/edit-make.component';
 
-const routes = [
+const routes: Routes = [
+  { path: '', redirectTo: '/Make', pathMatch: 'full' },
   { path: 'Make', component: MakeComponent },
-  { path: 'Model', component: ModelComponent }
+  { path: 'Model', component: ModelComponent },
+  { path: 'Make/New', component: NewMakeComponent },
+  { path: 'Model/New', component: NewModelComponent },
+  { path: 'Make/Edit/:id', component: EditMakeComponent }
 ];
 
 @NgModule({
@@ -25,18 +28,19 @@ const routes = [
     AppComponent,
     NavComponent,
     MakeComponent,
-    ModelComponent
+    ModelComponent,
+    NewMakeComponent,
+    NewModelComponent,
+    EditMakeComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule,
-    MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, CarsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

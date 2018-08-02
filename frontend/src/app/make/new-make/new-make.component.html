@@ -1,0 +1,26 @@
+<div class="container">
+  <form class="make-form" #makeForm="ngForm" (ngSubmit)="onSubmit(makeForm)">
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label for="MakeName">Vehicle Make Name</label>
+      <input class="form-control" name="MakeName" [(ngModel)]="carsService?.selectedMake.Name" #MakeName="ngModel" placeholder="Name" required>
+      <div class="validation-error" *ngIf="MakeName.invalid && MakeName.touched">This Field is Required</div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+        <label for="MakeAbrv">Vehicle Make Abrv</label>
+      <input class="form-control" name="MakeAbrv" [(ngModel)]="carsService?.selectedMake.Abrv" #MakeAbrv="ngModel" placeholder="Abrv" required>
+      <div class="validation-error" *ngIf="MakeAbrv.invalid && MakeAbrv.touched">This Field is Required</div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <button [disabled]="!makeForm.valid" type="submit" class="btn btn-lg btn-block btn-info">Submit</button>
+    </div>
+    <div class="form-group col-md-4">
+      <button type="button" class="btn btn-lg btn-block btn-secondary">return</button>
+    </div>
+  </div>
+  </form>
+</div>

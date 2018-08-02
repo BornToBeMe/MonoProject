@@ -37,6 +37,26 @@ namespace Project.WebAPI.Controllers
             return Service.GetAllVehicleMakes();
         }
 
+        public IVehicleMake GetVehicleMake(Guid id)
+        {
+            return Service.GetVehicleMake(id);
+        }
+
+        public IVehicleMake PutVehicleMake(Guid id, IVehicleMake vehicleMake)
+        {
+            return Service.PutVehicleMake(id, vehicleMake);
+        }
+
+        public bool PostVehicleMake(IVehicleMake obj)
+        {
+            return Service.PostVehicleMake(obj);
+        }
+
+        public bool DeleteVehicleMake(Guid id)
+        {
+            return Service.DeleteVehicleMake(id);
+        }
+
         #endregion Methods
     }
 }

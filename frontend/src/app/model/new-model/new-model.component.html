@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <form>
+      <div class="form-group">
+        <label for="inputName">Vehicle Model Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Enter Name">
+      </div>
+      <div class="form-group">
+        <label for="inputAbrv">Vehicle Model Abrv</label>
+        <input type="text" class="form-control" id="inputAbrv" placeholder="Enter Abrv">
+      </div>
+      <div class="form-group">
+        <label for="inputVehicleMake">Select Vehicle Make</label>
+        <select class="form-control" id="inputVehicleMake">
+          <option *ngFor="let model of models">{{model.VehicleMakeId}}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-lg btn-block btn-info">Submit</button>
+      <button type="button" class="btn btn-lg btn-block btn-secondary" routerLink="/Model">Return</button>
+    </form>
+  </div>
+</div>

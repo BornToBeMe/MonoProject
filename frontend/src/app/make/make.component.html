@@ -1,12 +1,12 @@
 <div class="container">
-  <div class="row">
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let make of makes">{{make.Name}}</li>
-    </ul>
-  </div>
-  <div class="row">
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let make of makes">{{make.Abrv}}</li>
-    </ul>
-  </div>
+  <div class="col-lg-12">
+    <div class="row">
+      <ul class="list-group col-lg-4" *ngFor="let make of makes">
+        <li class="list-group-item clickLink" [routerLink]="['/Make/Edit', make.Id]">{{make.Name}}</li>
+      </ul>
+    </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-default" [routerLink]="['/Make/New']">New Make</button>
+    </div>
 </div>
