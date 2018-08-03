@@ -144,6 +144,10 @@
       <Project>{aa779ab6-8b09-4534-a493-1fa2b41cfeb4}</Project>
       <Name>Project.Model.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Project.Model\Project.Model.csproj">
+      <Project>{ef67dc5d-9f02-46fe-83e1-04d366e01ae1}</Project>
+      <Name>Project.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Project.Repository.Common\Project.Repository.Common.csproj">
       <Project>{ac3aae4f-035e-4292-8da7-dfd0b50b80ce}</Project>
       <Name>Project.Repository.Common</Name>

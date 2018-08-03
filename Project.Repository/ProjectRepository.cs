@@ -1,4 +1,5 @@
 ﻿using Project.Model.Common;
+using Project.Model;
 using Project.Repository.Common;
 using Project.DAL;
 using System;
@@ -29,7 +30,7 @@ namespace Project.Repository
             return Mapper.Map<IVehicleMake>(Context.VehicleMakes.Find(id));
         }
 
-        public bool PutVehicleMake(Guid id, IVehicleMake vehicleMake)
+        public bool PutVehicleMake(Guid id, Model.VehicleMake vehicleMake)
         {
             var entity = Context.VehicleMakes.Find(id);
             if (entity == null)
@@ -41,9 +42,9 @@ namespace Project.Repository
             return (Context.SaveChanges() > 0);
         }
 
-        public bool PostVehicleMake(IVehicleMake obj)
+        public bool PostVehicleMake(Model.VehicleMake obj)
         {
-            var map = Mapper.Map<VehicleMake>(obj);
+            var map = Mapper.Map<DAL.VehicleMake>(obj);
             map.Id = Guid.NewGuid();
             Context.VehicleMakes.Add(map);
 
@@ -52,7 +53,7 @@ namespace Project.Repository
 
         public bool DeleteVehicleMake(Guid id)
         {
-            VehicleMake existing = Context.VehicleMakes.Find(id);
+            DAL.VehicleMake existing = Context.VehicleMakes.Find(id);
             Context.VehicleMakes.Remove(existing);
             return (Context.SaveChanges() > 0);
         }
@@ -89,7 +90,7 @@ namespace Project.Repository
 
         public bool DeleteVehicleModel(Guid id)
         {
-            VehicleModel existing = Context.VehicleModels.Find(id);
+            DAL.VehicleModel existing = Context.VehicleModels.Find(id);
             Context.VehicleModels.Remove(existing);
             return (Context.SaveChanges() > 0);
         }

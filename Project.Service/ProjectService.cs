@@ -1,4 +1,5 @@
 ﻿using Project.Model.Common;
+using Project.Model;
 using Project.Repository.Common;
 using Project.Service.Common;
 using System;
@@ -29,12 +30,12 @@ namespace Project.Service
             return Repository.GetVehicleMake(id);
         }
 
-        public bool PutVehicleMake(Guid id, IVehicleMake vehicleMake)
+        public bool PutVehicleMake(Guid id, Model.VehicleMake vehicleMake)
         {
             return Repository.PutVehicleMake(id, vehicleMake);
         }
 
-        public bool PostVehicleMake(IVehicleMake obj)
+        public bool PostVehicleMake(VehicleMake obj)
         {
             return Repository.PostVehicleMake(obj);
         }

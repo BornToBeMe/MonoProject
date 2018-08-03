@@ -1,4 +1,5 @@
 ﻿using Project.Model.Common;
+using Project.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace Project.Service.Common
     {
         List<IVehicleMake> GetAllVehicleMakes();
         IVehicleMake GetVehicleMake(Guid id);
-        bool PutVehicleMake(Guid id, IVehicleMake vehicleMake);
-        bool PostVehicleMake(IVehicleMake obj);
+        bool PutVehicleMake(Guid id, VehicleMake vehicleMake);
+        bool PostVehicleMake(VehicleMake obj);
         bool DeleteVehicleMake(Guid id);
 
         List<IVehicleModel> GetAllVehicleModels();

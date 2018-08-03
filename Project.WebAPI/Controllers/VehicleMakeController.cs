@@ -1,4 +1,5 @@
 ﻿using Project.Model.Common;
+using Project.Model;
 using Project.Service.Common;
 using System;
 using System.Collections.Generic;
@@ -42,12 +43,12 @@ namespace Project.WebAPI.Controllers
             return Service.GetVehicleMake(id);
         }
 
-        public bool PutVehicleMake(Guid id, IVehicleMake vehicleMake)
+        public bool PutVehicleMake(Guid id, VehicleMake vehicleMake)
         {
             return Service.PutVehicleMake(id, vehicleMake);
         }
 
-        public bool PostVehicleMake([FromBody]IVehicleMake obj)
+        public bool PostVehicleMake([FromBody]VehicleMake obj)
         {
             return Service.PostVehicleMake(obj);
         }

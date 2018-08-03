@@ -86,3 +86,5 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebA
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Model.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Model.pdb
