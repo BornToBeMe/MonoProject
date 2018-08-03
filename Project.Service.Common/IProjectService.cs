@@ -11,7 +11,7 @@ namespace Project.Service.Common
     {
         List<IVehicleMake> GetAllVehicleMakes();
         IVehicleMake GetVehicleMake(Guid id);
-        IVehicleMake PutVehicleMake(Guid id, IVehicleMake vehicleMake);
+        bool PutVehicleMake(Guid id, IVehicleMake vehicleMake);
         bool PostVehicleMake(IVehicleMake obj);
         bool DeleteVehicleMake(Guid id);
 

@@ -29,7 +29,7 @@ namespace Project.Repository
             return Mapper.Map<IVehicleMake>(Context.VehicleMakes.Find(id));
         }
 
-        public IVehicleMake PutVehicleMake(Guid id, IVehicleMake vehicleMake)
+        public bool PutVehicleMake(Guid id, IVehicleMake vehicleMake)
         {
             var entity = Context.VehicleMakes.Find(id);
             if (entity == null)
@@ -37,16 +37,16 @@ namespace Project.Repository
                 throw new ArgumentNullException();
             }
             Context.Entry(entity).CurrentValues.SetValues(vehicleMake);
-            Context.SaveChanges();
 
-            return Mapper.Map<IVehicleMake>((Context.VehicleMakes).Find(id));
+            return (Context.SaveChanges() > 0);
         }
 
         public bool PostVehicleMake(IVehicleMake obj)
         {
-            var map = Mapper.Map<IVehicleMake>(Context.VehicleMakes);
+            var map = Mapper.Map<VehicleMake>(obj);
             map.Id = Guid.NewGuid();
-            //Context.VehicleMakes.Add(map);
+            Context.VehicleMakes.Add(map);
+
             return (Context.SaveChanges() > 0);
         }
 

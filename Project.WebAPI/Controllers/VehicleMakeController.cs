@@ -42,12 +42,12 @@ namespace Project.WebAPI.Controllers
             return Service.GetVehicleMake(id);
         }
 
-        public IVehicleMake PutVehicleMake(Guid id, IVehicleMake vehicleMake)
+        public bool PutVehicleMake(Guid id, IVehicleMake vehicleMake)
         {
             return Service.PutVehicleMake(id, vehicleMake);
         }
 
-        public bool PostVehicleMake(IVehicleMake obj)
+        public bool PostVehicleMake([FromBody]IVehicleMake obj)
         {
             return Service.PostVehicleMake(obj);
         }

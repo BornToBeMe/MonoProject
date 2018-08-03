@@ -29,7 +29,7 @@ namespace Project.Service
             return Repository.GetVehicleMake(id);
         }
 
-        public IVehicleMake PutVehicleMake(Guid id, IVehicleMake vehicleMake)
+        public bool PutVehicleMake(Guid id, IVehicleMake vehicleMake)
         {
             return Repository.PutVehicleMake(id, vehicleMake);
         }
