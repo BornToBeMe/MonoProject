@@ -83,6 +83,7 @@ namespace Project.Repository
         {
             var entity = await Context.VehicleMakes.FindAsync(id);
             var map = Mapper.Map<Project.Model.VehicleMake>(entity);
+            vehicleMake.Id = map.Id;
             if (map == null)
             {
                 throw new ArgumentNullException();

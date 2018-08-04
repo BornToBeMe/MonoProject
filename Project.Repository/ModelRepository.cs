@@ -94,6 +94,7 @@ namespace Project.Repository
         {
             var entity = await Context.VehicleModels.FindAsync(id);
             var map = Mapper.Map<Project.Model.VehicleModel>(entity);
+            vehicleModel.VehicleModelId = map.VehicleModelId;
             if (map == null)
             {
                 throw new ArgumentNullException();
@@ -110,9 +111,9 @@ namespace Project.Repository
             return (await Context.SaveChangesAsync() > 0);
         }
 
-        public IList<VehicleMake> PopulateMakesDropDownList()
+        public IList<Project.Model.VehicleMake> PopulateMakesDropDownList()
         {
-            List<VehicleMake> makes = Context.VehicleMakes.OrderBy(c => c.Name).ToList();
+            List<Project.Model.VehicleMake> makes = Mapper.Map<List<Project.Model.VehicleMake>>(Context.VehicleMakes.OrderBy(c => c.Name).ToList());
             return makes;
         }
     }
