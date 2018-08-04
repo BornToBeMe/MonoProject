@@ -10,6 +10,7 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Model.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Repository.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\System.ValueTuple.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\X.PagedList.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.DAL.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.DAL.dll.config
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Model.Common.pdb

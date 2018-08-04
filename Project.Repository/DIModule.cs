@@ -23,7 +23,8 @@ namespace Project.Repository
             });
 
             Bind<ICarContext>().To<CarContext>().InSingletonScope();
-            Bind<IProjectRepository>().To<ProjectRepository>();
+            Bind<IMakeRepository>().To<MakeRepository>();
+            Bind<IModelRepository>().To<ModelRepository>();
 
         }
     }

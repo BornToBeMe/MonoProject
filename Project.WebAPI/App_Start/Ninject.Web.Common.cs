@@ -71,7 +71,8 @@ namespace Project.WebAPI.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            var projectService = kernel.Get<IProjectService>();
+            var makeService = kernel.Get<IMakeService>();
+            var modelService = kernel.Get<IModelService>();
         }        
     }
 }

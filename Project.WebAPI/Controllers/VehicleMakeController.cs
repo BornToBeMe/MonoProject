@@ -8,6 +8,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Threading.Tasks;
+using Project.Repository.Common;
+using Project.Repository;
+using X.PagedList;
 
 namespace Project.WebAPI.Controllers
 {
@@ -16,7 +20,7 @@ namespace Project.WebAPI.Controllers
     {
         #region Constructors
 
-        public VehicleMakeController(IProjectService service)
+        public VehicleMakeController(IMakeService service)
         {
             this.Service = service;
         }
@@ -25,7 +29,7 @@ namespace Project.WebAPI.Controllers
 
         #region Properties
 
-        protected IProjectService Service { get; private set; }
+        protected IMakeService Service { get; private set; }
 
         #endregion Properties
 
@@ -33,29 +37,43 @@ namespace Project.WebAPI.Controllers
         
         [HttpGet]
         // GET: api/VehicleMake
-        public List<IVehicleMake> Get()
+        public async Task<IPagedList<IVehicleMake>> GetAllAsync(string sortBy, string currentFilter, string searchString, int? page, int? pageSize, bool ascending = true)
         {
-            return Service.GetAllVehicleMakes();
+            ISorting sorting = new Sorting();
+            ISearch search = new Search();
+            IPaging paging = new Paging();
+
+            sorting.SortBy = sortBy;
+            sorting.SortAscending = ascending;
+            search.CurrentFilter = currentFilter;
+            paging.PageNumber = page;
+            paging.PageSize = pageSize;
+
+            return await Service.SelectAllAsync(sorting, search, paging);
         }
 
-        public IVehicleMake GetVehicleMake(Guid id)
+        // GET: api/VehicleMake/5
+        public async Task<IVehicleMake> GetAsync(Guid id)
         {
-            return Service.GetVehicleMake(id);
+            return await Service.SelectByIDAsync(id);
         }
 
-        public bool PutVehicleMake(Guid id, VehicleMake vehicleMake)
+        // POST: api/VehicleMake
+        public async Task<bool> PostMakeAsync(VehicleMake vehicleMake)
         {
-            return Service.PutVehicleMake(id, vehicleMake);
+            return await Service.CreateAsync(vehicleMake);
         }
 
-        public bool PostVehicleMake([FromBody]VehicleMake obj)
+        // PUT: api/VehicleMake/5
+        public async Task<bool> PutMakeAsync(Guid id, VehicleMake vehicleMake)
         {
-            return Service.PostVehicleMake(obj);
+            return await Service.EditAsync(id, vehicleMake);
         }
 
-        public bool DeleteVehicleMake(Guid id)
+        // DELETE: api/VehicleMake/5
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.DeleteVehicleMake(id);
+            return await Service.DeleteAsync(id);
         }
 
         #endregion Methods

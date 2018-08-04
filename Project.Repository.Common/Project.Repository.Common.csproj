@@ -38,9 +38,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="X.PagedList, Version=7.5.0.0, Culture=neutral, PublicKeyToken=00b6c4f97602e5e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.7.5.0\lib\net461\X.PagedList.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IProjectRepository.cs" />
+    <Compile Include="IMakeRepository.cs" />
+    <Compile Include="IModelRepository.cs" />
+    <Compile Include="IPaging.cs" />
+    <Compile Include="ISearch.cs" />
+    <Compile Include="ISorting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,9 +56,12 @@
       <Name>Project.Model.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Project.Model\Project.Model.csproj">
-      <Project>{ef67dc5d-9f02-46fe-83e1-04d366e01ae1}</Project>
+      <Project>{EF67DC5D-9F02-46FE-83E1-04D366E01AE1}</Project>
       <Name>Project.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

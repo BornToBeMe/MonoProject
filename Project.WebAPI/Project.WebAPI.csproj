@@ -99,6 +99,9 @@
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
+    <Reference Include="X.PagedList, Version=7.5.0.0, Culture=neutral, PublicKeyToken=00b6c4f97602e5e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.7.5.0\lib\net461\X.PagedList.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -151,6 +154,10 @@
     <ProjectReference Include="..\Project.Repository.Common\Project.Repository.Common.csproj">
       <Project>{ac3aae4f-035e-4292-8da7-dfd0b50b80ce}</Project>
       <Name>Project.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project.Repository\Project.Repository.csproj">
+      <Project>{6C476056-D511-4126-9907-AA3992BB1AE4}</Project>
+      <Name>Project.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Project.Service.Common\Project.Service.Common.csproj">
       <Project>{8657a126-e034-4bdd-94d6-eb656e8c7863}</Project>

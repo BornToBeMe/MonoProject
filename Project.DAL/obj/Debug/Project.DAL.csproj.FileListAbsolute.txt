@@ -5,6 +5,7 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\EntityFramework
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\EntityFramework.xml
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csprojAssemblyReference.cache
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csproj.CoreCompileInputs.cache
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.dll

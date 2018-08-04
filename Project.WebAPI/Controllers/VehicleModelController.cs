@@ -1,12 +1,17 @@
-﻿using Project.Model.Common;
+﻿using Project.Model;
+using Project.Model.Common;
+using Project.Repository;
+using Project.Repository.Common;
 using Project.Service.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using X.PagedList;
 
 namespace Project.WebAPI.Controllers
 {
@@ -15,7 +20,7 @@ namespace Project.WebAPI.Controllers
     {
         #region Constructors
 
-        public VehicleModelController(IProjectService service)
+        public VehicleModelController(IModelService service)
         {
             this.Service = service;
         }
@@ -24,35 +29,53 @@ namespace Project.WebAPI.Controllers
 
         #region Properties
 
-        protected IProjectService Service { get; private set; }
+        protected IModelService Service { get; private set; }
 
         #endregion Properties
 
+        #region Methods
+
+        [HttpGet]
         // GET: api/VehicleModel
-        public List<IVehicleModel> Get()
+        public async Task<IPagedList<IVehicleModel>> GetAllAsync(string sortBy, string currentFilter, string searchString, int? page, int? pageSize, bool ascending = true)
         {
-            return Service.GetAllVehicleModels();
+            ISorting sorting = new Sorting();
+            ISearch search = new Search();
+            IPaging paging = new Paging();
+
+            sorting.SortBy = sortBy;
+            sorting.SortAscending = ascending;
+            search.CurrentFilter = currentFilter;
+            paging.PageNumber = page;
+            paging.PageSize = pageSize;
+
+            return await Service.SelectAllAsync(sorting, search, paging);
         }
 
-        public IVehicleModel GetVehicleModel(Guid id)
+        // GET: api/VehicleModel/5
+        public async Task<IVehicleModel> GetAsync(Guid id)
         {
-            return Service.GetVehicleModel(id);
+            return await Service.SelectByIDAsync(id);
         }
 
-        public IVehicleModel PutVehicleModel(Guid id, IVehicleModel vehicleModel)
+        // POST: api/VehicleModel
+        public async Task<bool> PostModelAsync(VehicleModel vehicleModel)
         {
-            return Service.PutVehicleModel(id, vehicleModel);
+            return await Service.CreateAsync(vehicleModel);
         }
 
-        public bool PostVehicleModel(IVehicleModel obj)
+        // PUT: api/VehicleModel/5
+        public async Task<bool> PutModelAsync(Guid id, VehicleModel vehicleModel)
         {
-            return Service.PostVehicleModel(obj);
+            return await Service.EditAsync(id, vehicleModel);
         }
 
-        public bool DeleteVehicleModel(Guid id)
+        // DELETE: api/VehicleModel/5
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            return Service.DeleteVehicleModel(id);
+            return await Service.DeleteAsync(id);
         }
 
+        #endregion Methods
     }
 }

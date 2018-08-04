@@ -1,13 +1,14 @@
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Service.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Service.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Model.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Model.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Repository.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\X.PagedList.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Model.Common.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Model.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Repository.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Project.Service.Common.csprojAssemblyReference.cache
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Project.Service.Common.csproj.CoreCompileInputs.cache
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Project.Service.Common.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Project.Service.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Project.Service.Common.pdb
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Model.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Project.Model.pdb
