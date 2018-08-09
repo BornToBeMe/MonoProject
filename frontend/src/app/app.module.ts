@@ -11,7 +11,7 @@ import { ModelComponent } from './model/model.component';
 import { NewMakeComponent } from './make/new-make/new-make.component';
 import { NewModelComponent } from './model/new-model/new-model.component';
 import { CarsService } from './shared/cars.service';
-import { FormsModule, ReactiveFormsModule } from '../../node_modules/@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditMakeComponent } from './make/edit-make/edit-make.component';
 
 const routes: Routes = [

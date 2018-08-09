@@ -1,12 +1,19 @@
-<div class="container">
-  <div class="col-lg-12">
-    <div class="row">
-      <ul class="list-group col-lg-4" *ngFor="let make of makes">
-        <li class="list-group-item clickLink" [routerLink]="['/Make/Edit', make.Id]">{{make.Name}}</li>
-      </ul>
-    </div>
-    </div>
-    <div class="row">
-      <button class="btn btn-default" [routerLink]="['/Make/New']">New Make</button>
-    </div>
-</div>
+<button class="btn btn-primary" routerLink="/Make/New">Create</button>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>Abrv</td>
+        <td colspan="2">Actions</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let make of makes">
+        <td>{{make.Name}}</td>
+        <td>{{make.Abrv}}</td>
+        <td><a [routerLink]="['/Edit', make.Id]" class="btn btn-primary">Edit</a></td>
+        <td><button (click)="deleteMake(make.Id)" class="btn btn-danger">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>

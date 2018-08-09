@@ -13,10 +13,6 @@ export class NewModelComponent implements OnInit {
 
   constructor(private carsService: CarsService) { }
 
-  ngOnInit() {
-    // this.carsService.getModels().subscribe(res => {
-    //   this.models = res;
-    // });
-  }
+  ngOnInit() {}
 
 }

@@ -1,26 +1,30 @@
-<div class="container">
-  <form class="make-form" #makeForm="ngForm" (ngSubmit)="onSubmit(makeForm)">
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label for="MakeName">Vehicle Make Name</label>
-      <input class="form-control" name="MakeName" [(ngModel)]="carsService?.selectedMake.Name" #MakeName="ngModel" placeholder="Name" required>
-      <div class="validation-error" *ngIf="MakeName.invalid && MakeName.touched">This Field is Required</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      Create Make
+    </div>
+    <div class="panel-body">
+      <form [formGroup]="makeForm" novalidate>
+        <div class="form-group">
+          <label class="col-md-4">Name</label>
+          <input type="text" class="form-control" formControlName="name" #name />
+        </div>
+        <div *ngIf="makeForm.controls['name'].invalid && (makeForm.controls['name'].dirty || makeForm.controls['name'].touched)" class="alert alert-danger">
+          <div *ngIf="makeForm.controls['name'].errors.required">
+            Name is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">Abrv</label>
+          <input type="text" class="form-control" formControlName="abrv" #abrv/>
+        </div>
+        <div *ngIf="makeForm.controls['abrv'].invalid && (makeForm.controls['abrv'].dirty || makeForm.controls['abrv'].touched)" class="alert alert-danger">
+          <div *ngIf="makeForm.controls['abrv'].errors.required">
+            Price is required.
+          </div>
+        </div>
+          <div class="form-group">
+            <button (click)="addMake(name.value, abrv.value)" [disabled]="makeForm.pristine || makeForm.invalid" class="btn btn-primary">Add</button>
+          </div>
+      </form>
     </div>
   </div>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-        <label for="MakeAbrv">Vehicle Make Abrv</label>
-      <input class="form-control" name="MakeAbrv" [(ngModel)]="carsService?.selectedMake.Abrv" #MakeAbrv="ngModel" placeholder="Abrv" required>
-      <div class="validation-error" *ngIf="MakeAbrv.invalid && MakeAbrv.touched">This Field is Required</div>
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group col-md-8">
-      <button [disabled]="!makeForm.valid" type="submit" class="btn btn-lg btn-block btn-info">Submit</button>
-    </div>
-    <div class="form-group col-md-4">
-      <button type="button" class="btn btn-lg btn-block btn-secondary">return</button>
-    </div>
-  </div>
-  </form>
-</div>

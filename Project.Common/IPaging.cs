@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project.Repository.Common
+namespace Project.Common
 {
     public interface IPaging
     {

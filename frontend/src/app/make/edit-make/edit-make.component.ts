@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { CarsService } from '../../shared/cars.service';
 import Make from '../../shared/make.model';
@@ -11,56 +11,36 @@ import Make from '../../shared/make.model';
   templateUrl: './edit-make.component.html',
   styleUrls: ['./edit-make.component.css']
 })
-export class EditMakeComponent implements OnInit, OnDestroy {
-  make: Make = new Make();
+export class EditMakeComponent implements OnInit {
+  make: any;
+  makeForm: FormGroup;
 
-  sub: Subscription;
+  constructor(private carsService: CarsService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
+    this.createForm();
+  }
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private carsService: CarsService
-  ) { }
-
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      const id = params['id'];
-      if (id) {
-        this.carsService.getMake(id).subscribe((make: any) => {
-          if (make) {
-            this.make = make;
-          } else {
-            console.log(`Make with id '${id}' not found`);
-          }
-        });
-      }
+  createForm() {
+    this.makeForm = this.fb.group({
+      name: ['', Validators.required],
+      abrv: ['', Validators.required]
     });
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  updateMake(name, abrv) {
+    this.route.params.subscribe(params => {
+      this.carsService.updateMake(name, abrv, params['id']);
+      this.router.navigate(['Make']);
+    });
   }
 
-  gotoList() {
-    this.router.navigate(['/Make']);
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.make = this.carsService.editMake(params['id']).subscribe(res => {
+        this.make = res;
+      });
+    });
   }
 
-  save(form: any) {
-    this.carsService.saveMake(form).subscribe(
-      result => {
-        this.gotoList();
-      },
-      error => console.error(error)
-    );
-  }
 
-  remove(id: number) {
-    this.carsService.removeMake(id).subscribe(
-      result => {
-        this.gotoList();
-      },
-      error => console.error(error)
-    );
-  }
 
 }

@@ -143,6 +143,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Project.Common\Project.Common.csproj">
+      <Project>{d6acbb82-16f3-41f9-a21d-fad161a1f800}</Project>
+      <Name>Project.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Project.Model.Common\Project.Model.Common.csproj">
       <Project>{aa779ab6-8b09-4534-a493-1fa2b41cfeb4}</Project>
       <Name>Project.Model.Common</Name>

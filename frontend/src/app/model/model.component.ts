@@ -7,15 +7,9 @@ import { CarsService } from '../shared/cars.service';
   styleUrls: ['./model.component.css']
 })
 export class ModelComponent implements OnInit {
-  model = {};
-  models;
 
   constructor(private carsService: CarsService) { }
 
-  ngOnInit() {
-  //  this.carsService.getModels().subscribe(res => {
-  //    this.models = res;
-  //  });
-  }
+  ngOnInit() {}
 
 }

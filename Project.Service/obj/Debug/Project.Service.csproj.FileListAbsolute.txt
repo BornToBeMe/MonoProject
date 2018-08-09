@@ -26,3 +26,5 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Ser
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Common.pdb

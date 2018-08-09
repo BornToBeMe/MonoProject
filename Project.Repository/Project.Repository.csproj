@@ -63,12 +63,13 @@
     <Compile Include="DIModule.cs" />
     <Compile Include="MakeRepository.cs" />
     <Compile Include="ModelRepository.cs" />
-    <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search.cs" />
-    <Compile Include="Sorting.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Project.Common\Project.Common.csproj">
+      <Project>{d6acbb82-16f3-41f9-a21d-fad161a1f800}</Project>
+      <Name>Project.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Project.DAL\Project.DAL.csproj">
       <Project>{09274DA2-80EA-4D27-B23B-55912378F002}</Project>
       <Name>Project.DAL</Name>

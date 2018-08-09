@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project.Repository.Common
+namespace Project.Common
 {
-    public interface ISearch
+    public interface ISorting
     {
-        string CurrentFilter { get; set; }
+        string SortBy { get; set; }
+        bool SortAscending { get; set; }
     }
 }

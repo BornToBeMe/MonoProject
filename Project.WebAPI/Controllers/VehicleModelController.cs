@@ -1,4 +1,5 @@
-﻿using Project.Model;
+﻿using Project.Common;
+using Project.Model;
 using Project.Model.Common;
 using Project.Repository;
 using Project.Repository.Common;
@@ -59,21 +60,52 @@ namespace Project.WebAPI.Controllers
         }
 
         // POST: api/VehicleModel
-        public async Task<bool> PostModelAsync(VehicleModel vehicleModel)
+        public async Task<IHttpActionResult> PostModelAsync(VehicleModel vehicleModel)
         {
-            return await Service.CreateAsync(vehicleModel);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await Service.CreateAsync(vehicleModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return Ok(vehicleModel);
         }
 
         // PUT: api/VehicleModel/5
-        public async Task<bool> PutModelAsync(Guid id, VehicleModel vehicleModel)
+        public async Task<IHttpActionResult> PutModelAsync(Guid id, VehicleModel vehicleModel)
         {
-            return await Service.EditAsync(id, vehicleModel);
+            if (ModelState.IsValid)
+            {
+                await Service.EditAsync(id, vehicleModel);
+            }
+            return Ok(vehicleModel);
         }
 
         // DELETE: api/VehicleModel/5
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<IHttpActionResult> DeleteAsync(Guid id)
         {
-            return await Service.DeleteAsync(id);
+            try
+            {
+                if (id != null)
+                {
+                    await Service.DeleteAsync(id);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            return Ok();
         }
 
         #endregion Methods

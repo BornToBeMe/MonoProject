@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Project.Repository.Common;
 using Project.Repository;
 using X.PagedList;
+using Project.Common;
+using Newtonsoft.Json;
 
 namespace Project.WebAPI.Controllers
 {
@@ -31,23 +33,39 @@ namespace Project.WebAPI.Controllers
 
         protected IMakeService Service { get; private set; }
 
+        public class CallDetails
+        {
+            [JsonProperty("sortBy")]
+            public string Sort { get; set; }
+            [JsonProperty("currentFilter")]
+            public string Filter { get; set; }
+            [JsonProperty("searchString")]
+            public string Search { get; set; }
+            [JsonProperty("page")]
+            public int Page { get; set; }
+            [JsonProperty("pageSize")]
+            public int PageSize { get; set; }
+            [JsonProperty("ascending")]
+            public bool Ascending { get; set; }
+        }
+
         #endregion Properties
 
         #region Methods
         
         [HttpGet]
         // GET: api/VehicleMake
-        public async Task<IPagedList<IVehicleMake>> GetAllAsync(string sortBy, string currentFilter, string searchString, int? page, int? pageSize, bool ascending = true)
+        public async Task<IPagedList<IVehicleMake>> GetAllAsync(CallDetails callDetails)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();
             IPaging paging = new Paging();
 
-            sorting.SortBy = sortBy;
-            sorting.SortAscending = ascending;
-            search.CurrentFilter = currentFilter;
-            paging.PageNumber = page;
-            paging.PageSize = pageSize;
+            sorting.SortBy = callDetails.Sort;
+            sorting.SortAscending = callDetails.Ascending;
+            search.CurrentFilter = callDetails.Filter;
+            paging.PageNumber = callDetails.Page;
+            paging.PageSize = callDetails.PageSize;
 
             return await Service.SelectAllAsync(sorting, search, paging);
         }
@@ -59,21 +77,52 @@ namespace Project.WebAPI.Controllers
         }
 
         // POST: api/VehicleMake
-        public async Task<bool> PostMakeAsync(VehicleMake vehicleMake)
+        public async Task<IHttpActionResult> PostMakeAsync(VehicleMake vehicleMake)
         {
-            return await Service.CreateAsync(vehicleMake);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await Service.CreateAsync(vehicleMake);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            
+            return Ok(vehicleMake);
         }
 
         // PUT: api/VehicleMake/5
-        public async Task<bool> PutMakeAsync(Guid id, VehicleMake vehicleMake)
+        public async Task<IHttpActionResult> PutMakeAsync(Guid id, VehicleMake vehicleMake)
         {
-            return await Service.EditAsync(id, vehicleMake);
+            if (ModelState.IsValid)
+            {
+                await Service.EditAsync(id, vehicleMake);
+            }
+            return Ok(vehicleMake);
         }
 
         // DELETE: api/VehicleMake/5
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<IHttpActionResult> DeleteAsync(Guid id)
         {
-            return await Service.DeleteAsync(id);
+            try
+            {
+                if (id != null)
+                {
+                    await Service.DeleteAsync(id);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            return Ok();
         }
 
         #endregion Methods

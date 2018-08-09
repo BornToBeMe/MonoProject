@@ -7,13 +7,16 @@ import Make from '../shared/make.model';
   templateUrl: './make.component.html',
 })
 export class MakeComponent implements OnInit {
-  makes: Array<Make>;
+
+  makes: Make[];
 
   constructor(private carsService: CarsService) { }
 
-  ngOnInit() {
-    this.carsService.getMakes().subscribe(data => {
-      this.makes = data;
+  ngOnInit() {}
+
+  deleteMake(id) {
+    this.carsService.deleteMake(id).subscribe(res => {
+      console.log('Deleted');
     });
   }
 

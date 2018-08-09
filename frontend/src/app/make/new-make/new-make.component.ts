@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CarsService } from 'src/app/shared/cars.service';
-// import { NgForm } from '../../../../node_modules/@angular/forms';
+import { CarsService } from '../../shared/cars.service';
 import Make from '../../shared/make.model';
+import { NgForm, FormGroup, FormBuilder, Validators } from '../../../../node_modules/@angular/forms';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-new-make',
@@ -10,13 +11,25 @@ import Make from '../../shared/make.model';
 })
 export class NewMakeComponent implements OnInit {
 
-  constructor(public carsService: CarsService) { }
+  makeForm: FormGroup;
 
-  ngOnInit() {
+  constructor(private carsService: CarsService, private fb: FormBuilder, private router: Router) {
+    this.createForm();
   }
 
-  /* onSubmit(form: NgForm) {
-    this.carsService.postVehicleMake(form.value);
-  } */
+  createForm() {
+    this.makeForm = this.fb.group({
+      name: ['', Validators.required],
+      abrv: ['', Validators.required]
+    });
+  }
+
+  addMake(name, abrv) {
+    this.carsService.addMake(name, abrv);
+    this.router.navigate(['Make']);
+  }
+
+  ngOnInit() {}
+
 
 }
