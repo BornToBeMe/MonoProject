@@ -53,7 +53,7 @@ namespace Project.WebAPI.Controllers
         
         [HttpGet]
         // GET: api/VehicleMake
-        public async Task<IPagedList<IVehicleMake>> GetAllAsync([FromUri]CallDetails callDetails)
+        public async Task<IPagedList<VehicleMake>> GetAllAsync([FromUri]CallDetails callDetails)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();

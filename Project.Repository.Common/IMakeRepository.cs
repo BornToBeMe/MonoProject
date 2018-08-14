@@ -12,7 +12,7 @@ namespace Project.Repository.Common
 {
     public interface IMakeRepository
     {
-        Task<IPagedList<IVehicleMake>> SelectAllAsync(ISorting sortOrder, ISearch search, IPaging pagination);
+        Task<IPagedList<VehicleMake>> SelectAllAsync(ISorting sortOrder, ISearch search, IPaging pagination);
         Task<IVehicleMake> SelectByIDAsync(Guid id);
         Task<bool> CreateAsync(VehicleMake obj);
         Task<bool> EditAsync(Guid id, VehicleMake vehicleMake);
