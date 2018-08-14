@@ -39,8 +39,6 @@ namespace Project.WebAPI.Controllers
             public string Sort { get; set; }
             [JsonProperty("currentFilter")]
             public string Filter { get; set; }
-            [JsonProperty("searchString")]
-            public string Search { get; set; }
             [JsonProperty("page")]
             public int Page { get; set; }
             [JsonProperty("pageSize")]
@@ -55,7 +53,7 @@ namespace Project.WebAPI.Controllers
         
         [HttpGet]
         // GET: api/VehicleMake
-        public async Task<IPagedList<IVehicleMake>> GetAllAsync(CallDetails callDetails)
+        public async Task<IPagedList<IVehicleMake>> GetAllAsync([FromUri]CallDetails callDetails)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();

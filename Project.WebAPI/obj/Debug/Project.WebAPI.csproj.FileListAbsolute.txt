@@ -57,6 +57,7 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Ninject.Web.Common
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Ninject.Web.Common.WebHost.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Ninject.Web.WebApi.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Ninject.WebApi.DependencyResolver.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Model.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Model.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Repository.Common.dll
@@ -73,6 +74,7 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\X.PagedList.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\AutoMapper.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.DAL.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\EntityFramework.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Model.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Model.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Repository.Common.pdb
@@ -100,5 +102,3 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebA
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.pdb
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Common.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Common.pdb

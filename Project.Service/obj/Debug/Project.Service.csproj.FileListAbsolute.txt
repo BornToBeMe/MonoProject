@@ -5,12 +5,14 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\AutoMapper.
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\EntityFramework.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Ninject.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Model.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Model.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Repository.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Service.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\System.ValueTuple.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\X.PagedList.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Model.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Model.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Repository.Common.pdb
@@ -26,5 +28,3 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Ser
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\obj\Debug\Project.Service.pdb
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Common.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service\bin\Debug\Project.Common.pdb

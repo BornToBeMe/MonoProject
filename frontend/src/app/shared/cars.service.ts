@@ -8,45 +8,60 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class CarsService implements OnInit {
 
+  private makeUrl = 'http://localhost:58151/api/VehicleMake';
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {}
 
-  getMakes(): Observable<Make[]> {
-    return this.http.get<Make[]>('http://localhost:58151/api/VehicleMake');
+  getMakes(
+    sortBy: string,
+    currentFilter: string,
+    searchString: string,
+    page: number,
+    pageSize: number,
+    ascending: boolean
+  ): Observable<Make[]> {
+    return this.http.get<Make[]>('${this.makeUrl}', {
+      params: {
+        sortBy: 'Name',
+        currentFilter: currentFilter,
+        searchString: 'Ki',
+        page: '1',
+        pageSize: '3',
+        ascending: 'true'
+      }
+    });
   }
 
   getMake(id: number): Observable<Make> {
-    return this.http.get<Make>(`http://localhost:58151/api/VehicleMake/${id}`);
+    const url = `${this.makeUrl}/${id}`;
+    return this.http.get<Make>(url);
   }
 
-  addMake(name, abrv): Observable<Make> {
+  addMake(name, abrv) {
     const uri = 'http://localhost:58151/api/VehicleMake';
     const obj = {
       name: name,
       abrv: abrv
     };
-    return this.http.post<Make>('http://localhost:58151/api/VehicleMake', {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    });
+    return this.http.post(uri, obj).subscribe(res => console.log('Done'));
   }
 
   editMake(id) {
-    const uri = 'http://localhost:58151/api/VehicleMake/' + id;
+    const uri = `http://localhost:58151/api/VehicleMake/${id}`;
     return this.http.get(uri).pipe(map(res => {
       return res;
     }));
   }
 
   updateMake(name, abrv, id) {
-    const uri = 'http://localhost:58151/api/VehicleMake';
+    const uri = `http://localhost:58151/api/VehicleMake/${id}`;
     const obj = {
       name: name,
       abrv: abrv
     };
-    this.http.post(uri, obj).subscribe(res => console.log('Done'));
+    this.http.put(uri, obj).subscribe(res => console.log('Done'));
   }
 
   deleteMake(id) {

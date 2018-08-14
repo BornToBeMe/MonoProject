@@ -12,7 +12,9 @@ export class MakeComponent implements OnInit {
 
   constructor(private carsService: CarsService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.carsService.getMakes('Name', '', '', 1, 3, true);
+  }
 
   deleteMake(id) {
     this.carsService.deleteMake(id).subscribe(res => {
