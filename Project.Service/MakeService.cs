@@ -21,7 +21,7 @@ namespace Project.Service
 
         protected IMakeRepository Repository { get; private set; }
 
-        public async Task<IPagedList<VehicleMake>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
+        public async Task<IPagedList<IVehicleMake>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
             return await Repository.SelectAllAsync(sortBy, search, pagination);
         }

@@ -22,7 +22,7 @@ namespace Project.Repository
 
         protected ICarContext Context { get; private set; }
 
-        public async Task<IPagedList<Project.Model.VehicleMake>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
+        public async Task<IPagedList<IVehicleMake>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
             var query = Context.VehicleMakes.AsQueryable();
 
@@ -61,9 +61,8 @@ namespace Project.Repository
             int pageSize = (pagination.PageSize ?? 3);
             int pageNumber = (pagination.PageNumber ?? 1);
 
-            
-            IPagedList<VehicleMake> data = await query.ToPagedListAsync(pageNumber, pageSize);
-            var map = Mapper.Map<IPagedList<Project.Model.VehicleMake>>(data);
+
+            var map = Mapper.Map<IPagedList<IVehicleMake>>(await query.ToPagedListAsync(pageNumber, pageSize));
             return map;
         }
 

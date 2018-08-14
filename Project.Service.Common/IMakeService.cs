@@ -13,7 +13,7 @@ namespace Project.Service.Common
 {
     public interface IMakeService
     {
-        Task<IPagedList<VehicleMake>> SelectAllAsync(ISorting sortOrder, ISearch search, IPaging pagination);
+        Task<IPagedList<IVehicleMake>> SelectAllAsync(ISorting sortOrder, ISearch search, IPaging pagination);
         Task<IVehicleMake> SelectByIDAsync(Guid id);
         Task<bool> CreateAsync(Project.Model.VehicleMake obj);
         Task<bool> EditAsync(Guid id, Project.Model.VehicleMake vehicleMake);
