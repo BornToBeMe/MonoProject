@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarsService } from '../shared/cars.service';
-import Make from '../shared/make.model';
+import { Make } from '../shared/make.model';
 
 @Component({
   selector: 'app-make',
@@ -8,12 +8,22 @@ import Make from '../shared/make.model';
 })
 export class MakeComponent implements OnInit {
 
+  Sort = 'Name';
+  Search = '';
+  Page = '1';
+  pageSize = '3';
+  Ascending = 'true';
+
   makes: Make[];
 
   constructor(private carsService: CarsService) { }
 
   ngOnInit() {
-    this.carsService.getMakes('Name', '', '', 1, 3, true);
+    this.carsService.getMakes(this.Sort, this.Search, this.Page, this.pageSize, this.Ascending);
+  }
+
+  getMakes() {
+    this.carsService.getMakes(this.Sort, this.Search, this.Page, this.pageSize, this.Ascending);
   }
 
   deleteMake(id) {

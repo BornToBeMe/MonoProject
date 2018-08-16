@@ -1,37 +1,30 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import Make from './make.model';
+import { Make } from './make.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CarsService implements OnInit {
 
-  private makeUrl = 'http://localhost:58151/api/VehicleMake';
+  makeUrl = 'http://localhost:58151/api/VehicleMake';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {}
 
-  getMakes(
-    sortBy: string,
-    currentFilter: string,
-    searchString: string,
-    page: number,
-    pageSize: number,
-    ascending: boolean
-  ): Observable<Make[]> {
-    return this.http.get<Make[]>('${this.makeUrl}', {
-      params: {
-        sortBy: 'Name',
-        currentFilter: currentFilter,
-        searchString: 'Ki',
-        page: '1',
-        pageSize: '3',
-        ascending: 'true'
-      }
-    });
+  getMakes(Sort: string, Search: string, Page: string, pageSize: string, Ascending: string): Observable<Make[]> {
+    const params = new HttpParams()
+                .set('Sort', Sort)
+                .set('Search', Search)
+                .set('Page', Page)
+                .set('pageSize', pageSize)
+                .set('Ascending', Ascending);
+
+    console.log(params.toString());
+
+    return this.http.get<Make[]>(this.makeUrl, {params});
   }
 
   getMake(id: number): Observable<Make> {
