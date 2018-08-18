@@ -1,4 +1,5 @@
-﻿using Project.Common;
+﻿using Newtonsoft.Json;
+using Project.Common;
 using Project.Model;
 using Project.Model.Common;
 using Project.Repository;
@@ -32,23 +33,37 @@ namespace Project.WebAPI.Controllers
 
         protected IModelService Service { get; private set; }
 
+        public class CallDetails
+        {
+            [JsonProperty("sortBy")]
+            public string Sort { get; set; }
+            [JsonProperty("currentFilter")]
+            public string Filter { get; set; }
+            [JsonProperty("page")]
+            public int Page { get; set; }
+            [JsonProperty("pageSize")]
+            public int PageSize { get; set; }
+            [JsonProperty("ascending")]
+            public bool Ascending { get; set; }
+        }
+
         #endregion Properties
 
         #region Methods
 
         [HttpGet]
         // GET: api/VehicleModel
-        public async Task<IPagedList<IVehicleModel>> GetAllAsync(string sortBy, string currentFilter, string searchString, int? page, int? pageSize, bool ascending = true)
+        public async Task<IPagedList<IVehicleModel>> GetAllAsync([FromUri]CallDetails callDetails)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();
             IPaging paging = new Paging();
 
-            sorting.SortBy = sortBy;
-            sorting.SortAscending = ascending;
-            search.CurrentFilter = currentFilter;
-            paging.PageNumber = page;
-            paging.PageSize = pageSize;
+            sorting.SortBy = callDetails.Sort;
+            sorting.SortAscending = callDetails.Ascending;
+            search.CurrentFilter = callDetails.Filter;
+            paging.PageNumber = callDetails.Page;
+            paging.PageSize = callDetails.PageSize;
 
             return await Service.SelectAllAsync(sorting, search, paging);
         }

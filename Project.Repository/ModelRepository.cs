@@ -72,9 +72,9 @@ namespace Project.Repository
             int pageSize = (pagination.PageSize ?? 3);
             int pageNumber = (pagination.PageNumber ?? 1);
 
-            var map = Mapper.Map<IPagedList<IVehicleModel>>(query);
-            IPagedList<IVehicleModel> data = await map.ToPagedListAsync(pageNumber, pageSize);
-            return data;
+            var map = Mapper.Map<IEnumerable<IVehicleModel>>(await query.ToListAsync());
+            return map.ToPagedList(pageNumber, pageSize);
+
         }
 
         public async Task<IVehicleModel> SelectByIDAsync(Guid id)
