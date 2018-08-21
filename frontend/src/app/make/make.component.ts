@@ -9,21 +9,35 @@ import { Make } from '../shared/make.model';
 export class MakeComponent implements OnInit {
 
   Sort = 'Name';
-  Search = '';
-  Page = '1';
+  Filter = '';
+  Page = '2';
   pageSize = '3';
+  viewBy = 10;
+  totalItems;
+  Pages = this.totalItems / this.viewBy;
   Ascending = 'true';
-
   makes: Make[];
 
   constructor(private carsService: CarsService) { }
 
   ngOnInit() {
-    this.carsService.getMakes(this.Sort, this.Search, this.Page, this.pageSize, this.Ascending);
+    this.carsService.getMakes(this.Sort, this.Filter, this.Page, this.pageSize, this.Ascending).subscribe(res => {
+      console.log(res);
+      this.makes = res;
+      this.totalItems = res.length;
+    });
+  }
+
+  setPage(pageNo) {
+    this.Page = pageNo;
+  }
+
+  setSize(size) {
+    this.pageSize = size;
   }
 
   getMakes() {
-    this.carsService.getMakes(this.Sort, this.Search, this.Page, this.pageSize, this.Ascending);
+    this.carsService.getMakes(this.Sort, this.Filter, this.Page, this.pageSize, this.Ascending);
   }
 
   deleteMake(id) {

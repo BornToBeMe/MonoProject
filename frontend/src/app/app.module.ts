@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { ApiService } from './api.service';
@@ -38,7 +39,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule.forRoot()
   ],
   providers: [ApiService, CarsService],
   bootstrap: [AppComponent]

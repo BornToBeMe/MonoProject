@@ -14,10 +14,10 @@ export class CarsService implements OnInit {
 
   ngOnInit() {}
 
-  getMakes(Sort: string, Search: string, Page: string, pageSize: string, Ascending: string): Observable<Make[]> {
+  getMakes(Sort: string, Filter: string, Page: string, pageSize: string, Ascending: string): Observable<Make[]> {
     const params = new HttpParams()
                 .set('Sort', Sort)
-                .set('Search', Search)
+                .set('Filter', Filter)
                 .set('Page', Page)
                 .set('pageSize', pageSize)
                 .set('Ascending', Ascending);

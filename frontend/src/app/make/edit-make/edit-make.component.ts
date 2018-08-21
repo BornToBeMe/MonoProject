@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { CarsService } from '../../shared/cars.service';
-import Make from '../../shared/make.model';
+import { Make } from '../../shared/make.model';
 
 @Component({
   selector: 'app-edit-make',

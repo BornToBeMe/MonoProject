@@ -9,11 +9,19 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let make of makes">
+    <tr *ngFor="let make of makes" >
       <td>{{make.Name}}</td>
       <td>{{make.Abrv}}</td>
-      <td><a [routerLink]="['/Edit', make.Id]" class="btn btn-primary">Edit</a></td>
+      <td><a [routerLink]="['/Make/Edit', make.Id]" class="btn btn-primary">Edit</a></td>
       <td><button (click)="deleteMake(make.Id)" class="btn btn-danger">Delete</button></td>
     </tr>
   </tbody>
 </table>
+
+Show <select name="sizeSelect" ng-model="pageSize">
+  <option value="3">3</option>
+  <option value="5">5</option>
+  <option value="10">10</option>
+</select> items at a time.
+
+<ngb-pagination [collectionSize]="totalItems" [pageSize]="pageSize" [(page)]="Page"></ngb-pagination>
