@@ -1,10 +1,19 @@
 <button class="btn btn-primary" routerLink='/Make/New'>Create</button>
+<form id="filterForm">
+  <input type="text" placeholder="Search" name="Filter" [(ngModel)]="this.Filter" (onsubmit)="filter(this.Filter)">
+  Show <select name="sizeSelect" [(ngModel)]="this.pageSize" (onsubmit)="changeSize(this.pageSize)">
+    <option value="3">3</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+  </select> items at a time.
+</form>
+<button type="submit" form="filterForm" class="btn btn-primary" value="Submit">Submit</button>
 <table class="table table-hover">
   <thead>
     <tr>
-      <td>Name</td>
-      <td>Abrv</td>
-      <td colspan="2">Actions</td>
+      <td><b>Name</b></td>
+      <td><b>Abrv</b></td>
+      <td colspan="2"><b>Actions</b></td>
     </tr>
   </thead>
 
@@ -18,10 +27,6 @@
   </tbody>
 </table>
 
-Show <select name="sizeSelect" ng-model="pageSize">
-  <option value="3">3</option>
-  <option value="5">5</option>
-  <option value="10">10</option>
-</select> items at a time.
+<pre>Current page: {{Page}}</pre>
 
-<ngb-pagination [collectionSize]="totalItems" [pageSize]="pageSize" [(page)]="Page"></ngb-pagination>
+<ngb-pagination [collectionSize]="totalItems" [pageSize]="pageSize" [(page)]="Page" (pageChange)="pageChange(this.Page)"></ngb-pagination>

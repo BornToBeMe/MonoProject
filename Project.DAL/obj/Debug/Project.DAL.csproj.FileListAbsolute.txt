@@ -9,3 +9,4 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csp
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\obj\Debug\Project.DAL.csprojAssemblyReference.cache
