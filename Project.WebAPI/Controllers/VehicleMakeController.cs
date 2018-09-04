@@ -47,13 +47,22 @@ namespace Project.WebAPI.Controllers
             public bool Ascending { get; set; }
         }
 
+        public class VehicleMakeViewModel
+        {
+            public IEnumerable<IVehicleMake> Items { get; set; }
+            public int TotalCount { get; set; }
+            public int PageNumber { get; set; }
+            public int PageSize { get; set; }
+            public int TotalPageCount { get; set; }
+        }
+
         #endregion Properties
 
         #region Methods
         
         [HttpGet]
         // GET: api/VehicleMake
-        public async Task<IPagedList<IVehicleMake>> GetAllAsync([FromUri]CallDetails callDetails)
+        public async Task<IHttpActionResult> GetAllAsync([FromUri]CallDetails callDetails)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();
@@ -65,13 +74,37 @@ namespace Project.WebAPI.Controllers
             paging.PageNumber = callDetails.Page;
             paging.PageSize = callDetails.PageSize;
 
-            return await Service.SelectAllAsync(sorting, search, paging);
+            var i = await Service.SelectAllAsync(sorting, search, paging);
+
+            return Ok(new VehicleMakeViewModel
+            {
+                Items = i,
+                TotalCount = i.TotalItemCount,
+                PageNumber = i.PageNumber,
+                PageSize = i.PageSize,
+                TotalPageCount = i.PageCount
+            });
         }
 
         // GET: api/VehicleMake/5
-        public async Task<IVehicleMake> GetAsync(Guid id)
+        public async Task<IHttpActionResult> GetAsync(Guid id)
         {
-            return await Service.SelectByIDAsync(id);
+            try
+            {
+                if (id != null)
+                {
+                    await Service.SelectByIDAsync(id);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+            return Ok(await Service.SelectByIDAsync(id));
         }
 
         // POST: api/VehicleMake

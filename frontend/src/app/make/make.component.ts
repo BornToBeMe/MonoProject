@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarsService } from '../shared/cars.service';
-import { Make } from '../shared/make.model';
+import { Make, MakeViewModel } from '../shared/make.model';
 
 @Component({
   selector: 'app-make',
@@ -12,42 +12,28 @@ export class MakeComponent implements OnInit {
   Filter = '';
   Page = 1;
   pageSize = 3;
-  pageStr = this.Page.toString();
-  pageSizeStr = this.pageSize.toString();
   totalItems;
-  Pages = this.totalItems / this.pageSize;
+  Pages;
   Ascending = 'true';
-  previousPage: any;
   makes: Make[];
 
   constructor(private carsService: CarsService) { }
 
   ngOnInit() {
-    this.getAll();
+    this.getMakes();
   }
 
   getMakes() {
-    this.carsService.getMakes(this.Sort, this.Filter, this.pageStr, this.pageSizeStr, this.Ascending).subscribe(res => {
-      this.makes = res;
-      this.pageStr = this.Page.toString();
-      this.pageSizeStr = this.pageSize.toString();
-      this.Pages = this.totalItems / this.pageSize;
+    this.carsService.getMakes(this.Sort, this.Filter, this.Page, this.pageSize, this.Ascending).subscribe(res => {
+      this.makes = res.Items;
+      this.totalItems = res.TotalCount;
+      this.Pages = res.TotalPageCount;
       console.log(res);
     });
   }
 
-  getAll() {
-    this.carsService.getMakes(this.Sort, this.Filter, '1', '10000', this.Ascending).subscribe(res => {
-      this.totalItems = res.length;
-      this.Pages = this.totalItems / this.pageSize;
-      console.log(res);
-      this.getMakes();
-    });
-  }
-
-  pageChange(pageNo) {
+   pageChange(pageNo) {
     this.Page = pageNo;
-    this.pageStr = this.Page.toString();
     this.getMakes();
     console.log(pageNo);
   }
@@ -55,14 +41,13 @@ export class MakeComponent implements OnInit {
   filter(search) {
     console.log(search);
     this.Filter = search;
-    this.getAll();
+    this.getMakes();
   }
 
   changeSize(size) {
     console.log(size);
     this.pageSize = size;
-    this.pageSizeStr = size.toString();
-    this.getAll();
+    this.getMakes();
   }
 
   deleteMake(id) {

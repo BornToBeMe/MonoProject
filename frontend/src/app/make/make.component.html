@@ -1,13 +1,10 @@
 <button class="btn btn-primary" routerLink='/Make/New'>Create</button>
-<form id="filterForm">
-  <input type="text" placeholder="Search" name="Filter" [(ngModel)]="this.Filter" (onsubmit)="filter(this.Filter)">
-  Show <select name="sizeSelect" [(ngModel)]="this.pageSize" (onsubmit)="changeSize(this.pageSize)">
-    <option value="3">3</option>
-    <option value="5">5</option>
-    <option value="10">10</option>
-  </select> items at a time.
-</form>
-<button type="submit" form="filterForm" class="btn btn-primary" value="Submit">Submit</button>
+<input type="text" placeholder="Search" [(ngModel)]="this.Filter" (keyup)="filter(this.Filter)">
+Show <select [(ngModel)]="this.pageSize" (change)="changeSize(this.pageSize)">
+  <option value=3>3</option>
+  <option value=5>5</option>
+  <option value=10>10</option>
+</select> items at a time.
 <table class="table table-hover">
   <thead>
     <tr>

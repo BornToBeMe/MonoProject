@@ -12,7 +12,7 @@ import { Make } from '../../shared/make.model';
   styleUrls: ['./edit-make.component.css']
 })
 export class EditMakeComponent implements OnInit {
-  make: any;
+  make: Make;
   makeForm: FormGroup;
 
   constructor(private carsService: CarsService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
@@ -34,13 +34,10 @@ export class EditMakeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.make = this.carsService.editMake(params['id']).subscribe(res => {
+     this.route.params.subscribe(params => {
+      this.carsService.getMake(params['id']).subscribe(res => {
         this.make = res;
       });
     });
   }
-
-
-
 }

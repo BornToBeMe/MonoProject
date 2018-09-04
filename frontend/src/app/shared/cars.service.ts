@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { Make } from './make.model';
+import { Make, MakeViewModel } from './make.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,17 +14,17 @@ export class CarsService implements OnInit {
 
   ngOnInit() {}
 
-  getMakes(Sort: string, Filter: string, Page: string, pageSize: string, Ascending: string): Observable<Make[]> {
+  getMakes(Sort: string, Filter: string, Page: number, pageSize: number, Ascending: string): Observable<MakeViewModel> {
     const params = new HttpParams()
                 .set('Sort', Sort)
                 .set('Filter', Filter)
-                .set('Page', Page)
-                .set('pageSize', pageSize)
+                .set('Page', Page.toString())
+                .set('pageSize', pageSize.toString())
                 .set('Ascending', Ascending);
 
     console.log(params.toString());
 
-    return this.http.get<Make[]>(this.makeUrl, {params});
+    return this.http.get<MakeViewModel>(this.makeUrl, {params});
   }
 
   getMake(id: number): Observable<Make> {
@@ -33,23 +33,22 @@ export class CarsService implements OnInit {
   }
 
   addMake(name, abrv) {
-    const uri = 'http://localhost:58151/api/VehicleMake';
     const obj = {
       name: name,
       abrv: abrv
     };
-    return this.http.post(uri, obj).subscribe(res => console.log('Done'));
+    return this.http.post(this.makeUrl, obj).subscribe(res => console.log('Done'));
   }
 
   editMake(id) {
-    const uri = `http://localhost:58151/api/VehicleMake/${id}`;
+    const uri = `this.makeUrl/${id}`;
     return this.http.get(uri).pipe(map(res => {
       return res;
     }));
   }
 
   updateMake(name, abrv, id) {
-    const uri = `http://localhost:58151/api/VehicleMake/${id}`;
+    const uri = `${this.makeUrl}/${id}`;
     const obj = {
       name: name,
       abrv: abrv
@@ -58,6 +57,6 @@ export class CarsService implements OnInit {
   }
 
   deleteMake(id) {
-    return this.http.delete(`http://localhost:58151/api/VehicleMake/${id}`);
+    return this.http.delete(`this.makeUrl/${id}`);
   }
 }

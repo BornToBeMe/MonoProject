@@ -6,7 +6,7 @@
       <form [formGroup]="makeForm" novalidate>
         <div class="form-group">
           <label class="col-md-4">Name</label>
-          <input type="text" class="form-control" formControlName="name" #name [(ngModel)] = "make.name"/>
+          <input type="text" class="form-control" formControlName="name" #name [(ngModel)]="make.Name"/>
         </div>
         <div *ngIf="makeForm.controls['name'].invalid && (makeForm.controls['name'].dirty || makeForm.controls['name'].touched)" class="alert alert-danger">
           <div *ngIf="makeForm.controls['name'].errors.required">
@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
           <label class="col-md-4">Abrv</label>
-          <input type="text" class="form-control" formControlName="abrv" #abrv [(ngModel)] = "make.abrv" />
+          <input type="text" class="form-control" formControlName="abrv" #abrv [(ngModel)]="make.Abrv" />
         </div>
         <div *ngIf="makeForm.controls['abrv'].invalid && (makeForm.controls['abrv'].dirty || makeForm.controls['abrv'].touched)" class="alert alert-danger">
           <div *ngIf="makeForm.controls['abrv'].errors.required">
