@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.WebAPI", "Project.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Common", "Project.Common\Project.Common.csproj", "{D6ACBB82-16F3-41F9-A21D-FAD161A1F800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Repository.Tests", "Project.Repository.Tests\Project.Repository.Tests.csproj", "{A29E0099-914D-4E0D-BC3B-0251C7AF5A97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Service.Tests", "Project.Repository.Tests\Project.Service.Tests.csproj", "{A29E0099-914D-4E0D-BC3B-0251C7AF5A97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
