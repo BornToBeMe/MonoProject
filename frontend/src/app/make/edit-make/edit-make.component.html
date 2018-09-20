@@ -1,30 +1,30 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">
-      Edit Make
-    </div>
-    <div class="panel-body">
-      <form [formGroup]="makeForm" novalidate>
-        <div class="form-group">
-          <label class="col-md-4">Name</label>
-          <input type="text" class="form-control" formControlName="name" #name [(ngModel)]="make.Name"/>
-        </div>
-        <div *ngIf="makeForm.controls['name'].invalid && (makeForm.controls['name'].dirty || makeForm.controls['name'].touched)" class="alert alert-danger">
-          <div *ngIf="makeForm.controls['name'].errors.required">
-            Name is required.
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-4">Abrv</label>
-          <input type="text" class="form-control" formControlName="abrv" #abrv [(ngModel)]="make.Abrv" />
-        </div>
-        <div *ngIf="makeForm.controls['abrv'].invalid && (makeForm.controls['abrv'].dirty || makeForm.controls['abrv'].touched)" class="alert alert-danger">
-          <div *ngIf="makeForm.controls['abrv'].errors.required">
-            Abrv is required.
-          </div>
-        </div>
-          <div class="form-group">
-            <button (click)="updateMake(name.value, abrv.value)" [disabled]="makeForm.pristine || makeForm.invalid" class="btn btn-primary">Update</button>
-          </div>
-      </form>
-    </div>
+  <div class="panel-heading">
+    Edit Make
   </div>
+  <div class="panel-body">
+    <form [formGroup]="makeForm" novalidate>
+      <div class="form-group">
+        <label class="col-md-4">Name</label>
+        <input type="text" class="form-control" formControlName="name" #name [(ngModel)]="make.Name"/>
+      </div>
+      <div *ngIf="makeForm.controls['name'].invalid && (makeForm.controls['name'].dirty || makeForm.controls['name'].touched)" class="alert alert-danger">
+        <div *ngIf="makeForm.controls['name'].errors.required">
+          Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">Abrv</label>
+        <input type="text" class="form-control" formControlName="abrv" #abrv [(ngModel)]="make.Abrv" />
+      </div>
+      <div *ngIf="makeForm.controls['abrv'].invalid && (makeForm.controls['abrv'].dirty || makeForm.controls['abrv'].touched)" class="alert alert-danger">
+        <div *ngIf="makeForm.controls['abrv'].errors.required">
+          Abrv is required.
+        </div>
+      </div>
+        <div class="form-group">
+          <button (click)="updateMake(name.value, abrv.value)" [disabled]="makeForm.pristine || makeForm.invalid" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+  </div>
+</div>

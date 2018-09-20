@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 using Xunit;
 
 namespace Project.Service.Tests
@@ -21,13 +22,30 @@ namespace Project.Service.Tests
         public async Task SelectAllAsync_Success_ReturnsCorrectResult()
         {
             var mockModelRepository = new Mock<IModelRepository>();
+            var mockSorting = new Mock<ISorting>();
+            var mockSearch = new Mock<ISearch>();
+            var mockPaging = new Mock<IPaging>();
             var service = new ModelService(mockModelRepository.Object);
-            var model = new Model.VehicleModel
+            var model = new List<Model.VehicleModel>
             {
-                VehicleModelId = Guid.NewGuid(),
-                Name = "Car",
-                Abrv = "Car"
+                new Model.VehicleModel {
+                    VehicleModelId = Guid.NewGuid(),
+                    Name = "Car",
+                    Abrv = "Car"
+                },
+                new Model.VehicleModel
+                {
+                    VehicleModelId = Guid.NewGuid(),
+                    Name = "BMW",
+                    Abrv = "BMW"
+                }
+
             };
+
+            mockModelRepository.Setup(ss => ss.SelectAllAsync(mockSorting.Object, mockSearch.Object, mockPaging.Object)).ReturnsAsync(model.ToPagedList());
+
+            var actual = await service.SelectAllAsync(mockSorting.Object, mockSearch.Object, mockPaging.Object);
+            // actual.ShouldBeEquivalentTo(model, options => options.WithStrictOrdering());
         }
 
         [Fact]
@@ -66,6 +84,23 @@ namespace Project.Service.Tests
         }
 
         [Fact]
+        public async Task CreateAsync_Success_ReturnsException()
+        {
+            var mockModelRepository = new Mock<IModelRepository>();
+            var service = new ModelService(mockModelRepository.Object);
+            var model = new Model.VehicleModel
+            {
+                VehicleModelId = Guid.NewGuid(),
+                Name = "Car",
+                Abrv = null
+            };
+
+            mockModelRepository.Setup(ss => ss.CreateAsync(model)).Throws<Exception>();
+            Func<Task> action = async () => await service.CreateAsync(model);
+            action.Should().Throw<Exception>();
+        }
+
+        [Fact]
         public async Task EditAsync_Success_ReturnsTrue()
         {
             var mockModelRepository = new Mock<IModelRepository>();
@@ -83,6 +118,23 @@ namespace Project.Service.Tests
         }
 
         [Fact]
+        public async Task EditAsync_Success_ReturnsException()
+        {
+            var mockModelRepository = new Mock<IModelRepository>();
+            var service = new ModelService(mockModelRepository.Object);
+            var model = new Model.VehicleModel
+            {
+                VehicleModelId = Guid.NewGuid(),
+                Name = "Car",
+                Abrv = null
+            };
+
+            mockModelRepository.Setup(ss => ss.EditAsync(model.VehicleModelId, model)).Throws<Exception>();
+            Func<Task> action = async () => await service.EditAsync(model.VehicleModelId, model);
+            action.Should().Throw<Exception>();
+        }
+
+        [Fact]
         public async Task DeleteAsync_Success_ReturnsTrue()
         {
             var mockModelRepository = new Mock<IModelRepository>();
@@ -97,6 +149,22 @@ namespace Project.Service.Tests
             mockModelRepository.Setup(ss => ss.DeleteAsync(model.VehicleModelId)).ReturnsAsync(true);
             var actual = await service.DeleteAsync(model.VehicleModelId);
             actual.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task DeleteAsync_Success_ReturnsException()
+        {
+            var mockModelRepository = new Mock<IModelRepository>();
+            var service = new ModelService(mockModelRepository.Object);
+            var model = new Model.VehicleModel
+            {
+                Name = "Car",
+                Abrv = "Car"
+            };
+
+            mockModelRepository.Setup(ss => ss.DeleteAsync(model.VehicleModelId)).Throws<Exception>();
+            Func<Task> action = async () => await service.DeleteAsync(model.VehicleModelId);
+            action.Should().Throw<Exception>();
         }
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CarsService } from '../shared/cars.service';
+import { MakeService } from '../shared/make.service';
 import { Make, MakeViewModel } from '../shared/make.model';
 
 @Component({
@@ -17,14 +17,14 @@ export class MakeComponent implements OnInit {
   Ascending = 'true';
   makes: Make[];
 
-  constructor(private carsService: CarsService) { }
+  constructor(private makeService: MakeService) { }
 
   ngOnInit() {
     this.getMakes();
   }
 
   getMakes() {
-    this.carsService.getMakes(this.Sort, this.Filter, this.Page, this.pageSize, this.Ascending).subscribe(res => {
+    this.makeService.getMakes(this.Sort, this.Filter, this.Page, this.pageSize, this.Ascending).subscribe(res => {
       this.makes = res.Items;
       this.totalItems = res.TotalCount;
       this.Pages = res.TotalPageCount;
@@ -51,7 +51,7 @@ export class MakeComponent implements OnInit {
   }
 
   deleteMake(id) {
-    this.carsService.deleteMake(id).subscribe(res => {
+    this.makeService.deleteMake(id).subscribe(res => {
       console.log('Deleted');
     });
   }

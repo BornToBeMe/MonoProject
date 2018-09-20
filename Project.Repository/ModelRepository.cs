@@ -87,6 +87,7 @@ namespace Project.Repository
         {
             var map = Mapper.Map<VehicleModel>(obj);
             map.VehicleModelId = Guid.NewGuid();
+            map.Abrv = null;
             Context.VehicleModels.Add(map);
             return (await Context.SaveChangesAsync() > 0);
         }
@@ -112,9 +113,9 @@ namespace Project.Repository
             return (await Context.SaveChangesAsync() > 0);
         }
 
-        public IList<Project.Model.VehicleMake> PopulateMakesDropDownList()
+        public IList<IVehicleMake> PopulateMakesDropDownList()
         {
-            List<Project.Model.VehicleMake> makes = Mapper.Map<List<Project.Model.VehicleMake>>(Context.VehicleMakes.OrderBy(c => c.Name).ToList());
+            List<IVehicleMake> makes = Mapper.Map<List<IVehicleMake>>(Context.VehicleMakes.OrderBy(c => c.Name).ToList());
             return makes;
         }
     }

@@ -1,0 +1,36 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    Edit Make
+  </div>
+  <div class="panel-body">
+    <form [formGroup]="modelForm" novalidate>
+      <div class="form-group">
+          <label class="col-md-4">Vehicle Make</label>
+          <select class="form-control" formControlName="make" #make [(ngModel)]="model.VehicleMakeId">
+            <option>{{model.VehicleMakeId}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">Name</label>
+        <input type="text" class="form-control" formControlName="name" #name [(ngModel)]="model.Name"/>
+      </div>
+      <div *ngIf="modelForm.controls['name'].invalid && (modelForm.controls['name'].dirty || modelForm.controls['name'].touched)" class="alert alert-danger">
+        <div *ngIf="modelForm.controls['name'].errors.required">
+          Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">Abrv</label>
+        <input type="text" class="form-control" formControlName="abrv" #abrv [(ngModel)]="model.Abrv" />
+      </div>
+      <div *ngIf="modelForm.controls['abrv'].invalid && (modelForm.controls['abrv'].dirty || modelForm.controls['abrv'].touched)" class="alert alert-danger">
+        <div *ngIf="modelForm.controls['abrv'].errors.required">
+          Abrv is required.
+        </div>
+      </div>
+        <div class="form-group">
+          <button (click)="updateModel(name.value, abrv.value, make.value)" [disabled]="modelForm.pristine || modelForm.invalid" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+  </div>
+</div>

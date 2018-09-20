@@ -11,9 +11,11 @@ import { MakeComponent } from './make/make.component';
 import { ModelComponent } from './model/model.component';
 import { NewMakeComponent } from './make/new-make/new-make.component';
 import { NewModelComponent } from './model/new-model/new-model.component';
-import { CarsService } from './shared/cars.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditMakeComponent } from './make/edit-make/edit-make.component';
+import { EditModelComponent } from './model/edit-model/edit-model.component';
+import { MakeService } from './shared/make.service';
+import { ModelService } from './shared/model.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/Make', pathMatch: 'full' },
@@ -21,7 +23,8 @@ const routes: Routes = [
   { path: 'Model', component: ModelComponent },
   { path: 'Make/New', component: NewMakeComponent },
   { path: 'Model/New', component: NewModelComponent },
-  { path: 'Make/Edit/:id', component: EditMakeComponent }
+  { path: 'Make/Edit/:id', component: EditMakeComponent },
+  { path: 'Model/Edit/:id', component: EditModelComponent }
 ];
 
 @NgModule({
@@ -32,7 +35,8 @@ const routes: Routes = [
     ModelComponent,
     NewMakeComponent,
     NewModelComponent,
-    EditMakeComponent
+    EditMakeComponent,
+    EditModelComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgbModule.forRoot()
   ],
-  providers: [ApiService, CarsService],
+  providers: [ApiService, MakeService, ModelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

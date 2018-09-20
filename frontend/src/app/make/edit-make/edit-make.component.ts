@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { CarsService } from '../../shared/cars.service';
+import { MakeService } from '../../shared/make.service';
 import { Make } from '../../shared/make.model';
 
 @Component({
@@ -15,7 +15,7 @@ export class EditMakeComponent implements OnInit {
   make: Make;
   makeForm: FormGroup;
 
-  constructor(private carsService: CarsService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
+  constructor(private makeService: MakeService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
     this.createForm();
   }
 
@@ -28,14 +28,14 @@ export class EditMakeComponent implements OnInit {
 
   updateMake(name, abrv) {
     this.route.params.subscribe(params => {
-      this.carsService.updateMake(name, abrv, params['id']);
+      this.makeService.updateMake(name, abrv, params['id']);
       this.router.navigate(['Make']);
     });
   }
 
   ngOnInit() {
      this.route.params.subscribe(params => {
-      this.carsService.getMake(params['id']).subscribe(res => {
+      this.makeService.getMake(params['id']).subscribe(res => {
         this.make = res;
       });
     });

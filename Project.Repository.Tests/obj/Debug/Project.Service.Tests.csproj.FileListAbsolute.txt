@@ -116,7 +116,6 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\xu
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\xunit.core.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\xunit.execution.desktop.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\EntityFramework.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\X.PagedList.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\Project.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\Ninject.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\AutoMapper.dll

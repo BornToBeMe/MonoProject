@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CarsService } from '../../shared/cars.service';
 import { Make } from '../../shared/make.model';
 import { NgForm, FormGroup, FormBuilder, Validators } from '../../../../node_modules/@angular/forms';
 import { Router } from '../../../../node_modules/@angular/router';
+import { MakeService } from '../../shared/make.service';
 
 @Component({
   selector: 'app-new-make',
@@ -13,7 +13,7 @@ export class NewMakeComponent implements OnInit {
 
   makeForm: FormGroup;
 
-  constructor(private carsService: CarsService, private fb: FormBuilder, private router: Router) {
+  constructor(private makeService: MakeService, private fb: FormBuilder, private router: Router) {
     this.createForm();
   }
 
@@ -25,7 +25,7 @@ export class NewMakeComponent implements OnInit {
   }
 
   addMake(name, abrv) {
-    this.carsService.addMake(name, abrv);
+    this.makeService.addMake(name, abrv);
     this.router.navigate(['Make']);
   }
 

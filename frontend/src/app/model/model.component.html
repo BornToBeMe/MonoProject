@@ -1,3 +1,31 @@
-<div class="container">
+<button class="btn btn-primary" routerLink='/Model/New'>Create</button>
+<input type="text" placeholder="Search" [(ngModel)]="this.Filter" (keyup)="filter(this.Filter)">
+Show <select [(ngModel)]="this.pageSize" (change)="changeSize(this.pageSize)">
+  <option value=3>3</option>
+  <option value=5>5</option>
+  <option value=10>10</option>
+</select> items at a time.
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <td><b>Name</b></td>
+      <td><b>Abrv</b></td>
+      <td><b>Vehicle Make</b></td>
+      <td colspan="2"><b>Actions</b></td>
+    </tr>
+  </thead>
 
-</div>
+  <tbody>
+    <tr *ngFor="let model of models" >
+      <td>{{model.Name}}</td>
+      <td>{{model.Abrv}}</td>
+      <td>{{model.VehicleMakeId}}</td>
+      <td><a [routerLink]="['/Model/Edit', model.VehicleModelId]" class="btn btn-primary">Edit</a></td>
+      <td><button (click)="deleteMake(model.VehicleModelId)" class="btn btn-danger">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<pre>Current page: {{Page}}</pre>
+
+<ngb-pagination [collectionSize]="totalItems" [pageSize]="pageSize" [(page)]="Page" (pageChange)="pageChange(this.Page)"></ngb-pagination>

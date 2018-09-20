@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class CarsService implements OnInit {
+export class MakeService implements OnInit {
 
   makeUrl = 'http://localhost:58151/api/VehicleMake';
 
@@ -40,13 +40,6 @@ export class CarsService implements OnInit {
     return this.http.post(this.makeUrl, obj).subscribe(res => console.log('Done'));
   }
 
-  editMake(id) {
-    const uri = `this.makeUrl/${id}`;
-    return this.http.get(uri).pipe(map(res => {
-      return res;
-    }));
-  }
-
   updateMake(name, abrv, id) {
     const uri = `${this.makeUrl}/${id}`;
     const obj = {
@@ -57,6 +50,6 @@ export class CarsService implements OnInit {
   }
 
   deleteMake(id) {
-    return this.http.delete(`this.makeUrl/${id}`);
+    return this.http.delete(`${this.makeUrl}/${id}`);
   }
 }

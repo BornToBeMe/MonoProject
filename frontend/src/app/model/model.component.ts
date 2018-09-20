@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CarsService } from '../shared/cars.service';
+import { ModelService } from '../shared/model.service';
+import { Model } from '../shared/model.model';
 
 @Component({
   selector: 'app-model',
@@ -8,8 +9,54 @@ import { CarsService } from '../shared/cars.service';
 })
 export class ModelComponent implements OnInit {
 
-  constructor(private carsService: CarsService) { }
+  Sort = 'Name';
+  Filter = '';
+  Page = 1;
+  pageSize = 3;
+  totalItems;
+  Pages;
+  Ascending = 'true';
+  models: Model[];
 
-  ngOnInit() {}
+  constructor(private modelService: ModelService) { }
+
+  ngOnInit() {
+    this.getModels();
+  }
+
+  getModels() {
+    this.modelService.getModels(this.Sort, this.Filter, this.Page, this.pageSize, this.Ascending).subscribe(res => {
+      this.models = res.Items;
+      this.totalItems = res.TotalCount;
+      this.Pages = res.TotalPageCount;
+      console.log(res);
+    });
+  }
+
+   pageChange(pageNo) {
+    this.Page = pageNo;
+    this.getModels();
+    console.log(pageNo);
+  }
+
+  filter(search) {
+    console.log(search);
+    this.Filter = search;
+    this.getModels();
+  }
+
+  changeSize(size) {
+    console.log(size);
+    this.pageSize = size;
+    this.getModels();
+  }
+
+  deleteMake(id) {
+    this.modelService.deleteModel(id).subscribe(res => {
+      console.log('Deleted');
+      this.getModels();
+    });
+  }
+
 
 }

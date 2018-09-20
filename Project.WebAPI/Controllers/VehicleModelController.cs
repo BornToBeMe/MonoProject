@@ -47,13 +47,22 @@ namespace Project.WebAPI.Controllers
             public bool Ascending { get; set; }
         }
 
+        public class VehicleModelViewModel
+        {
+            public IEnumerable<IVehicleModel> Items { get; set; }
+            public int TotalCount { get; set; }
+            public int PageNumber { get; set; }
+            public int PageSize { get; set; }
+            public int TotalPageCount { get; set; }
+        }
+
         #endregion Properties
 
         #region Methods
 
         [HttpGet]
         // GET: api/VehicleModel
-        public async Task<IPagedList<IVehicleModel>> GetAllAsync([FromUri]CallDetails callDetails)
+        public async Task<IHttpActionResult> GetAllAsync([FromUri]CallDetails callDetails)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();
@@ -65,7 +74,16 @@ namespace Project.WebAPI.Controllers
             paging.PageNumber = callDetails.Page;
             paging.PageSize = callDetails.PageSize;
 
-            return await Service.SelectAllAsync(sorting, search, paging);
+            var i = await Service.SelectAllAsync(sorting, search, paging);
+
+            return Ok(new VehicleModelViewModel
+            {
+                Items = i,
+                TotalCount = i.TotalItemCount,
+                PageNumber = i.PageNumber,
+                PageSize = i.PageSize,
+                TotalPageCount = i.PageCount
+            });
         }
 
         // GET: api/VehicleModel/5
