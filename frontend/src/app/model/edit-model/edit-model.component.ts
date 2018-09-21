@@ -5,6 +5,7 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ModelService } from '../../shared/model.service';
 import { Model } from '../../shared/model.model';
+import { Make } from '../../shared/make.model';
 
 @Component({
   selector: 'app-edit-model',
@@ -15,6 +16,7 @@ export class EditModelComponent implements OnInit {
 
   model: Model;
   modelForm: FormGroup;
+  makeList: Make[];
 
   constructor(private modelService: ModelService, private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
     this.createForm();
@@ -40,6 +42,10 @@ export class EditModelComponent implements OnInit {
       this.modelService.getModel(params['id']).subscribe(res => {
         this.model = res;
       });
+    });
+    this.modelService.getModels('Name', '', 1, 1000, true).subscribe(res => {
+      this.makeList = res.MakeList;
+      console.log(res);
     });
   }
 

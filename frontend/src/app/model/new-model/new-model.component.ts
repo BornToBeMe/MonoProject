@@ -4,6 +4,7 @@ import { ModelService } from '../../shared/model.service';
 import { NgForm, FormGroup, FormBuilder, Validators } from '../../../../node_modules/@angular/forms';
 import { Router } from '../../../../node_modules/@angular/router';
 import { Model } from '../../shared/model.model';
+import { Make } from '../../shared/make.model';
 
 @Component({
   selector: 'app-new-model',
@@ -14,6 +15,7 @@ export class NewModelComponent implements OnInit {
 
   modelForm: FormGroup;
   model: Model[];
+  makeList: Make[];
 
   constructor(private modelService: ModelService, private fb: FormBuilder, private router: Router) {
     this.createForm();
@@ -29,10 +31,14 @@ export class NewModelComponent implements OnInit {
 
   addModel(name, abrv, make) {
     this.modelService.addModel(name, abrv, make);
-    this.router.navigate(['Make']);
+    this.router.navigate(['Model']);
   }
 
   ngOnInit() {
+    this.modelService.getModels('Name', '', 1, 1000, true).subscribe(res => {
+      this.makeList = res.MakeList;
+      console.log(res);
+    });
   }
 
 }

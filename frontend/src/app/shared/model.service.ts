@@ -14,13 +14,13 @@ export class ModelService implements OnInit {
 
   ngOnInit() {}
 
-  getModels(Sort: string, Filter: string, Page: number, pageSize: number, Ascending: string): Observable<ModelViewModel> {
+  getModels(Sort: string, Filter: string, Page: number, pageSize: number, Ascending: boolean): Observable<ModelViewModel> {
     const params = new HttpParams()
                 .set('Sort', Sort)
                 .set('Filter', Filter)
                 .set('Page', Page.toString())
                 .set('pageSize', pageSize.toString())
-                .set('Ascending', Ascending);
+                .set('Ascending', Ascending.toString());
 
     console.log(params.toString());
 

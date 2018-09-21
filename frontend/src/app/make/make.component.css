@@ -1,4 +1,4 @@
-.vertical-align {
-  display: flex;
-  align-items: center;
+.sort {
+  color: #4d4dff;
+  cursor: pointer;
 }

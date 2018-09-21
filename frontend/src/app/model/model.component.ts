@@ -9,13 +9,13 @@ import { Model } from '../shared/model.model';
 })
 export class ModelComponent implements OnInit {
 
-  Sort = 'Name';
+  Sort = '';
   Filter = '';
   Page = 1;
   pageSize = 3;
   totalItems;
   Pages;
-  Ascending = 'true';
+  Ascending = true;
   models: Model[];
 
   constructor(private modelService: ModelService) { }
@@ -49,6 +49,16 @@ export class ModelComponent implements OnInit {
     console.log(size);
     this.pageSize = size;
     this.getModels();
+  }
+
+  sort(sort) {
+    console.log(sort);
+    this.Sort = sort;
+    this.getModels();
+  }
+
+  ascending(ascending) {
+    this.Ascending = !ascending;
   }
 
   deleteMake(id) {

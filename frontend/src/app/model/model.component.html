@@ -8,9 +8,9 @@ Show <select [(ngModel)]="this.pageSize" (change)="changeSize(this.pageSize)">
 <table class="table table-hover">
   <thead>
     <tr>
-      <td><b>Name</b></td>
-      <td><b>Abrv</b></td>
-      <td><b>Vehicle Make</b></td>
+      <td><span class="sort" (click)="sort('Name'); ascending(this.Ascending)">Name</span></td>
+      <td><span class="sort" (click)="sort('Abrv'); ascending(this.Ascending)">Abrv</span></td>
+      <td><span class="sort" (click)="sort('Make'); ascending(this.Ascending)">Vehicle Make</span></td>
       <td colspan="2"><b>Actions</b></td>
     </tr>
   </thead>
@@ -19,7 +19,7 @@ Show <select [(ngModel)]="this.pageSize" (change)="changeSize(this.pageSize)">
     <tr *ngFor="let model of models" >
       <td>{{model.Name}}</td>
       <td>{{model.Abrv}}</td>
-      <td>{{model.VehicleMakeId}}</td>
+      <td>{{model.VehicleModelId}}</td>
       <td><a [routerLink]="['/Model/Edit', model.VehicleModelId]" class="btn btn-primary">Edit</a></td>
       <td><button (click)="deleteMake(model.VehicleModelId)" class="btn btn-danger">Delete</button></td>
     </tr>

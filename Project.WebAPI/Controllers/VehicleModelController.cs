@@ -50,6 +50,7 @@ namespace Project.WebAPI.Controllers
         public class VehicleModelViewModel
         {
             public IEnumerable<IVehicleModel> Items { get; set; }
+            public IList<IVehicleMake> MakeList { get; set; }
             public int TotalCount { get; set; }
             public int PageNumber { get; set; }
             public int PageSize { get; set; }
@@ -74,11 +75,13 @@ namespace Project.WebAPI.Controllers
             paging.PageNumber = callDetails.Page;
             paging.PageSize = callDetails.PageSize;
 
+            var list = Service.PopulateMakesDropDownList();
             var i = await Service.SelectAllAsync(sorting, search, paging);
 
             return Ok(new VehicleModelViewModel
             {
                 Items = i,
+                MakeList = list,
                 TotalCount = i.TotalItemCount,
                 PageNumber = i.PageNumber,
                 PageSize = i.PageSize,

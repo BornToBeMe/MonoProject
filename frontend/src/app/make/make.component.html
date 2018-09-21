@@ -6,22 +6,17 @@ Show <select [(ngModel)]="this.pageSize" (change)="changeSize(this.pageSize)">
   <option value=10>10</option>
 </select> items at a time.
 <table class="table table-hover">
-  <thead>
-    <tr>
-      <td><b>Name</b></td>
-      <td><b>Abrv</b></td>
-      <td colspan="2"><b>Actions</b></td>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let make of makes" >
-      <td>{{make.Name}}</td>
-      <td>{{make.Abrv}}</td>
-      <td><a [routerLink]="['/Make/Edit', make.Id]" class="btn btn-primary">Edit</a></td>
-      <td><button (click)="deleteMake(make.Id)" class="btn btn-danger">Delete</button></td>
-    </tr>
-  </tbody>
+  <tr>
+      <th><span class="sort" (click)="sort('Name'); ascending(this.Ascending)">Name</span></th>
+      <th><span class="sort" (click)="sort('Abrv'); ascending(this.Ascending)">Abrv</span></th>
+      <th colspan="2"><b>Actions</b></th>
+  </tr>
+  <tr *ngFor="let make of makes" >
+    <td>{{make.Name}}</td>
+    <td>{{make.Abrv}}</td>
+    <td><a [routerLink]="['/Make/Edit', make.Id]" class="btn btn-primary">Edit</a></td>
+    <td><button (click)="deleteMake(make.Id)" class="btn btn-danger">Delete</button></td>
+  </tr>
 </table>
 
 <pre>Current page: {{Page}}</pre>

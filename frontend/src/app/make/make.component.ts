@@ -5,16 +5,17 @@ import { Make, MakeViewModel } from '../shared/make.model';
 @Component({
   selector: 'app-make',
   templateUrl: './make.component.html',
+  styleUrls: ['./make.component.css']
 })
 export class MakeComponent implements OnInit {
 
-  Sort = 'Name';
+  Sort = '';
   Filter = '';
   Page = 1;
   pageSize = 3;
   totalItems;
   Pages;
-  Ascending = 'true';
+  Ascending = true;
   makes: Make[];
 
   constructor(private makeService: MakeService) { }
@@ -50,9 +51,20 @@ export class MakeComponent implements OnInit {
     this.getMakes();
   }
 
+  sort(sort) {
+    console.log(sort);
+    this.Sort = sort;
+    this.getMakes();
+  }
+
+  ascending(ascending) {
+    this.Ascending = !ascending;
+  }
+
   deleteMake(id) {
     this.makeService.deleteMake(id).subscribe(res => {
       console.log('Deleted');
+      this.getMakes();
     });
   }
 

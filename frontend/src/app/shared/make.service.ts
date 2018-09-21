@@ -14,13 +14,13 @@ export class MakeService implements OnInit {
 
   ngOnInit() {}
 
-  getMakes(Sort: string, Filter: string, Page: number, pageSize: number, Ascending: string): Observable<MakeViewModel> {
+  getMakes(Sort: string, Filter: string, Page: number, pageSize: number, Ascending: boolean): Observable<MakeViewModel> {
     const params = new HttpParams()
                 .set('Sort', Sort)
                 .set('Filter', Filter)
                 .set('Page', Page.toString())
                 .set('pageSize', pageSize.toString())
-                .set('Ascending', Ascending);
+                .set('Ascending', Ascending.toString());
 
     console.log(params.toString());
 
@@ -46,7 +46,7 @@ export class MakeService implements OnInit {
       name: name,
       abrv: abrv
     };
-    this.http.put(uri, obj).subscribe(res => console.log('Done'));
+    return this.http.put(uri, obj).subscribe(res => console.log('Done'));
   }
 
   deleteMake(id) {

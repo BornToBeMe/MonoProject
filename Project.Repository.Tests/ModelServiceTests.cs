@@ -45,7 +45,6 @@ namespace Project.Service.Tests
             mockModelRepository.Setup(ss => ss.SelectAllAsync(mockSorting.Object, mockSearch.Object, mockPaging.Object)).ReturnsAsync(model.ToPagedList());
 
             var actual = await service.SelectAllAsync(mockSorting.Object, mockSearch.Object, mockPaging.Object);
-            // actual.ShouldBeEquivalentTo(model, options => options.WithStrictOrdering());
         }
 
         [Fact]
@@ -61,8 +60,6 @@ namespace Project.Service.Tests
 
             mockModelRepository.Setup(ss => ss.SelectByIDAsync(model.VehicleModelId)).ReturnsAsync(model);
             var actual = await service.SelectByIDAsync(model.VehicleModelId);
-            // mockModelRepository.Setup(ss => ss.SelectByIDAsync(It.IsAny<Guid>())).ReturnsAsync(model);
-            // var actual = await service.SelectByIDAsync(Guid.NewGuid());
             actual.Should().NotBeNull();
         }
 

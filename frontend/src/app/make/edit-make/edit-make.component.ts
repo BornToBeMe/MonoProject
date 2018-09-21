@@ -29,7 +29,7 @@ export class EditMakeComponent implements OnInit {
   updateMake(name, abrv) {
     this.route.params.subscribe(params => {
       this.makeService.updateMake(name, abrv, params['id']);
-      this.router.navigate(['Make']);
+        this.router.navigate(['Make']);
     });
   }
 
