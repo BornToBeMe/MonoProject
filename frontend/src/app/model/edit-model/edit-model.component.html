@@ -6,7 +6,7 @@
     <form [formGroup]="modelForm" novalidate>
       <div class="form-group">
           <label class="col-md-4">Vehicle Make</label>
-          <select class="form-control" formControlName="make" #make [(ngModel)]="makeList">
+          <select class="form-control" formControlName="make" #make [(ngModel)]="model.VehicleMakeId">
             <option *ngFor="let makes of makeList" value="makes.Id">{{makes.Name}}</option>
           </select>
       </div>
