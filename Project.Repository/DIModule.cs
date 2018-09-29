@@ -22,6 +22,8 @@ namespace Project.Repository
                 cfg.CreateMap<Model.Common.IVehicleModel, Model.VehicleModel>().ReverseMap();
             });
 
+            Bind<IVehicleMake>().To<Model.VehicleMake>();
+            Bind<IVehicleModel>().To<Model.VehicleModel>();
             Bind<ICarContext>().To<CarContext>().InSingletonScope();
             Bind<IMakeRepository>().To<MakeRepository>();
             Bind<IModelRepository>().To<ModelRepository>();

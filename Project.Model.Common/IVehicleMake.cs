@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace Project.Model.Common
         Guid Id { get; set; }
         string Name { get; set; }
         string Abrv { get; set; }
+
+        ICollection<IVehicleModel> VehicleModels { get; set; }
     }
 }
