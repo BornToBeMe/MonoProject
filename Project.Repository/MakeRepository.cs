@@ -72,7 +72,7 @@ namespace Project.Repository
             return make;
         }
 
-        public async Task<bool> CreateAsync(Project.Model.VehicleMake obj)
+        public async Task<bool> CreateAsync(IVehicleMake obj)
         {
             var map = Mapper.Map<VehicleMake>(obj);
             map.Id = Guid.NewGuid();
@@ -80,7 +80,7 @@ namespace Project.Repository
             return (await Context.SaveChangesAsync() > 0);
         }
 
-        public async Task<bool> EditAsync(Guid id, Project.Model.VehicleMake vehicleMake)
+        public async Task<bool> EditAsync(Guid id, IVehicleMake vehicleMake)
         {
             var entity = await Context.VehicleMakes.FindAsync(id);
             var map = Mapper.Map<Project.Model.VehicleMake>(entity);

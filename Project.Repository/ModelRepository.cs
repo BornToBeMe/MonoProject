@@ -83,16 +83,15 @@ namespace Project.Repository
             return make;
         }
 
-        public async Task<bool> CreateAsync(Project.Model.VehicleModel obj)
+        public async Task<bool> CreateAsync(IVehicleModel obj)
         {
             var map = Mapper.Map<VehicleModel>(obj);
             map.VehicleModelId = Guid.NewGuid();
-            map.Abrv = null;
             Context.VehicleModels.Add(map);
             return (await Context.SaveChangesAsync() > 0);
         }
 
-        public async Task<bool> EditAsync(Guid id, Project.Model.VehicleModel vehicleModel)
+        public async Task<bool> EditAsync(Guid id, IVehicleModel vehicleModel)
         {
             var entity = await Context.VehicleModels.FindAsync(id);
             var map = Mapper.Map<Project.Model.VehicleModel>(entity);
@@ -111,12 +110,6 @@ namespace Project.Repository
             VehicleModel existing = await Context.VehicleModels.FindAsync(id);
             Context.VehicleModels.Remove(existing);
             return (await Context.SaveChangesAsync() > 0);
-        }
-
-        public IList<IVehicleMake> PopulateMakesDropDownList()
-        {
-            List<IVehicleMake> makes = Mapper.Map<List<IVehicleMake>>(Context.VehicleMakes.OrderBy(c => c.Name).ToList());
-            return makes;
         }
     }
 }

@@ -30,12 +30,12 @@ namespace Project.Service
             return await Repository.SelectByIDAsync(id);
         }
 
-        public async Task<bool> CreateAsync(Project.Model.VehicleModel obj)
+        public async Task<bool> CreateAsync(IVehicleModel obj)
         {
             return await Repository.CreateAsync(obj);
         }
 
-        public async Task<bool> EditAsync(Guid id, Project.Model.VehicleModel vehicleModel)
+        public async Task<bool> EditAsync(Guid id, IVehicleModel vehicleModel)
         {
             return await Repository.EditAsync(id, vehicleModel);
         }
@@ -43,11 +43,6 @@ namespace Project.Service
         public async Task<bool> DeleteAsync(Guid id)
         {
             return await Repository.DeleteAsync(id);
-        }
-
-        public IList<IVehicleMake> PopulateMakesDropDownList()
-        {
-            return Repository.PopulateMakesDropDownList();
         }
     }
 }

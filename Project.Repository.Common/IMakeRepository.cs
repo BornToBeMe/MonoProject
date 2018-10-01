@@ -14,8 +14,8 @@ namespace Project.Repository.Common
     {
         Task<IPagedList<IVehicleMake>> SelectAllAsync(ISorting sortOrder, ISearch search, IPaging pagination);
         Task<IVehicleMake> SelectByIDAsync(Guid id);
-        Task<bool> CreateAsync(VehicleMake obj);
-        Task<bool> EditAsync(Guid id, VehicleMake vehicleMake);
+        Task<bool> CreateAsync(IVehicleMake obj);
+        Task<bool> EditAsync(Guid id, IVehicleMake vehicleMake);
         Task<bool> DeleteAsync(Guid id);
     }
 }

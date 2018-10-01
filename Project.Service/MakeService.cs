@@ -31,12 +31,12 @@ namespace Project.Service
             return await Repository.SelectByIDAsync(id);
         }
 
-        public async Task<bool> CreateAsync(Project.Model.VehicleMake obj)
+        public async Task<bool> CreateAsync(IVehicleMake obj)
         {
             return await Repository.CreateAsync(obj);
         }
 
-        public async Task<bool> EditAsync(Guid id, Project.Model.VehicleMake vehicleMake)
+        public async Task<bool> EditAsync(Guid id, IVehicleMake vehicleMake)
         {
             return await Repository.EditAsync(id, vehicleMake);
         }

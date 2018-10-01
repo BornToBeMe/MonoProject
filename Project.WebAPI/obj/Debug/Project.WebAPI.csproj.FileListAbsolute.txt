@@ -5,8 +5,6 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\Microsoft.D
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.IO.Compression.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\VBCSCompiler.exe
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.IO.FileSystem.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.Reflection.Metadata.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.ValueTuple.dll
@@ -102,3 +100,8 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebA
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\obj\Debug\Project.WebAPI.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Service.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Service.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\Project.Service.dll.config
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.WebAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll

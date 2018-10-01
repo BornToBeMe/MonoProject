@@ -14,3 +14,5 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Proj
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Project.Service.Common.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Project.Service.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\obj\Debug\Project.Service.Common.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Ninject.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Service.Common\bin\Debug\Ninject.xml
