@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CarsDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

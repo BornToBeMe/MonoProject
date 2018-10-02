@@ -49,7 +49,6 @@ namespace Project.WebAPI.Controllers
 
         public class VehicleMakeViewModel
         {
-            public Guid Id { get; set; }
             public string Name { get; set; }
             public string Abrv { get; set; }
         }
@@ -121,7 +120,7 @@ namespace Project.WebAPI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var dest = AutoMapper.Mapper.Map<VehicleMake>(vehicleMake);
+                    var dest = AutoMapper.Mapper.Map<IVehicleMake>(vehicleMake);
                     await Service.CreateAsync(dest);
                 }
             }

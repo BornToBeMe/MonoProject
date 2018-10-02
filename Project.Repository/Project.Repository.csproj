@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="DIModule.cs" />
     <Compile Include="MakeRepository.cs" />
+    <Compile Include="Mapping.cs" />
     <Compile Include="ModelRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

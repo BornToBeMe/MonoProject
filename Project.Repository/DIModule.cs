@@ -12,16 +12,6 @@ namespace Project.Repository
     {
         public override void Load()
         {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<DAL.VehicleMake, Model.VehicleMake>().ReverseMap();
-                cfg.CreateMap<DAL.VehicleMake, Model.Common.IVehicleMake>().ReverseMap();
-                cfg.CreateMap<Model.Common.IVehicleMake, Model.VehicleMake>().ReverseMap();
-                cfg.CreateMap<DAL.VehicleModel, Model.VehicleModel>().ReverseMap();
-                cfg.CreateMap<DAL.VehicleModel, Model.Common.IVehicleModel>().ReverseMap();
-                cfg.CreateMap<Model.Common.IVehicleModel, Model.VehicleModel>().ReverseMap();
-            });
-
             Bind<IVehicleMake>().To<Model.VehicleMake>();
             Bind<IVehicleModel>().To<Model.VehicleModel>();
             Bind<ICarContext>().To<CarContext>().InSingletonScope();

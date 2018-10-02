@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,11 @@ namespace Project.WebAPI
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<Mapping>();
+                cfg.AddProfile<App_Start.MapperConfig>();
+            });
         }
     }
 }
