@@ -18,5 +18,6 @@ namespace Project.Service.Common
         Task<bool> CreateAsync(IVehicleModel obj);
         Task<bool> EditAsync(Guid id, IVehicleModel vehicleModel);
         Task<bool> DeleteAsync(Guid id);
+        IList<IVehicleMake> PopulateMakesDropDownList();
     }
 }

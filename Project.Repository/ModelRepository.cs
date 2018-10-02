@@ -111,5 +111,11 @@ namespace Project.Repository
             Context.VehicleModels.Remove(existing);
             return (await Context.SaveChangesAsync() > 0);
         }
+
+        public IList<IVehicleMake> PopulateMakesDropDownList()
+        {
+            List<IVehicleMake> makes = Mapper.Map<List<IVehicleMake>>(Context.VehicleMakes.OrderBy(c => c.Name).ToList());
+            return makes;
+        }
     }
 }

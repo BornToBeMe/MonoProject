@@ -49,6 +49,13 @@ namespace Project.WebAPI.Controllers
 
         public class VehicleMakeViewModel
         {
+            public Guid Id { get; set; }
+            public string Name { get; set; }
+            public string Abrv { get; set; }
+        }
+
+        public class VehicleMakeResponse
+        {
             public IEnumerable<IVehicleMake> Items { get; set; }
             public int TotalCount { get; set; }
             public int PageNumber { get; set; }
@@ -76,7 +83,7 @@ namespace Project.WebAPI.Controllers
 
             var i = await Service.SelectAllAsync(sorting, search, paging);
 
-            return Ok(new VehicleMakeViewModel
+            return Ok(new VehicleMakeResponse
             {
                 Items = i,
                 TotalCount = i.TotalItemCount,
@@ -108,13 +115,14 @@ namespace Project.WebAPI.Controllers
         }
 
         // POST: api/VehicleMake
-        public async Task<IHttpActionResult> PostMakeAsync(VehicleMake vehicleMake)
+        public async Task<IHttpActionResult> PostMakeAsync(VehicleMakeViewModel vehicleMake)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await Service.CreateAsync(vehicleMake);
+                    var dest = AutoMapper.Mapper.Map<VehicleMake>(vehicleMake);
+                    await Service.CreateAsync(dest);
                 }
             }
             catch (Exception ex)
@@ -126,11 +134,12 @@ namespace Project.WebAPI.Controllers
         }
 
         // PUT: api/VehicleMake/5
-        public async Task<IHttpActionResult> PutMakeAsync(Guid id, VehicleMake vehicleMake)
+        public async Task<IHttpActionResult> PutMakeAsync(Guid id, VehicleMakeViewModel vehicleMake)
         {
             if (ModelState.IsValid)
             {
-                await Service.EditAsync(id, vehicleMake);
+                var dest = AutoMapper.Mapper.Map<IVehicleMake>(vehicleMake);
+                await Service.EditAsync(id, dest);
             }
             return Ok(vehicleMake);
         }

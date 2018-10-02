@@ -44,5 +44,10 @@ namespace Project.Service
         {
             return await Repository.DeleteAsync(id);
         }
+
+        public IList<IVehicleMake> PopulateMakesDropDownList()
+        {
+            return Repository.PopulateMakesDropDownList();
+        }
     }
 }
