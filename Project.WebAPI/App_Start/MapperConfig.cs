@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using static Project.WebAPI.Controllers.VehicleMakeController;
+using static Project.WebAPI.Controllers.VehicleModelController;
 
 namespace Project.WebAPI.App_Start
 {
@@ -16,7 +17,11 @@ namespace Project.WebAPI.App_Start
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Abrv, opts => opts.MapFrom(src => src.Abrv))
                 .ReverseMap();
-            // cfg.CreateMap<IVehicleModel, VehicleModelViewModel>().ReverseMap();
+            CreateMap<IVehicleModel, VehicleModelViewModel>()
+                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Abrv, opts => opts.MapFrom(src => src.Abrv))
+                .ForMember(dest => dest.VehicleMakeId, opts => opts.MapFrom(src => src.VehicleMakeId))
+                .ReverseMap();
         }
     }
 }

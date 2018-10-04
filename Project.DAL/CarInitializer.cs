@@ -8,6 +8,10 @@ namespace Project.DAL
 {
     public class CarInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<CarContext>
     {
+        /// <summary>
+        /// Adds new items into database using CarContext
+        /// </summary>
+        /// <param name="context">The context.</param>
         protected override void Seed(CarContext context)
         {
             var makes = new List<VehicleMake>

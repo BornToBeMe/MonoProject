@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Common;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,71 +11,73 @@ namespace Project.DAL
 {
     public class GenericRepository<TEntity> where TEntity : class
     {
+        /// <summary>
+        /// Gets the context.
+        /// </summary>
+        /// <value>The context.</value>
         internal ICarContext context;
         internal DbSet<TEntity> dbSet;
 
-        public GenericRepository(CarContext context)
+        /// <summary>
+        /// Initializes a new instance of the GenericRepository class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        public GenericRepository(ICarContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
-        {
-            IQueryable<TEntity> query = dbSet;
-
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-            
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
-            }
+        /// <summary>
+        /// Gets all TEntity.
+        /// </summary>
+        /// <returns>IEnumerable<typeparamref name="TEntity"/></returns>
+        public async virtual Task<IEnumerable<TEntity>> GetAll() {
+            return await dbSet.ToListAsync();
         }
 
-        public virtual TEntity GetByID(object id)
+        /// <summary>
+        /// Gets single TEntity item by Id.
+        /// </summary>
+        /// <param name="id">The item identifier.</param>
+        /// <returns><typeparamref name="TEntity"/></returns>
+        public async virtual Task<TEntity> GetByID(object id)
         {
-            return dbSet.Find(id);
+            return await dbSet.FindAsync(id);
         }
 
-        public virtual void Insert(TEntity entity)
+        /// <summary>
+        /// Adds TEntity item into database.
+        /// </summary>
+        /// <param name="entity">Item to be added.</param>
+        /// <returns></returns>
+        public async virtual Task<int> Insert(TEntity entity)
         {
             dbSet.Add(entity);
+            return await context.SaveChangesAsync();
         }
 
-        public virtual void Delete(object id)
+        /// <summary>
+        /// Removes TEntity item from database.
+        /// </summary>
+        /// <param name="entity">Item to be deleted.</param>
+        /// <returns></returns>
+        public async Task<int> DeleteAsync(TEntity entity)
         {
-            TEntity entityToDelete = dbSet.Find(id);
-            Delete(entityToDelete);
+            context.Set<TEntity>().Remove(entity);
+            return await context.SaveChangesAsync();
         }
 
-        public virtual void Delete(TEntity entityToDelete)
+        /// <summary>
+        /// Updates existing item with new
+        /// </summary>
+        /// <param name="entity">Item to be updated.</param>
+        /// <param name="id">The item identifier.</param>
+        /// <returns></returns>
+        public async Task<int> UpdateAsync(TEntity entity, Guid id)
         {
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
-            {
-                dbSet.Attach(entityToDelete);
-            }
-            dbSet.Remove(entityToDelete);
-        }
-
-        public virtual void Update(TEntity entityToUpdate)
-        {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            context.Entry<TEntity>(dbSet.Find(id)).CurrentValues.SetValues(entity);
+            return await context.SaveChangesAsync();
         }
     }
 }

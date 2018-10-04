@@ -149,3 +149,6 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\obj\Debug\Pr
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\obj\Debug\Project.Service.Tests.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\obj\Debug\Project.Repository.Tests.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\obj\Debug\Project.Repository.Tests.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository.Tests\bin\Debug\System.ValueTuple.xml

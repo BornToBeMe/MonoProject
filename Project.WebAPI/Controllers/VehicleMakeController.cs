@@ -22,6 +22,10 @@ namespace Project.WebAPI.Controllers
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VehicleMakeController" /> class.
+        /// </summary>
+        /// <param name="service">The service.</param>
         public VehicleMakeController(IMakeService service)
         {
             this.Service = service;
@@ -31,8 +35,16 @@ namespace Project.WebAPI.Controllers
 
         #region Properties
 
+        /// <summary>
+        /// Gets the service.
+        /// </summary>
+        /// <value>The service.</value>
         protected IMakeService Service { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the calls for GetAll.
+        /// </summary>
+        /// <value>Sort, Filter, Page, PageSize, Ascending.</value>
         public class CallDetails
         {
             [JsonProperty("sortBy")]
@@ -47,12 +59,20 @@ namespace Project.WebAPI.Controllers
             public bool Ascending { get; set; }
         }
 
+        /// <summary>
+        /// Gets or sets the View Model.
+        /// </summary>
+        /// <value>Name, Abrv.</value>
         public class VehicleMakeViewModel
         {
             public string Name { get; set; }
             public string Abrv { get; set; }
         }
 
+        /// <summary>
+        /// Gets or sets the GetAll response needed for Frontend.
+        /// </summary>
+        /// <value>Items, TotalCount, PageNumber, PageSize, TotalPageCount.</value>
         public class VehicleMakeResponse
         {
             public IEnumerable<IVehicleMake> Items { get; set; }

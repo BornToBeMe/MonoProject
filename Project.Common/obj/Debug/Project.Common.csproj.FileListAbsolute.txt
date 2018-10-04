@@ -6,3 +6,4 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Comm
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\bin\Debug\Ninject.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\bin\Debug\Ninject.xml
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.csproj.CopyComplete
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.csprojAssemblyReference.cache

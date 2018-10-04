@@ -22,6 +22,10 @@ namespace Project.WebAPI.Controllers
     {
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VehicleModelController" /> class.
+        /// </summary>
+        /// <param name="service">The service.</param>
         public VehicleModelController(IModelService service)
         {
             this.Service = service;
@@ -31,8 +35,16 @@ namespace Project.WebAPI.Controllers
 
         #region Properties
 
+        /// <summary>
+        /// Gets the service.
+        /// </summary>
+        /// <value>The service.</value>
         protected IModelService Service { get; private set; }
 
+        /// <summary>
+        /// Gets or sets the calls for GetAll.
+        /// </summary>
+        /// <value>Sort, Filter, Page, PageSize, Ascending.</value>
         public class CallDetails
         {
             [JsonProperty("sortBy")]
@@ -47,7 +59,22 @@ namespace Project.WebAPI.Controllers
             public bool Ascending { get; set; }
         }
 
+        /// <summary>
+        /// Gets or sets the View Model.
+        /// </summary>
+        /// <value>Name, Abrv, VehicleMakeId</value>
         public class VehicleModelViewModel
+        {
+            public string Name { get; set; }
+            public string Abrv { get; set; }
+            public Guid VehicleMakeId { get; set; }
+        }
+
+        /// <summary>
+        /// Gets or sets the GetAll response needed for Frontend.
+        /// </summary>
+        /// <value>Items, MakeList, TotalCount, PageNumber, PageSize, TotalPageCount.</value>
+        public class VehicleModelResponse
         {
             public IEnumerable<IVehicleModel> Items { get; set; }
             public IList<IVehicleMake> MakeList { get; set; }
@@ -75,10 +102,10 @@ namespace Project.WebAPI.Controllers
             paging.PageNumber = callDetails.Page;
             paging.PageSize = callDetails.PageSize;
 
-            var list = Service.PopulateMakesDropDownList();
+            var list = await Service.PopulateMakesDropDownList();
             var i = await Service.SelectAllAsync(sorting, search, paging);
 
-            return Ok(new VehicleModelViewModel
+            return Ok(new VehicleModelResponse
             {
                 Items = i,
                 MakeList = list,
@@ -96,13 +123,14 @@ namespace Project.WebAPI.Controllers
         }
 
         // POST: api/VehicleModel
-        public async Task<IHttpActionResult> PostModelAsync(VehicleModel vehicleModel)
+        public async Task<IHttpActionResult> PostModelAsync(VehicleModelViewModel vehicleModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await Service.CreateAsync(vehicleModel);
+                    var dest = AutoMapper.Mapper.Map<IVehicleModel>(vehicleModel);
+                    await Service.CreateAsync(dest);
                 }
             }
             catch (Exception ex)
@@ -114,11 +142,12 @@ namespace Project.WebAPI.Controllers
         }
 
         // PUT: api/VehicleModel/5
-        public async Task<IHttpActionResult> PutModelAsync(Guid id, VehicleModel vehicleModel)
+        public async Task<IHttpActionResult> PutModelAsync(Guid id, VehicleModelViewModel vehicleModel)
         {
             if (ModelState.IsValid)
             {
-                await Service.EditAsync(id, vehicleModel);
+                var dest = AutoMapper.Mapper.Map<IVehicleModel>(vehicleModel);
+                await Service.EditAsync(id, dest);
             }
             return Ok(vehicleModel);
         }

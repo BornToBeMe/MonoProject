@@ -4,6 +4,16 @@
         <name>Moq</name>
     </assembly>
     <members>
+        <member name="T:Moq.AutoImplementedPropertyGetterSetup">
+            <summary>
+              Setup used by <see cref="M:Moq.Mock.SetupAllProperties(Moq.Mock)"/> for property getters.
+            </summary>
+        </member>
+        <member name="T:Moq.AutoImplementedPropertySetterSetup">
+            <summary>
+              Setup used by <see cref="M:Moq.Mock.SetupAllProperties(Moq.Mock)"/> for property setters.
+            </summary>
+        </member>
         <member name="T:Moq.Capture">
             <summary>
             Allows to create parameter captures in setup expressions.
@@ -236,6 +246,41 @@
             be part of an evaluated sub-tree.
             </summary>
         </member>
+        <member name="T:Moq.ExpressionCompiler">
+            <summary>
+              An <see cref="T:Moq.ExpressionCompiler"/> compiles LINQ expression trees (<see cref="T:System.Linq.Expressions.Expression"/>) to delegates.
+              Whenever Moq needs to compile an expression tree, it uses the instance set up by <see cref="P:Moq.ExpressionCompiler.Instance"/>.
+            </summary>
+        </member>
+        <member name="P:Moq.ExpressionCompiler.Default">
+            <summary>
+              The default <see cref="T:Moq.ExpressionCompiler"/> instance, which simply delegates to the framework's <see cref="M:System.Linq.Expressions.LambdaExpression.Compile"/>.
+            </summary>
+        </member>
+        <member name="P:Moq.ExpressionCompiler.Instance">
+            <summary>
+              Gets or sets the <see cref="T:Moq.ExpressionCompiler"/> instance that Moq uses to compile <see cref="T:System.Linq.Expressions.Expression"/> (LINQ expression trees).
+              Defaults to <see cref="P:Moq.ExpressionCompiler.Default"/>.
+            </summary>
+        </member>
+        <member name="M:Moq.ExpressionCompiler.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:Moq.ExpressionCompiler"/> class.
+            </summary>
+        </member>
+        <member name="M:Moq.ExpressionCompiler.Compile(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+              Compiles the specified LINQ expression tree.
+            </summary>
+            <param name="expression">The LINQ expression tree that should be compiled.</param>
+        </member>
+        <member name="M:Moq.ExpressionCompiler.Compile``1(System.Linq.Expressions.Expression{``0})">
+            <summary>
+              Compiles the specified LINQ expression tree.
+            </summary>
+            <typeparam name="TDelegate">The type of delegate to which the expression will be compiled.</typeparam>
+            <param name="expression">The LINQ expression tree that should be compiled.</param>
+        </member>
         <member name="M:Moq.ExpressionExtensions.ToPropertyInfo(System.Linq.Expressions.LambdaExpression)">
             <summary>
             Converts the body of the lambda expression into the <see cref="T:System.Reflection.PropertyInfo"/> referenced by it.
@@ -271,6 +316,11 @@
             <summary>
             The intention of <see cref="T:Moq.ExpressionStringBuilder"/> is to create a more readable 
             string representation for the failure message.
+            </summary>
+        </member>
+        <member name="M:Moq.Extensions.GetDefaultValue(System.Type)">
+            <summary>
+              Gets the default value for the specified type. This is the Reflection counterpart of C#'s <see langword="default"/> operator.
             </summary>
         </member>
         <member name="M:Moq.Extensions.IsDelegate(System.Type)">
@@ -718,6 +768,9 @@
             </summary>
             <typeparam name="TReturn">The return type for which to define a default value.</typeparam>
             <param name="value">The default return value.</param>
+            <remarks>
+            Default return value is respected only when there is no matching setup for a method call.
+            </remarks>
         </member>
         <member name="M:Moq.Mock.TryUnwrapResultFromCompletedTaskRecursively(System.Object)">
             <summary>
@@ -785,6 +838,11 @@
         </member>
         <member name="M:Moq.Invocation.ToString">
             <inheritdoc/>
+        </member>
+        <member name="T:Moq.InvocationShape">
+            <summary>
+              Describes the "shape" of an invocation against which concrete <see cref="T:Moq.Invocation"/>s can be matched.
+            </summary>
         </member>
         <member name="T:Moq.It">
             <summary>
@@ -946,6 +1004,11 @@
 		</example>
         </member>
         <member name="T:Moq.Language.Flow.ICallbackResult">
+            <summary>
+            Implements the fluent API.
+            </summary>
+        </member>
+        <member name="T:Moq.Language.Flow.ICallBaseResult">
             <summary>
             Implements the fluent API.
             </summary>
@@ -2246,6 +2309,16 @@
                 .Callback((bool state) => Console.WriteLine(state));
             </code>
             </example>
+        </member>
+        <member name="T:Moq.Language.ICallBase">
+            <summary>
+            Defines the <c>CallBase</c> verb.
+            </summary>
+        </member>
+        <member name="M:Moq.Language.ICallBase.CallBase">
+            <summary>
+            Calls the real method of the object.
+            </summary>
         </member>
         <member name="T:Moq.Language.IRaise`1">
             <summary>
@@ -3889,12 +3962,6 @@
             and fail with any other call.
             </summary>
         </member>
-        <member name="M:Moq.MethodCall.#ctor(Moq.Mock,Moq.Condition,System.Linq.Expressions.LambdaExpression,System.Reflection.MethodInfo,Moq.IMatcher[])">
-            <remarks>
-              Only use this constructor when you know that the specified <paramref name="method"/> has no `out` parameters,
-              and when you want to avoid the <see cref="T:Moq.MatcherFactory"/>-related overhead of the other constructor overload.
-            </remarks>
-        </member>
         <member name="T:Moq.Mock`1">
             <summary>
 			Provides a mock implementation of <typeparamref name="T" />.
@@ -4618,7 +4685,7 @@
               Returns the exception to be thrown when a setup limited by <see cref="M:Moq.Language.IOccurrence.AtMost(System.Int32)"/> is invoked more often than the specified maximum number of times.
             </summary>
         </member>
-        <member name="M:Moq.MockException.NoMatchingCalls(Moq.MethodCall,System.Collections.Generic.IEnumerable{Moq.MethodCall},System.Collections.Generic.IEnumerable{Moq.Invocation},System.Linq.Expressions.LambdaExpression,Moq.Times,System.Int32)">
+        <member name="M:Moq.MockException.NoMatchingCalls(System.String,System.Collections.Generic.IEnumerable{Moq.Setup},System.Collections.Generic.IEnumerable{Moq.Invocation},System.Linq.Expressions.LambdaExpression,Moq.Times,System.Int32)">
             <summary>
               Returns the exception to be thrown when <see cref="M:Moq.Mock.Verify(Moq.Mock[])"/> finds no invocations (or the wrong number of invocations) that match the specified expectation.
             </summary>
@@ -4633,19 +4700,26 @@
               Returns the exception to be thrown when a strict mock has no setup that provides a return value for the specified invocation.
             </summary>
         </member>
-        <member name="M:Moq.MockException.UnmatchedSetups(Moq.Mock,System.Collections.Generic.IEnumerable{Moq.MethodCall})">
+        <member name="M:Moq.MockException.UnmatchedSetups(Moq.Mock,System.Collections.Generic.IEnumerable{Moq.Setup})">
             <summary>
               Returns the exception to be thrown when <see cref="M:Moq.Mock.Verify(Moq.Mock[])"/> or <see cref="M:Moq.MockFactory.Verify"/> find a setup that has not been invoked.
             </summary>
         </member>
-        <member name="M:Moq.MockException.UnmatchedSetups(System.Collections.Generic.IEnumerable{Moq.MockException})">
+        <member name="M:Moq.MockException.Combined(System.Collections.Generic.IEnumerable{Moq.MockException})">
             <summary>
-              Returns the exception to be thrown when <see cref="M:Moq.MockFactory.Verify"/> finds several mocks with setups that have not been invoked.
+              Returns an exception whose message is the concatenation of the given <paramref name="errors"/>' messages
+              and whose reason(s) is the combination of the given <paramref name="errors"/>' reason(s).
+              Used by <see cref="M:Moq.MockFactory.VerifyMocks(System.Action{Moq.Mock})"/> when it finds one or more mocks with verification errors.
             </summary>
         </member>
-        <member name="M:Moq.MockException.UnverifiedInvocations(System.Collections.Generic.IEnumerable{Moq.Invocation})">
+        <member name="M:Moq.MockException.UnverifiedInvocations(Moq.Mock,System.Collections.Generic.IEnumerable{Moq.Invocation})">
             <summary>
               Returns the exception to be thrown when <see cref="M:Moq.Mock.VerifyNoOtherCalls(Moq.Mock)"/> finds invocations that have not been verified.
+            </summary>
+        </member>
+        <member name="M:Moq.MockException.UnverifiedInvocations(System.Collections.Generic.List{Moq.MockException})">
+            <summary>
+              Returns the exception to be thrown when <see cref="M:Moq.MockFactory.VerifyNoOtherCalls"/> finds invocations that have not been verified.
             </summary>
         </member>
         <member name="P:Moq.MockException.IsVerificationError">
@@ -5099,10 +5173,17 @@
             <seealso cref="M:Moq.Mock.Verify"/>
             <exception cref="T:Moq.MockException">One or more mocks had setups that were not satisfied.</exception>
         </member>
+        <member name="M:Moq.MockFactory.VerifyNoOtherCalls">
+            <summary>
+            Calls <see cref="M:Moq.Mock`1.VerifyNoOtherCalls"/> on all mocks created by this factory.
+            </summary>
+            <seealso cref="M:Moq.Mock`1.VerifyNoOtherCalls"/>
+            <exception cref="T:Moq.MockException">One or more mocks had invocations that were not verified.</exception>
+        </member>
         <member name="M:Moq.MockFactory.VerifyMocks(System.Action{Moq.Mock})">
             <summary>
-            Invokes <paramref name="verifyAction"/> for each mock 
-            in <see cref="P:Moq.MockFactory.Mocks"/>, and accumulates the resulting 
+            Invokes <paramref name="verifyAction"/> for each mock
+            in <see cref="P:Moq.MockFactory.Mocks"/>, and accumulates the resulting
             verification exceptions that might be
             thrown from the action.
             </summary>
@@ -5278,6 +5359,11 @@
         <member name="M:Moq.SequenceExtensions.ThrowsAsync``1(Moq.Language.ISetupSequentialResult{System.Threading.Tasks.ValueTask{``0}},System.Exception)">
             <summary>
             Throws a sequence of exceptions, once per call.
+            </summary>
+        </member>
+        <member name="T:Moq.ParameterTypes">
+            <summary>
+              Allocation-free adapter type for treating a `ParameterInfo[]` array like a `Type[]` array.
             </summary>
         </member>
         <member name="T:Moq.Properties.Resources">
@@ -6490,6 +6576,11 @@
             <param name="mock">Returns verb which represents the mocked type and the task of return type</param>
             <param name="valueFunction">The function that will calculate the return value.</param>
         </member>
+        <member name="T:Moq.SequenceSetup">
+            <summary>
+              Programmable setup used by <see cref="M:Moq.Mock.SetupSequence(Moq.Mock,System.Linq.Expressions.LambdaExpression)"/> and <see cref="M:Moq.Mock.SetupSequence``1(Moq.Mock,System.Linq.Expressions.LambdaExpression)"/>.
+            </summary>
+        </member>
         <member name="T:Moq.Switches">
             <summary>
             Represents a switch, or a combination of switches, that can be either enabled or disabled.
@@ -6627,75 +6718,6 @@
             <summary>
             Redeclaration that hides the <see cref="M:System.Object.Equals(System.Object)"/> method from IntelliSense.
             </summary>
-        </member>
-        <member name="T:ThisAssembly">
-            <group name="overview" title="Overview" order="0" />
-            <group name="setups" title="Specifying setups" order="1" />
-            <group name="returns" title="Returning values from members" order="2" />
-            <group name="verification" title="Verifying setups" order="3" />
-            <group name="advanced" title="Advanced scenarios" order="99" />
-            <group name="factory" title="Using MockFactory for consistency across mocks" order="4" />
-            <summary>Provides access to the current assembly information.</summary>
-        </member>
-        <member name="T:ThisAssembly.Git">
-            <summary>Provides access to the git information for the current assembly.</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.IsDirty">
-            <summary>IsDirty: false</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.IsDirtyString">
-            <summary>IsDirtyString: false</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.Branch">
-            <summary>Branch: tags/v4.9.0</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.Commit">
-            <summary>Commit: 7da7c2a</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.Sha">
-            <summary>Sha: 7da7c2ac50a4dfe3acafd5031c28c16515cff286</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.Commits">
-            <summary>Commits on top of base version: 0</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.Tag">
-            <summary>Tag: </summary>
-        </member>
-        <member name="F:ThisAssembly.Git.BaseTag">
-            <summary>Base tag: </summary>
-        </member>
-        <member name="T:ThisAssembly.Git.BaseVersion">
-            <summary>Provides access to the base version information used to determine the <see cref="T:ThisAssembly.Git.SemVer" />.</summary>      
-        </member>
-        <member name="F:ThisAssembly.Git.BaseVersion.Major">
-            <summary>Major: 4</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.BaseVersion.Minor">
-            <summary>Minor: 9</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.BaseVersion.Patch">
-            <summary>Patch: 0</summary>
-        </member>
-        <member name="T:ThisAssembly.Git.SemVer">
-            <summary>Provides access to SemVer information for the current assembly.</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.SemVer.Major">
-            <summary>Major: 4</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.SemVer.Minor">
-            <summary>Minor: 9</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.SemVer.Patch">
-            <summary>Patch: 0</summary>
-        </member>
-        <member name="F:ThisAssembly.Git.SemVer.Label">
-            <summary>Label: </summary>
-        </member>
-        <member name="F:ThisAssembly.Git.SemVer.DashLabel">
-            <summary>Label with dash prefix: </summary>
-        </member>
-        <member name="F:ThisAssembly.Git.SemVer.Source">
-            <summary>Source: File</summary>
         </member>
     </members>
 </doc>

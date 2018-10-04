@@ -8,7 +8,16 @@ namespace Project.Common
 {
     public interface IPaging
     {
+        /// <summary>
+        /// Gets or sets the Page Number.
+        /// </summary>
+        /// <value>Page Number.</value>
         int? PageNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Page Size.
+        /// </summary>
+        /// <value>Page Size.</value>
         int? PageSize { get; set; }
     }
 }
