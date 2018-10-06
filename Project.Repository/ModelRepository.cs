@@ -35,7 +35,7 @@ namespace Project.Repository
         /// <returns>Paged List of Vehicle Models</returns>
         public async Task<IPagedList<IVehicleModel>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
-            var query = await unitOfWork.ModelRepository.GetAll();
+            var query = await unitOfWork.ModelRepository.GetAllAsync();
 
             if (!String.IsNullOrEmpty(search.CurrentFilter))
             {
@@ -150,7 +150,7 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<IList<IVehicleMake>> PopulateMakesDropDownList()
         {
-            List<IVehicleMake> makes = Mapper.Map<IEnumerable<VehicleMake>, List<IVehicleMake>>(await unitOfWork.MakeRepository.GetAll());
+            List<IVehicleMake> makes = Mapper.Map<IEnumerable<VehicleMake>, List<IVehicleMake>>(await unitOfWork.MakeRepository.GetAllAsync());
             return makes;
         }
     }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using X.PagedList;
@@ -35,46 +36,39 @@ namespace Project.Repository
         /// <returns>Paged List of Vehicle Makes</returns>
         public async Task<IPagedList<IVehicleMake>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
-            var query = await unitOfWork.MakeRepository.GetAll();
-
-            if (!String.IsNullOrEmpty(search.CurrentFilter))
-            {
-                query = query.Where(q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter));
-            }
-
-            if (sortBy.SortBy == "Name")
-            {
-                if (sortBy.SortAscending)
-                {
-                    query = query.OrderBy(q => q.Name);
-                }
-                else
-                {
-                    query = query.OrderByDescending(q => q.Name);
-                }
-            }
-            else if (sortBy.SortBy == "Abrv")
-            {
-                if (sortBy.SortAscending)
-                {
-                    query = query.OrderBy(q => q.Abrv);
-                }
-                else
-                {
-                    query = query.OrderByDescending(q => q.Abrv);
-                }
-            }
-            else
-            {
-                query = query.OrderBy(q => q.Name);
-            }
-
-            int pageSize = (pagination.PageSize ?? 3);
-            int pageNumber = (pagination.PageNumber ?? 1);
-
+            var query = await unitOfWork.MakeRepository.GetAllAsync(
+                filter: q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter), 
+                orderBy: q => {
+                    if (sortBy.SortBy == "Name")
+                    {
+                        if (sortBy.SortAscending)
+                        {
+                            return q.OrderBy(i => i.Name);
+                        }
+                        else
+                        {
+                            return q.OrderByDescending(i => i.Name);
+                        }
+                    }
+                    else if (sortBy.SortBy == "Abrv")
+                    {
+                        if (sortBy.SortAscending)
+                        {
+                            return q.OrderBy(i => i.Abrv);
+                        }
+                        else
+                        {
+                            return q.OrderByDescending(i => i.Abrv);
+                        }
+                    }
+                    else
+                    {
+                        return q.OrderBy(i => i.Name);
+                    }
+            });
 
             var map = Mapper.Map<IEnumerable<IVehicleMake>>(await query.ToListAsync());
-            return map.ToPagedList(pageNumber, pageSize);
+            return map.ToPagedList(pagination.PageNumber.GetValueOrDefault(), pagination.PageSize.GetValueOrDefault());
         }
 
         /// <summary>

@@ -32,8 +32,33 @@ namespace Project.DAL
         /// Gets all TEntity.
         /// </summary>
         /// <returns>IEnumerable<typeparamref name="TEntity"/></returns>
-        public async virtual Task<IEnumerable<TEntity>> GetAll() {
-            return await dbSet.ToListAsync();
+        public async virtual Task<IEnumerable<TEntity>> GetAllAsync(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Func<IPaging, IEnumerable<TEntity>> paged = null,
+            string includeProperties = "")
+        {
+            IQueryable<TEntity> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
         }
 
         /// <summary>
@@ -41,9 +66,9 @@ namespace Project.DAL
         /// </summary>
         /// <param name="id">The item identifier.</param>
         /// <returns><typeparamref name="TEntity"/></returns>
-        public async virtual Task<TEntity> GetByID(object id)
+        public virtual Task<TEntity> GetByID(object id)
         {
-            return await dbSet.FindAsync(id);
+            return dbSet.FindAsync(id);
         }
 
         /// <summary>
@@ -76,7 +101,8 @@ namespace Project.DAL
         /// <returns></returns>
         public async Task<int> UpdateAsync(TEntity entity, Guid id)
         {
-            context.Entry<TEntity>(dbSet.Find(id)).CurrentValues.SetValues(entity);
+            var item = await dbSet.FindAsync(id);
+            context.Entry<TEntity>(item).CurrentValues.SetValues(entity);
             return await context.SaveChangesAsync();
         }
     }

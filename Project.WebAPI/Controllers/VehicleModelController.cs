@@ -65,6 +65,7 @@ namespace Project.WebAPI.Controllers
         /// <value>Name, Abrv, VehicleMakeId</value>
         public class VehicleModelViewModel
         {
+            public Guid VehicleModelId { get; set; }
             public string Name { get; set; }
             public string Abrv { get; set; }
             public Guid VehicleMakeId { get; set; }
