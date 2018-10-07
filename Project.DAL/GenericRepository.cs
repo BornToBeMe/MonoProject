@@ -107,6 +107,10 @@ namespace Project.DAL
         public async Task<int> UpdateAsync(TEntity entity, Guid id)
         {
             var item = await dbSet.FindAsync(id);
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
             context.Entry<TEntity>(item).CurrentValues.SetValues(entity);
             return await context.SaveChangesAsync();
         }
