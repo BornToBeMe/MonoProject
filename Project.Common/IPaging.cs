@@ -12,12 +12,12 @@ namespace Project.Common
         /// Gets or sets the Page Number.
         /// </summary>
         /// <value>Page Number.</value>
-        int? PageNumber { get; set; }
+        int PageNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the Page Size.
         /// </summary>
         /// <value>Page Size.</value>
-        int? PageSize { get; set; }
+        int PageSize { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using X.PagedList;
@@ -35,57 +36,59 @@ namespace Project.Repository
         /// <returns>Paged List of Vehicle Models</returns>
         public async Task<IPagedList<IVehicleModel>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
-            var query = await unitOfWork.ModelRepository.GetAllAsync();
-
+            Expression<Func<VehicleModel, bool>> filter = null;
             if (!String.IsNullOrEmpty(search.CurrentFilter))
             {
-                query = query.Where(q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter) || q.VehicleMake.Name.Contains(search.CurrentFilter));
+                filter = q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter) || q.VehicleMake.Name.Contains(search.CurrentFilter);
             }
 
-            if (sortBy.SortBy == "Make")
-            {
-                if (sortBy.SortAscending)
+            var query = await unitOfWork.ModelRepository.GetAllAsync(
+                filter: filter,
+                orderBy: q =>
                 {
-                    query = query.OrderBy(q => q.VehicleMake.Name);
-                }
-                else
-                {
-                    query = query.OrderByDescending(q => q.VehicleMake.Name);
-                }
-            }
-            else if (sortBy.SortBy == "Name")
-            {
-                if (sortBy.SortAscending)
-                {
-                    query = query.OrderBy(q => q.Name);
-                }
-                else
-                {
-                    query = query.OrderByDescending(q => q.Name);
-                }
-            }
-            else if (sortBy.SortBy == "Abrv")
-            {
-                if (sortBy.SortAscending)
-                {
-                    query = query.OrderBy(q => q.Abrv);
-                }
-                else
-                {
-                    query = query.OrderByDescending(q => q.Abrv);
-                }
-            }
-            else
-            {
-                query = query.OrderBy(q => q.Name);
-            }
+                    if (sortBy.SortBy == "Make")
+                    {
+                        if (sortBy.SortAscending)
+                        {
+                            return q.OrderBy(i => i.VehicleMake.Name);
+                        }
+                        else
+                        {
+                            return q.OrderByDescending(i => i.VehicleMake.Name);
+                        }
+                    }
+                    else if (sortBy.SortBy == "Name")
+                    {
+                        if (sortBy.SortAscending)
+                        {
+                            return q.OrderBy(i => i.Name);
+                        }
+                        else
+                        {
+                            return q.OrderByDescending(i => i.Name);
+                        }
+                    }
+                    else if (sortBy.SortBy == "Abrv")
+                    {
+                        if (sortBy.SortAscending)
+                        {
+                            return q.OrderBy(i => i.Abrv);
+                        }
+                        else
+                        {
+                            return q.OrderByDescending(i => i.Abrv);
+                        }
+                    }
+                    else
+                    {
+                        return q.OrderBy(i => i.Name);
+                    }
+                },
+                paged: pagination
+            );
 
-            int pageSize = (pagination.PageSize ?? 3);
-            int pageNumber = (pagination.PageNumber ?? 1);
-
-            var map = Mapper.Map<IEnumerable<IVehicleModel>>(await query.ToListAsync());
-            return map.ToPagedList(pageNumber, pageSize);
-
+            var map = Mapper.Map<IEnumerable<IVehicleModel>>(query);
+            return new StaticPagedList<IVehicleModel>(map, query.GetMetaData());
         }
 
         /// <summary>
@@ -120,14 +123,8 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<bool> EditAsync(Guid id, IVehicleModel vehicleModel)
         {
-            var entity = await unitOfWork.ModelRepository.GetByID(id);
-            var map = Mapper.Map<Project.Model.VehicleModel>(entity);
-            vehicleModel.VehicleModelId = map.VehicleModelId;
-            if (map == null)
-            {
-                throw new ArgumentNullException();
-            }
-            // Context.Entry(entity).CurrentValues.SetValues(vehicleModel);
+            var updated = Mapper.Map<VehicleModel>(vehicleModel);
+            await unitOfWork.ModelRepository.UpdateAsync(updated, id);
 
             return (await unitOfWork.Save() > 0);
         }
@@ -150,7 +147,9 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<IList<IVehicleMake>> PopulateMakesDropDownList()
         {
-            List<IVehicleMake> makes = Mapper.Map<IEnumerable<VehicleMake>, List<IVehicleMake>>(await unitOfWork.MakeRepository.GetAllAsync());
+            var get = await unitOfWork.MakeRepository.GetListAsync();
+            var query = get.OrderBy(x => x.Name).ToList();
+            List<IVehicleMake> makes = Mapper.Map<IEnumerable<VehicleMake>, List<IVehicleMake>>(query);
             return makes;
         }
     }

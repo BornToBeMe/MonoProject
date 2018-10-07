@@ -36,8 +36,14 @@ namespace Project.Repository
         /// <returns>Paged List of Vehicle Makes</returns>
         public async Task<IPagedList<IVehicleMake>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
+            Expression<Func<VehicleMake, bool>> filter = null;
+            if (!String.IsNullOrEmpty(search.CurrentFilter))
+            {
+                filter = q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter);
+            }
+
             var query = await unitOfWork.MakeRepository.GetAllAsync(
-                filter: q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter), 
+                filter: filter, 
                 orderBy: q => {
                     if (sortBy.SortBy == "Name")
                     {
@@ -65,10 +71,12 @@ namespace Project.Repository
                     {
                         return q.OrderBy(i => i.Name);
                     }
-            });
+                },
+                paged: pagination);
 
-            var map = Mapper.Map<IEnumerable<IVehicleMake>>(await query.ToListAsync());
-            return map.ToPagedList(pagination.PageNumber.GetValueOrDefault(), pagination.PageSize.GetValueOrDefault());
+            var map = Mapper.Map<IEnumerable<IVehicleMake>>(query);
+            return new StaticPagedList<IVehicleMake>(map, query.GetMetaData());
+
         }
 
         /// <summary>

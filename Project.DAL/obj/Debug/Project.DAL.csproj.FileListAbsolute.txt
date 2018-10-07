@@ -16,3 +16,7 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\Ninject.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\Project.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\System.ValueTuple.xml
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\Ninject.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\X.PagedList.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\AutoMapper.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\AutoMapper.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.DAL\bin\Debug\AutoMapper.xml

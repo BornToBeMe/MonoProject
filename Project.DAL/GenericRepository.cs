@@ -1,4 +1,5 @@
-﻿using Project.Common;
+﻿using AutoMapper;
+using Project.Common;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Project.DAL
 {
@@ -32,11 +34,11 @@ namespace Project.DAL
         /// Gets all TEntity.
         /// </summary>
         /// <returns>IEnumerable<typeparamref name="TEntity"/></returns>
-        public async virtual Task<IEnumerable<TEntity>> GetAllAsync(
+        public async virtual Task<IPagedList<TEntity>> GetAllAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Func<IPaging, IEnumerable<TEntity>> paged = null,
-            string includeProperties = "")
+            string includeProperties = "",
+            IPaging paged = null)
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -53,12 +55,15 @@ namespace Project.DAL
 
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                query = orderBy(query);
             }
-            else
-            {
-                return query.ToList();
-            }
+
+            return await query.ToPagedListAsync(paged.PageNumber, paged.PageSize);
+        }
+
+        public async virtual Task<IEnumerable<TEntity>> GetListAsync()
+        {
+            return await dbSet.ToListAsync();
         }
 
         /// <summary>
