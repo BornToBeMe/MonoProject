@@ -34,7 +34,7 @@ namespace Project.Repository
         /// <param name="search">Search.</param>
         /// <param name="pagination">Paging.</param>
         /// <returns>Paged List of Vehicle Models</returns>
-        public async Task<IPagedList<IVehicleModel>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
+        public async Task<IPagedList<IVehicleModel>> SelectAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
             Expression<Func<VehicleModel, bool>> filter = null;
             if (!String.IsNullOrEmpty(search.CurrentFilter))
@@ -42,7 +42,7 @@ namespace Project.Repository
                 filter = q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter) || q.VehicleMake.Name.Contains(search.CurrentFilter);
             }
 
-            var query = await unitOfWork.ModelRepository.GetAllAsync(
+            var query = await unitOfWork.ModelRepository.SelectAsync(
                 filter: filter,
                 orderBy: q =>
                 {
@@ -98,7 +98,7 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<IVehicleModel> SelectByIDAsync(Guid id)
         {
-            IVehicleModel make = Mapper.Map<IVehicleModel>(await unitOfWork.ModelRepository.GetByID(id));
+            IVehicleModel make = Mapper.Map<IVehicleModel>(await unitOfWork.ModelRepository.SelectByIDAsync(id));
             return make;
         }
 
@@ -107,12 +107,12 @@ namespace Project.Repository
         /// </summary>
         /// <param name="obj">Vehicle Model being Created.</param>
         /// <returns></returns>
-        public async Task<bool> CreateAsync(IVehicleModel obj)
+        public async Task<bool> InsertAsync(IVehicleModel obj)
         {
             var map = Mapper.Map<VehicleModel>(obj);
             map.VehicleModelId = Guid.NewGuid();
-            await unitOfWork.ModelRepository.Insert(map);
-            return (await unitOfWork.Save() > 0);
+            await unitOfWork.ModelRepository.InsertAsync(map);
+            return (await unitOfWork.SaveAsync() > 0);
         }
 
         /// <summary>
@@ -121,12 +121,12 @@ namespace Project.Repository
         /// <param name="id">The product identifier.</param>
         /// <param name="vehicleModel">Vehicle Model being passed in.</param>
         /// <returns></returns>
-        public async Task<bool> EditAsync(Guid id, IVehicleModel vehicleModel)
+        public async Task<bool> UpdateAsync(Guid id, IVehicleModel vehicleModel)
         {
             var updated = Mapper.Map<VehicleModel>(vehicleModel);
             await unitOfWork.ModelRepository.UpdateAsync(updated, id);
 
-            return (await unitOfWork.Save() > 0);
+            return (await unitOfWork.SaveAsync() > 0);
         }
 
         /// <summary>
@@ -136,21 +136,9 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Guid id)
         {
-            VehicleModel existing = await unitOfWork.ModelRepository.GetByID(id);
+            VehicleModel existing = await unitOfWork.ModelRepository.SelectByIDAsync(id);
             await unitOfWork.ModelRepository.DeleteAsync(existing);
-            return (await unitOfWork.Save() > 0);
-        }
-
-        /// <summary>
-        /// Gets a List of Vehicle Makes.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IList<IVehicleMake>> PopulateMakesDropDownList()
-        {
-            var get = await unitOfWork.MakeRepository.GetListAsync();
-            var query = get.OrderBy(x => x.Name).ToList();
-            List<IVehicleMake> makes = Mapper.Map<IEnumerable<VehicleMake>, List<IVehicleMake>>(query);
-            return makes;
+            return (await unitOfWork.SaveAsync() > 0);
         }
     }
 

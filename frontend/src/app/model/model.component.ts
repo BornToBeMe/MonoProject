@@ -61,7 +61,7 @@ export class ModelComponent implements OnInit {
     this.Ascending = !ascending;
   }
 
-  deleteMake(id) {
+  deleteModel(id) {
     this.modelService.deleteModel(id).subscribe(res => {
       console.log('Deleted');
       this.getModels();

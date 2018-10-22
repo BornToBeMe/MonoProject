@@ -35,10 +35,11 @@ export class NewModelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.modelService.getModels('Name', '', 1, 1000, true).subscribe(res => {
-      this.makeList = res.MakeList;
+    this.modelService.getMakes('Name', '', 1, 100, true).subscribe(res => {
+      this.makeList = res.Items;
       console.log(res);
     });
   }
+
 
 }

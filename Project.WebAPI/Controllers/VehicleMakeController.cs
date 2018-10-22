@@ -13,7 +13,7 @@ using Project.Repository.Common;
 using Project.Repository;
 using X.PagedList;
 using Project.Common;
-using Newtonsoft.Json;
+using Project.WebAPI.RestModels;
 
 namespace Project.WebAPI.Controllers
 {
@@ -42,24 +42,6 @@ namespace Project.WebAPI.Controllers
         protected IMakeService Service { get; private set; }
 
         /// <summary>
-        /// Gets or sets the calls for GetAll.
-        /// </summary>
-        /// <value>Sort, Filter, Page, PageSize, Ascending.</value>
-        public class CallDetails
-        {
-            [JsonProperty("sortBy")]
-            public string Sort { get; set; }
-            [JsonProperty("currentFilter")]
-            public string Filter { get; set; }
-            [JsonProperty("page")]
-            public int Page { get; set; }
-            [JsonProperty("pageSize")]
-            public int PageSize { get; set; }
-            [JsonProperty("ascending")]
-            public bool Ascending { get; set; }
-        }
-
-        /// <summary>
         /// Gets or sets the View Model.
         /// </summary>
         /// <value>Name, Abrv.</value>
@@ -70,26 +52,13 @@ namespace Project.WebAPI.Controllers
             public string Abrv { get; set; }
         }
 
-        /// <summary>
-        /// Gets or sets the GetAll response needed for Frontend.
-        /// </summary>
-        /// <value>Items, TotalCount, PageNumber, PageSize, TotalPageCount.</value>
-        public class VehicleMakeResponse
-        {
-            public IEnumerable<IVehicleMake> Items { get; set; }
-            public int TotalCount { get; set; }
-            public int PageNumber { get; set; }
-            public int PageSize { get; set; }
-            public int TotalPageCount { get; set; }
-        }
-
         #endregion Properties
 
         #region Methods
         
         [HttpGet]
         // GET: api/VehicleMake
-        public async Task<IHttpActionResult> GetAllAsync([FromUri]CallDetails callDetails)
+        public async Task<IHttpActionResult> SelectAsync([FromUri]CallDetails callDetails)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();
@@ -101,9 +70,9 @@ namespace Project.WebAPI.Controllers
             paging.PageNumber = callDetails.Page;
             paging.PageSize = callDetails.PageSize;
 
-            var i = await Service.SelectAllAsync(sorting, search, paging);
+            var i = await Service.SelectAsync(sorting, search, paging);
 
-            return Ok(new VehicleMakeResponse
+            return Ok(new VehicleResponse<IVehicleMake>
             {
                 Items = i,
                 TotalCount = i.TotalItemCount,
@@ -114,7 +83,7 @@ namespace Project.WebAPI.Controllers
         }
 
         // GET: api/VehicleMake/5
-        public async Task<IHttpActionResult> GetAsync(Guid id)
+        public async Task<IHttpActionResult> SelectByIdAsync(Guid id)
         {
             try
             {
@@ -135,14 +104,14 @@ namespace Project.WebAPI.Controllers
         }
 
         // POST: api/VehicleMake
-        public async Task<IHttpActionResult> PostMakeAsync(VehicleMakeViewModel vehicleMake)
+        public async Task<IHttpActionResult> InsertAsync(VehicleMakeViewModel vehicleMake)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     var dest = AutoMapper.Mapper.Map<IVehicleMake>(vehicleMake);
-                    await Service.CreateAsync(dest);
+                    await Service.InsertAsync(dest);
                 }
             }
             catch (Exception ex)
@@ -154,12 +123,12 @@ namespace Project.WebAPI.Controllers
         }
 
         // PUT: api/VehicleMake/5
-        public async Task<IHttpActionResult> PutMakeAsync(Guid id, VehicleMakeViewModel vehicleMake)
+        public async Task<IHttpActionResult> UpdateAsync(Guid id, VehicleMakeViewModel vehicleMake)
         {
             if (ModelState.IsValid)
             {
                 var dest = AutoMapper.Mapper.Map<IVehicleMake>(vehicleMake);
-                await Service.EditAsync(id, dest);
+                await Service.UpdateAsync(id, dest);
             }
             return Ok(vehicleMake);
         }

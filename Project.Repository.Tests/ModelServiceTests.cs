@@ -42,9 +42,9 @@ namespace Project.Service.Tests
 
             };
 
-            mockModelRepository.Setup(ss => ss.SelectAllAsync(mockSorting.Object, mockSearch.Object, mockPaging.Object)).ReturnsAsync(model.ToPagedList());
+            mockModelRepository.Setup(ss => ss.SelectAsync(mockSorting.Object, mockSearch.Object, mockPaging.Object)).ReturnsAsync(model.ToPagedList());
 
-            var actual = await service.SelectAllAsync(mockSorting.Object, mockSearch.Object, mockPaging.Object);
+            var actual = await service.SelectAsync(mockSorting.Object, mockSearch.Object, mockPaging.Object);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace Project.Service.Tests
         }
 
         [Fact]
-        public async Task CreateAsync_Success_ReturnsTrue()
+        public async Task InsertAsync_Success_ReturnsTrue()
         {
             var mockModelRepository = new Mock<IModelRepository>();
             var service = new ModelService(mockModelRepository.Object);
@@ -75,13 +75,13 @@ namespace Project.Service.Tests
                 Abrv = "Car"
             };
 
-            mockModelRepository.Setup(ss => ss.CreateAsync(model)).ReturnsAsync(true);
-            var actual = await service.CreateAsync(model);
+            mockModelRepository.Setup(ss => ss.InsertAsync(model)).ReturnsAsync(true);
+            var actual = await service.InsertAsync(model);
             actual.Should().BeTrue();
         }
 
         [Fact]
-        public async Task CreateAsync_Success_ReturnsException()
+        public async Task InsertAsync_Success_ReturnsException()
         {
             var mockModelRepository = new Mock<IModelRepository>();
             var service = new ModelService(mockModelRepository.Object);
@@ -92,13 +92,13 @@ namespace Project.Service.Tests
                 Abrv = null
             };
 
-            mockModelRepository.Setup(ss => ss.CreateAsync(model)).Throws<Exception>();
-            Func<Task> action = async () => await service.CreateAsync(model);
+            mockModelRepository.Setup(ss => ss.InsertAsync(model)).Throws<Exception>();
+            Func<Task> action = async () => await service.InsertAsync(model);
             action.Should().Throw<Exception>();
         }
 
         [Fact]
-        public async Task EditAsync_Success_ReturnsTrue()
+        public async Task UpdateAsync_Success_ReturnsTrue()
         {
             var mockModelRepository = new Mock<IModelRepository>();
             var service = new ModelService(mockModelRepository.Object);
@@ -109,13 +109,13 @@ namespace Project.Service.Tests
                 Abrv = "Car"
             };
 
-            mockModelRepository.Setup(ss => ss.EditAsync(model.VehicleModelId, model)).ReturnsAsync(true);
-            var actual = await service.EditAsync(model.VehicleModelId, model);
+            mockModelRepository.Setup(ss => ss.UpdateAsync(model.VehicleModelId, model)).ReturnsAsync(true);
+            var actual = await service.UpdateAsync(model.VehicleModelId, model);
             actual.Should().BeTrue();
         }
 
         [Fact]
-        public async Task EditAsync_Success_ReturnsException()
+        public async Task UpdateAsync_Success_ReturnsException()
         {
             var mockModelRepository = new Mock<IModelRepository>();
             var service = new ModelService(mockModelRepository.Object);
@@ -126,8 +126,8 @@ namespace Project.Service.Tests
                 Abrv = null
             };
 
-            mockModelRepository.Setup(ss => ss.EditAsync(model.VehicleModelId, model)).Throws<Exception>();
-            Func<Task> action = async () => await service.EditAsync(model.VehicleModelId, model);
+            mockModelRepository.Setup(ss => ss.UpdateAsync(model.VehicleModelId, model)).Throws<Exception>();
+            Func<Task> action = async () => await service.UpdateAsync(model.VehicleModelId, model);
             action.Should().Throw<Exception>();
         }
 

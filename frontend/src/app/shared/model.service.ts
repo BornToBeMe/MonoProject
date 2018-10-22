@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Model, ModelViewModel } from './model.model';
+import { Make, MakeViewModel } from './make.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -25,6 +26,19 @@ export class ModelService implements OnInit {
     console.log(params.toString());
 
     return this.http.get<ModelViewModel>(this.modelUrl, {params});
+  }
+
+  getMakes(Sort: string, Filter: string, Page: number, pageSize: number, Ascending: boolean): Observable<MakeViewModel> {
+    const params = new HttpParams()
+                .set('Sort', Sort)
+                .set('Filter', Filter)
+                .set('Page', Page.toString())
+                .set('pageSize', pageSize.toString())
+                .set('Ascending', Ascending.toString());
+
+    console.log(params.toString());
+
+    return this.http.get<MakeViewModel>('http://localhost:58151/api/VehicleMake', {params});
   }
 
   getModel(id: number): Observable<Model> {

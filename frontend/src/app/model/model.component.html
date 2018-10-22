@@ -21,7 +21,7 @@ Show <select [(ngModel)]="this.pageSize" (change)="changeSize(this.pageSize)">
       <td>{{model.Abrv}}</td>
       <td>{{model.VehicleModelId}}</td>
       <td><a [routerLink]="['/Model/Edit', model.VehicleModelId]" class="btn btn-primary">Edit</a></td>
-      <td><button (click)="deleteMake(model.VehicleModelId)" class="btn btn-danger">Delete</button></td>
+      <td><button (click)="deleteModel(model.VehicleModelId)" class="btn btn-danger">Delete</button></td>
     </tr>
   </tbody>
 </table>

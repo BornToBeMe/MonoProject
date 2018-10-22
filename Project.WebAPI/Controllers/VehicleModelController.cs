@@ -5,6 +5,7 @@ using Project.Model.Common;
 using Project.Repository;
 using Project.Repository.Common;
 using Project.Service.Common;
+using Project.WebAPI.RestModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,24 +43,6 @@ namespace Project.WebAPI.Controllers
         protected IModelService Service { get; private set; }
 
         /// <summary>
-        /// Gets or sets the calls for GetAll.
-        /// </summary>
-        /// <value>Sort, Filter, Page, PageSize, Ascending.</value>
-        public class CallDetails
-        {
-            [JsonProperty("sortBy")]
-            public string Sort { get; set; }
-            [JsonProperty("currentFilter")]
-            public string Filter { get; set; }
-            [JsonProperty("page")]
-            public int Page { get; set; }
-            [JsonProperty("pageSize")]
-            public int PageSize { get; set; }
-            [JsonProperty("ascending")]
-            public bool Ascending { get; set; }
-        }
-
-        /// <summary>
         /// Gets or sets the View Model.
         /// </summary>
         /// <value>Name, Abrv, VehicleMakeId</value>
@@ -71,27 +54,13 @@ namespace Project.WebAPI.Controllers
             public Guid VehicleMakeId { get; set; }
         }
 
-        /// <summary>
-        /// Gets or sets the GetAll response needed for Frontend.
-        /// </summary>
-        /// <value>Items, MakeList, TotalCount, PageNumber, PageSize, TotalPageCount.</value>
-        public class VehicleModelResponse
-        {
-            public IEnumerable<IVehicleModel> Items { get; set; }
-            public IList<IVehicleMake> MakeList { get; set; }
-            public int TotalCount { get; set; }
-            public int PageNumber { get; set; }
-            public int PageSize { get; set; }
-            public int TotalPageCount { get; set; }
-        }
-
         #endregion Properties
 
         #region Methods
 
         [HttpGet]
         // GET: api/VehicleModel
-        public async Task<IHttpActionResult> GetAllAsync([FromUri]CallDetails callDetails)
+        public async Task<IHttpActionResult> SelectAsync([FromUri]CallDetails callDetails)
         {
             ISorting sorting = new Sorting();
             ISearch search = new Search();
@@ -103,13 +72,11 @@ namespace Project.WebAPI.Controllers
             paging.PageNumber = callDetails.Page;
             paging.PageSize = callDetails.PageSize;
 
-            var list = await Service.PopulateMakesDropDownList();
-            var i = await Service.SelectAllAsync(sorting, search, paging);
+            var i = await Service.SelectAsync(sorting, search, paging);
 
-            return Ok(new VehicleModelResponse
+            return Ok(new VehicleResponse<IVehicleModel>
             {
                 Items = i,
-                MakeList = list,
                 TotalCount = i.TotalItemCount,
                 PageNumber = i.PageNumber,
                 PageSize = i.PageSize,
@@ -118,20 +85,20 @@ namespace Project.WebAPI.Controllers
         }
 
         // GET: api/VehicleModel/5
-        public async Task<IVehicleModel> GetAsync(Guid id)
+        public async Task<IVehicleModel> SelectByIdAsync(Guid id)
         {
             return await Service.SelectByIDAsync(id);
         }
 
         // POST: api/VehicleModel
-        public async Task<IHttpActionResult> PostModelAsync(VehicleModelViewModel vehicleModel)
+        public async Task<IHttpActionResult> InsertAsync(VehicleModelViewModel vehicleModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     var dest = AutoMapper.Mapper.Map<IVehicleModel>(vehicleModel);
-                    await Service.CreateAsync(dest);
+                    await Service.InsertAsync(dest);
                 }
             }
             catch (Exception ex)
@@ -143,12 +110,12 @@ namespace Project.WebAPI.Controllers
         }
 
         // PUT: api/VehicleModel/5
-        public async Task<IHttpActionResult> PutModelAsync(Guid id, VehicleModelViewModel vehicleModel)
+        public async Task<IHttpActionResult> UpdateAsync(Guid id, VehicleModelViewModel vehicleModel)
         {
             if (ModelState.IsValid)
             {
                 var dest = AutoMapper.Mapper.Map<IVehicleModel>(vehicleModel);
-                await Service.EditAsync(id, dest);
+                await Service.UpdateAsync(id, dest);
             }
             return Ok(vehicleModel);
         }

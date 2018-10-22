@@ -34,9 +34,9 @@ namespace Project.Service
         /// <param name="search">Search.</param>
         /// <param name="pagination">Paging.</param>
         /// <returns>Paged List of Vehicle Models</returns>
-        public async Task<IPagedList<IVehicleModel>> SelectAllAsync(ISorting sortBy, ISearch search, IPaging pagination)
+        public async Task<IPagedList<IVehicleModel>> SelectAsync(ISorting sortBy, ISearch search, IPaging pagination)
         {
-            return await Repository.SelectAllAsync(sortBy, search, pagination);
+            return await Repository.SelectAsync(sortBy, search, pagination);
         }
 
         /// <summary>
@@ -54,9 +54,9 @@ namespace Project.Service
         /// </summary>
         /// <param name="obj">Vehicle Model being Created.</param>
         /// <returns></returns>
-        public async Task<bool> CreateAsync(IVehicleModel obj)
+        public async Task<bool> InsertAsync(IVehicleModel obj)
         {
-            return await Repository.CreateAsync(obj);
+            return await Repository.InsertAsync(obj);
         }
 
         /// <summary>
@@ -65,9 +65,9 @@ namespace Project.Service
         /// <param name="id">The product identifier.</param>
         /// <param name="vehicleModel">Vehicle Model being passed in.</param>
         /// <returns></returns>
-        public async Task<bool> EditAsync(Guid id, IVehicleModel vehicleModel)
+        public async Task<bool> UpdateAsync(Guid id, IVehicleModel vehicleModel)
         {
-            return await Repository.EditAsync(id, vehicleModel);
+            return await Repository.UpdateAsync(id, vehicleModel);
         }
 
         /// <summary>
@@ -78,15 +78,6 @@ namespace Project.Service
         public async Task<bool> DeleteAsync(Guid id)
         {
             return await Repository.DeleteAsync(id);
-        }
-
-        /// <summary>
-        /// Gets a List of Vehicle Makes.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IList<IVehicleMake>> PopulateMakesDropDownList()
-        {
-            return await Repository.PopulateMakesDropDownList();
         }
     }
 }
