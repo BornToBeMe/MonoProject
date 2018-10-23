@@ -19,9 +19,16 @@ namespace Project.Repository
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnitOfWork" /> class.
+        /// Initializes an instance of the <see cref="GenericRepository{VehicleModel}" /> class.
         /// </summary>
-        private UnitOfWork unitOfWork = new UnitOfWork();
+        private readonly IGenericRepository<VehicleModel> modelRepository;
+
+        IUnitOfWorkFactory unitOfWorkFactory { get; set; }
+
+        public ModelRepository(IUnitOfWorkFactory unitOfWorkFactory)
+        {
+            modelRepository = new GenericRepository<VehicleModel>(unitOfWorkFactory);
+        }
 
         #endregion
 
@@ -42,7 +49,7 @@ namespace Project.Repository
                 filter = q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter) || q.VehicleMake.Name.Contains(search.CurrentFilter);
             }
 
-            var query = await unitOfWork.ModelRepository.SelectAsync(
+            var query = await modelRepository.SelectAsync(
                 filter: filter,
                 orderBy: q =>
                 {
@@ -84,6 +91,7 @@ namespace Project.Repository
                         return q.OrderBy(i => i.Name);
                     }
                 },
+                includeProperties: null,
                 paged: pagination
             );
 
@@ -98,7 +106,7 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<IVehicleModel> SelectByIDAsync(Guid id)
         {
-            IVehicleModel make = Mapper.Map<IVehicleModel>(await unitOfWork.ModelRepository.SelectByIDAsync(id));
+            IVehicleModel make = Mapper.Map<IVehicleModel>(await modelRepository.SelectByIDAsync(id));
             return make;
         }
 
@@ -111,8 +119,7 @@ namespace Project.Repository
         {
             var map = Mapper.Map<VehicleModel>(obj);
             map.VehicleModelId = Guid.NewGuid();
-            await unitOfWork.ModelRepository.InsertAsync(map);
-            return (await unitOfWork.SaveAsync() > 0);
+            return await modelRepository.InsertAsync(map);
         }
 
         /// <summary>
@@ -124,9 +131,7 @@ namespace Project.Repository
         public async Task<bool> UpdateAsync(Guid id, IVehicleModel vehicleModel)
         {
             var updated = Mapper.Map<VehicleModel>(vehicleModel);
-            await unitOfWork.ModelRepository.UpdateAsync(updated, id);
-
-            return (await unitOfWork.SaveAsync() > 0);
+            return await modelRepository.UpdateAsync(updated, id);
         }
 
         /// <summary>
@@ -136,9 +141,8 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Guid id)
         {
-            VehicleModel existing = await unitOfWork.ModelRepository.SelectByIDAsync(id);
-            await unitOfWork.ModelRepository.DeleteAsync(existing);
-            return (await unitOfWork.SaveAsync() > 0);
+            VehicleModel existing = await modelRepository.SelectByIDAsync(id);
+            return await modelRepository.DeleteAsync(existing);
         }
     }
 

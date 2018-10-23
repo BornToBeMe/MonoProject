@@ -1,83 +1,142 @@
-﻿using Project.DAL;
+﻿using Project.Common;
+using Project.DAL;
+using Project.Repository.Common;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
+using X.PagedList;
 
 namespace Project.Repository
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
+        public UnitOfWork(ICarContext carContext)
+        {
+            if (carContext == null)
+            {
+                throw new ArgumentNullException("CarContext");
+            }
+            CarContext = carContext;
+        }
+
         /// <summary>
         /// Gets the context.
         /// </summary>
         /// <value>The context.</value>
-        private CarContext context = new CarContext();
+        protected ICarContext CarContext { get; private set; }
 
         /// <summary>
-        /// Sets the GenericRepository as MakeRepository
+        /// Gets all TEntity.
         /// </summary>
-        private GenericRepository<VehicleMake> makeRepository;
-
-        /// <summary>
-        /// Sets the GenericRepository as ModelRepository
-        /// </summary>
-        private GenericRepository<VehicleModel> modelRepository;
-
-        /// <summary>
-        /// Sets the GenericRepository as MakeRepository
-        /// </summary>
-        public GenericRepository<VehicleMake> MakeRepository
+        /// <returns>IEnumerable<typeparamref name="TEntity"/></returns>
+        public async virtual Task<IPagedList<TEntity>> SelectAsync<TEntity>(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "",
+            IPaging paged = null) where TEntity : class
         {
-            get
+            IQueryable<TEntity> query = CarContext.Set<TEntity>();
+
+            if (filter != null)
             {
-                if (this.makeRepository == null)
-                {
-                    this.makeRepository = new GenericRepository<VehicleMake>(context);
-                }
-                return makeRepository;
+                query = query.Where(filter);
             }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            return await query.ToPagedListAsync(paged.PageNumber, paged.PageSize);
         }
 
         /// <summary>
-        /// Sets the GenericRepository as ModelRepository
+        /// Gets single TEntity item by Id.
         /// </summary>
-        public GenericRepository<VehicleModel> ModelRepository
+        /// <param name="id">The item identifier.</param>
+        /// <returns><typeparamref name="TEntity"/></returns>
+        public virtual Task<TEntity> SelectByIDAsync<TEntity>(Guid id) where TEntity : class
         {
-            get
-            {
-                if (this.modelRepository == null)
-                {
-                    this.modelRepository = new GenericRepository<VehicleModel>(context);
-                }
-                return modelRepository;
-            }
+            return CarContext.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<int> SaveAsync()
+        public Task<int> InsertAsync<TEntity>(TEntity entity) where TEntity : class
         {
-            return await context.SaveChangesAsync();
+            DbEntityEntry dbEntityEntry = CarContext.Entry(entity);
+            if (dbEntityEntry.State != EntityState.Detached)
+            {
+                dbEntityEntry.State = EntityState.Added;
+            }
+            else
+            {
+                CarContext.Set<TEntity>().Add(entity);
+            }
+            return Task.FromResult(1);
         }
 
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
+        public Task<int> UpdateAsync<TEntity>(TEntity entity) where TEntity : class
         {
-            if (!this.disposed)
+            DbEntityEntry dbEntityEntry = CarContext.Entry(entity);
+            if (dbEntityEntry.State == EntityState.Deleted)
             {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
+                CarContext.Set<TEntity>().Attach(entity);
             }
-            this.disposed = true;
+            dbEntityEntry.State = EntityState.Modified;
+
+            return Task.FromResult(1);
+        }
+
+        public Task<int> DeleteAsync<TEntity>(TEntity entity) where TEntity : class
+        {
+            DbEntityEntry dbEntityEntry = CarContext.Entry(entity);
+            if (dbEntityEntry.State != EntityState.Deleted)
+            {
+                dbEntityEntry.State = EntityState.Deleted;
+            }
+            else
+            {
+                CarContext.Set<TEntity>().Attach(entity);
+                CarContext.Set<TEntity>().Remove(entity);
+            }
+            return Task.FromResult(1);
+        }
+
+        public Task<int> DeleteAsync<TEntity>(string Id) where TEntity : class
+        {
+            var entity = CarContext.Set<TEntity>().Find(Id);
+            if (entity == null)
+            {
+                return Task.FromResult(0);
+            }
+            return DeleteAsync<TEntity>(entity);
+        }
+
+        public async Task<int> CommitAsync()
+        {
+            int result = 0;
+            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                result = await CarContext.SaveChangesAsync();
+                scope.Complete();
+            }
+            return result;
         }
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            CarContext.Dispose();
         }
     }
 }

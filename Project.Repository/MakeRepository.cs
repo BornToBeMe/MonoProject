@@ -19,9 +19,16 @@ namespace Project.Repository
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnitOfWork" /> class.
+        /// Initializes an instance of the <see cref="GenericRepository{VehicleMake}" /> class.
         /// </summary>
-        private UnitOfWork unitOfWork = new UnitOfWork();
+        private readonly IGenericRepository<VehicleMake> makeRepository;
+
+        IUnitOfWorkFactory unitOfWorkFactory { get; set; }
+
+        public MakeRepository(IUnitOfWorkFactory unitOfWorkFactory)
+        {
+            makeRepository = new GenericRepository<VehicleMake>(unitOfWorkFactory);
+        }
 
         #endregion
 
@@ -42,7 +49,7 @@ namespace Project.Repository
                 filter = q => q.Name.Contains(search.CurrentFilter) || q.Abrv.Contains(search.CurrentFilter);
             }
 
-            var query = await unitOfWork.MakeRepository.SelectAsync(
+            var query = await makeRepository.SelectAsync(
                 filter: filter, 
                 orderBy: q => {
                     if (sortBy.SortBy == "Name")
@@ -72,6 +79,7 @@ namespace Project.Repository
                         return q.OrderBy(i => i.Name);
                     }
                 },
+                includeProperties: null,
                 paged: pagination);
 
             var map = Mapper.Map<IEnumerable<IVehicleMake>>(query);
@@ -86,7 +94,7 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<IVehicleMake> SelectByIDAsync(Guid id)
         {
-            IVehicleMake make = Mapper.Map<IVehicleMake>(await unitOfWork.MakeRepository.SelectByIDAsync(id));//await Context.VehicleMakes.Where(c => c.Id == id).SingleOrDefaultAsync());
+            IVehicleMake make = Mapper.Map<IVehicleMake>(await makeRepository.SelectByIDAsync(id));
             return make;
         }
 
@@ -99,8 +107,7 @@ namespace Project.Repository
         {
             var map = Mapper.Map<VehicleMake>(obj);
             map.Id = Guid.NewGuid();
-            await unitOfWork.MakeRepository.InsertAsync(map);
-            return (await unitOfWork.SaveAsync() > 0);
+            return await makeRepository.InsertAsync(map);
         }
 
         /// <summary>
@@ -112,9 +119,7 @@ namespace Project.Repository
         public async Task<bool> UpdateAsync(Guid id, IVehicleMake vehicleMake)
         {
             var updated = Mapper.Map<VehicleMake>(vehicleMake);
-            await unitOfWork.MakeRepository.UpdateAsync(updated, id);
-
-            return (await unitOfWork.SaveAsync() > 0);
+            return await makeRepository.UpdateAsync(updated, id);
         }
 
         /// <summary>
@@ -124,9 +129,8 @@ namespace Project.Repository
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Guid id)
         {
-            VehicleMake existing = await unitOfWork.MakeRepository.SelectByIDAsync(id);
-            await unitOfWork.MakeRepository.DeleteAsync(existing);
-            return (await unitOfWork.SaveAsync() > 0);
+            VehicleMake existing = await makeRepository.SelectByIDAsync(id);
+            return await makeRepository.DeleteAsync(existing);
         }
     }
 

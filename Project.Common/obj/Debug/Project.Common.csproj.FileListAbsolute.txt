@@ -1,8 +1,8 @@
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\bin\Debug\Project.Common.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\bin\Debug\Project.Common.pdb
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.csproj.CoreCompileInputs.cache
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.dll
-C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\bin\Debug\Ninject.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\bin\Debug\Ninject.xml
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.csproj.CoreCompileInputs.cache
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.csproj.CopyComplete
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Common\obj\Debug\Project.Common.pdb

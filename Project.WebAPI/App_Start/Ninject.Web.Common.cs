@@ -10,8 +10,10 @@ namespace Project.WebAPI.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
+    using Ninject.Extensions.Factory;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
+    using Project.Repository.Common;
     using Project.Service.Common;
 
     public static class NinjectWebCommon 
@@ -73,6 +75,7 @@ namespace Project.WebAPI.App_Start
         {
             var makeService = kernel.Get<IMakeService>();
             var modelService = kernel.Get<IModelService>();
-        }        
+            kernel.Bind<Repository.Common.IUnitOfWorkFactory>().ToFactory();
+        }
     }
 }

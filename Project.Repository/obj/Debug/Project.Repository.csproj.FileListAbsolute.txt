@@ -2,6 +2,7 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Repository.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Project.Repository.pdb
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\AutoMapper.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Castle.Core.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\EntityFramework.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Ninject.dll
