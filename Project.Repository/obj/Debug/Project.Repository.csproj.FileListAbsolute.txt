@@ -30,3 +30,5 @@ C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.Repository.csproj.CopyComplete
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.Repository.dll
 C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\obj\Debug\Project.Repository.pdb
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Ninject.Extensions.Factory.dll
+C:\Users\ivanm\source\repos\MonoProjectNew\Project.Repository\bin\Debug\Ninject.Extensions.Factory.xml

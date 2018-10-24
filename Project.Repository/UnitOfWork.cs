@@ -32,7 +32,7 @@ namespace Project.Repository
         protected ICarContext CarContext { get; private set; }
 
         /// <summary>
-        /// Gets all TEntity.
+        /// Gets filtered TEntity.
         /// </summary>
         /// <returns>IEnumerable<typeparamref name="TEntity"/></returns>
         public async virtual Task<IPagedList<TEntity>> SelectAsync<TEntity>(
@@ -72,6 +72,11 @@ namespace Project.Repository
             return CarContext.Set<TEntity>().FindAsync(id);
         }
 
+        /// <summary>
+        /// Adds TEntity item into database.
+        /// </summary>
+        /// <param name="entity">Item to be added.</param>
+        /// <returns></returns>
         public Task<int> InsertAsync<TEntity>(TEntity entity) where TEntity : class
         {
             DbEntityEntry dbEntityEntry = CarContext.Entry(entity);
@@ -86,6 +91,12 @@ namespace Project.Repository
             return Task.FromResult(1);
         }
 
+        /// <summary>
+        /// Updates existing item with new
+        /// </summary>
+        /// <param name="entity">Item to be updated.</param>
+        /// <param name="id">The item identifier.</param>
+        /// <returns></returns>
         public Task<int> UpdateAsync<TEntity>(TEntity entity) where TEntity : class
         {
             DbEntityEntry dbEntityEntry = CarContext.Entry(entity);
@@ -98,6 +109,11 @@ namespace Project.Repository
             return Task.FromResult(1);
         }
 
+        /// <summary>
+        /// Removes TEntity item from database.
+        /// </summary>
+        /// <param name="entity">Item to be deleted.</param>
+        /// <returns></returns>
         public Task<int> DeleteAsync<TEntity>(TEntity entity) where TEntity : class
         {
             DbEntityEntry dbEntityEntry = CarContext.Entry(entity);
@@ -113,6 +129,11 @@ namespace Project.Repository
             return Task.FromResult(1);
         }
 
+        /// <summary>
+        /// Removes TEntity item from database.
+        /// </summary>
+        /// <param name="Id">Item to be deleted.</param>
+        /// <returns></returns>
         public Task<int> DeleteAsync<TEntity>(string Id) where TEntity : class
         {
             var entity = CarContext.Set<TEntity>().Find(Id);
@@ -123,6 +144,11 @@ namespace Project.Repository
             return DeleteAsync<TEntity>(entity);
         }
 
+
+        /// <summary>
+        /// Saves changes to database
+        /// </summary>
+        /// <returns></returns>
         public async Task<int> CommitAsync()
         {
             int result = 0;

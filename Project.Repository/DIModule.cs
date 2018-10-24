@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ninject;
+using Ninject.Extensions.Factory;
 using Project.DAL;
 using Project.Model;
 using Project.Model.Common;
@@ -17,6 +18,9 @@ namespace Project.Repository
             Bind<ICarContext>().To<CarContext>().InSingletonScope();
             Bind<IMakeRepository>().To<MakeRepository>();
             Bind<IModelRepository>().To<ModelRepository>();
+            Bind<IUnitOfWork>().To<UnitOfWork>();
+            Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
+            Bind<IUnitOfWorkFactory>().ToFactory();
         }
     }
 }
